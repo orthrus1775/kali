@@ -1,1 +1,1 @@
-# kali tools that helpl get things done.
+# kali tools that help get things done.
