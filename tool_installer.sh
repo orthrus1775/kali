@@ -24,7 +24,8 @@ apt-get install wkhtmltopdf -y
 apt-get install sipvicious -y
 apt-get install seclists -y
 apt-get install golang-go -y
-pip install boto3 
+apt-get install shellter -y
+pip install boto3
 pip install pyasn1
 pip install pycryptodomex
 pip install pyOpenSSL
@@ -143,7 +144,7 @@ cd ffuf
 wget https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
 tar -xzvf ffuf_1.0.2_linux_amd64.tar.gz
 cd ~/tools
-ln -sf /root/tools/ffuf/ffuf /usr/bin/ffuf 
+ln -sf /root/tools/ffuf/ffuf /usr/bin/ffuf
 cd ~/tools
 
 #Install veil
@@ -158,6 +159,7 @@ rsf &
 windapsearch &
 empire &
 ffuf &
+shellter &
 apt-get update -y && apt-get upgrade -y
 reboot
 
