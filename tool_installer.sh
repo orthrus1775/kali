@@ -122,6 +122,13 @@ git clone https://github.com/PowerShellMafia/PowerSploit
 #Install impacket
 git clone https://github.com/SecureAuthCorp/impacket.git
 cd impacket
+#adding kerbrute
+git clone https://github.com/TarlogicSecurity/kerbrute
+cd kerbrute
+cp kerbrute.py ../kerbrute.py
+cd ..
+chmod 777 kerbrute.py
+rm -r kerbrute
 pip install .
 cd ~/tools
 
@@ -146,6 +153,16 @@ tar -xzvf ffuf_1.0.2_linux_amd64.tar.gz
 cd ~/tools
 ln -sf /root/tools/ffuf/ffuf /usr/bin/ffuf
 cd ~/tools
+
+#Install
+git clone https://github.com/an0nlk/Nosql-MongoDB-injection-username-password-enumeration.git
+
+#Install Legion
+cd ~tools
+git clone https://github.com/carlospolop/legion.git /root/tools/legion
+cd legion/git
+cd ./install.sh
+ln -s /root/tools/legion/legion.py /usr/bin/legion
 
 #Install veil
 /usr/share/veil/config/setup.sh --force --silent
