@@ -25,6 +25,7 @@ apt-get install sipvicious -y
 apt-get install seclists -y
 apt-get install golang-go -y
 apt-get install shellter -y
+apt-get install crackmapexec -y
 pip install boto3
 pip install pyasn1
 pip install pycryptodomex
