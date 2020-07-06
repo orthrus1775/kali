@@ -55,6 +55,7 @@ pip3 install cryptography
 pip3 install pyminifier==2.1
 pip3 install xlutils
 pip3 install pycrypto
+pip3 install one-lin3r
 
 #Install WinboxExploit
 git clone https://github.com/BigNerd95/WinboxExploit
@@ -114,12 +115,6 @@ cd ~/tools
 #git clone https://github.com/hehnope/slurp
 #cd slurp
 #go build
-#cd ~/tools
-
-#Install One-Lin3r
-#git clone https://github.com/D4Vinci/One-Lin3r.git
-#cd One-Lin3r
-#pip3 install ./One-Lin3r
 #cd ~/tools
 
 #Install Powershell Empire
@@ -197,6 +192,7 @@ git clone https://github.com/an0nlk/Nosql-MongoDB-injection-username-password-en
 #Install veil
 /usr/share/veil/config/setup.sh --force --silent
 
+one-lin3r &
 evilginx &
 sublist3r &
 pwnedornot &
