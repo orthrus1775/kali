@@ -11,7 +11,7 @@ apt-get install ftp -y
 apt-get install python-pip -y
 apt-get install python3-pip -y
 apt-get install libncurses5-dev -y
-apt-get install bloodhound -yr
+apt-get install bloodhound -y
 apt-get install awscl -y
 apt-get install powershell -y
 apt-get install xrdp -y
@@ -28,6 +28,7 @@ apt-get install shellter -y
 apt-get install crackmapexec -y
 apt-get install libssl-dev swig python3-dev gcc -y
 python2.7 -m pip install M2Crypto
+pip3 install pipx
 pip3 install boto3
 pip3 install pyasn1
 pip3 install pycryptodomex
@@ -153,20 +154,16 @@ cd ~/tools
 #adding kerbrute
 git clone https://github.com/TarlogicSecurity/kerbrute
 cd kerbrute
-pip install -r requirements.txt
-chmod 777 kerbrute.py
+sed -i '1s/^/#!\/usr\/bin\/env python3 \n/' kerbrute.py
+chmod +x kerbrute.py
+ln -sf /root/tools/kerbrute/kerbrute.py /usr/bin/kerbrute
 cd ~/tools
 
 #Install Evilginx
-#apt-get install git make
-#go get -u github.com/kgretzky/evilginx2
-#cd $GOPATH/src/github.com/kgretzky/evilginx2
-#make
-#make install
 wget https://github.com/kgretzky/evilginx2/releases/download/2.3.0/evilginx_linux_x86_2.3.0.zip
 unzip evilginx_linux_x86_2.3.0.zip -d evilginx
 cd evilginx
-chmod 700 install.sh
+chmod +x install.sh
 ./install.sh
 cd ~/tools
 
