@@ -1,15 +1,28 @@
 #!/bin/bash
 
-# Tools and things I run on Kali
+# Tools and things I run on your pentest system
+
+
+
+printf "\e[1;33m
+███████╗ ██████╗ █████╗ ██████╗ ██████╗  ██████╗ ██████╗ ██████╗
+██╔════╝██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔═══██╗██╔══██╗██╔══██╗
+███████╗██║     ███████║██████╔╝██████╔╝██║   ██║██████╔╝██║  ██║
+╚════██║██║     ██╔══██║██╔══██╗██╔══██╗██║   ██║██╔══██╗██║  ██║
+███████║╚██████╗██║  ██║██████╔╝██████╔╝╚██████╔╝██║  ██║██████╔╝
+╚══════╝ ╚═════╝╚═╝  ╚═╝╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝
+\e[0m"
 
 
 mkdir /root/tools
 cd ~/tools
 gem install evil-winrm
+apt-get install openssh-server -y
 apt-get install terminator -y
 apt-get install ftp -y
 apt-get install python-pip -y
 apt-get install python3-pip -y
+apt-get install python-venv
 apt-get install libncurses5-dev -y
 apt-get install bloodhound -y
 apt-get install awscl -y
@@ -27,7 +40,7 @@ apt-get install golang-go -y
 apt-get install shellter -y
 apt-get install crackmapexec -y
 apt-get install libssl-dev swig python3-dev gcc -y
-python2.7 -m pip install M2Crypto
+python -m pip install M2Crypto
 pip3 install pipx
 pip3 install boto3
 pip3 install pyasn1
@@ -57,6 +70,16 @@ pip3 install pyminifier==2.1
 pip3 install xlutils
 pip3 install pycrypto
 pip3 install one-lin3r
+
+#Install pyenv
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc
+
+#configure pipx
+pipx ensurepath
+echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.bashrc
 
 #Install WinboxExploit
 git clone https://github.com/BigNerd95/WinboxExploit
@@ -148,7 +171,8 @@ cd ~/tools
 #Install impacket
 git clone https://github.com/SecureAuthCorp/impacket.git
 cd impacket
-pip3 install .
+pip3 install -r requirments.txt
+python3 setup.py install
 cd ~/tools
 
 #adding kerbrute
@@ -186,6 +210,29 @@ git clone https://github.com/an0nlk/Nosql-MongoDB-injection-username-password-en
 #cd ./install.sh
 #ln -s /root/tools/legion/legion.py /usr/bin/legion
 
+#Install Active Directory Integrated DNS dump tool
+git clone https://github.com/dirkjanm/adidnsdump 
+cd adidnsdump
+pip install .
+cd ~/tools
+
+#Install SilentTrinity
+git clone https://github.com/byt3bl33d3r/SILENTTRINITY
+cd SILENTTRINITY
+pip3 install -r requirments.txt
+pip3 install --user pipenv && pipenv install && pipenv shell
+python3 st.py &
+
+#Install Docker
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' | sudo tee /etc/apt/sources.list.d/docker.list
+apt-get update -y
+apt-get remove docker docker-engine docker.io -y
+apt install docker-ce -y
+systemctl start docker
+systemctl enable docker
+Docker run hello-world
+
 #Install veil
 /usr/share/veil/config/setup.sh --force --silent
 
@@ -199,7 +246,6 @@ rsf &
 windapsearch &
 empire &
 ffuf &
-legion &
 shellter &
 apt-get update -y && apt-get upgrade -y
 reboot
