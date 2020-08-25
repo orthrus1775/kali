@@ -13,6 +13,9 @@ printf "\e[1;33m
 ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝
 \e[0m"
 
+#Modify .bashrc file to add color similar to parrot
+#Comment it out if you dont want it
+cp bashrc.new /root/.bashrc && cp bashrc.new $HOME/.bashrc
 
 mkdir /root/tools
 cd ~/tools
