@@ -201,7 +201,7 @@ ln -sf /root/tools/ffuf/ffuf /usr/bin/ffuf
 cd ~/tools
 
 #Install
-git clone https://github.com/an0nlk/Nosql-MongoDB-injection-username-password-enumeration.git
+git clone https://github.com/an0nlk/Nosql-MongoDB-injection-username-password-enumeration.git ~/tools/nosql-mongo-inject
 
 #Install Legion
 #cd ~tools
@@ -233,6 +233,14 @@ systemctl start docker
 systemctl enable docker
 Docker run hello-world
 
+#Install PEASS
+git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git ~/tools/peapod
+cd ~/tools
+
+#Install pspy
+#https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy32s
+#https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64s
+
 #Install veil
 /usr/share/veil/config/setup.sh --force --silent
 
@@ -248,4 +256,6 @@ empire &
 ffuf &
 shellter &
 apt-get update -y && apt-get upgrade -y
+
+read -p "Press [ENTER] to finish"
 reboot
