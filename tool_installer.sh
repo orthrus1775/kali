@@ -18,8 +18,6 @@ mkdir /root/tools
 apt-get update -y && apt-get upgrade -y
 cd ~/tools
 gem install evil-winrm
-apt-get install openssh-server -y
-apt-get install terminator -y
 apt-get install ftp -y
 apt-get install python-pip -y
 apt-get install python3-pip -y
@@ -39,17 +37,15 @@ apt-get install sipvicious -y
 apt-get install seclists -y
 apt-get install golang-go -y
 apt-get install shellter -y
-#apt-get install crackmapexec -y
 apt-get install libssl-dev swig python3-dev gcc -y
 searchsploit -u
 python -m pip install M2Crypto
 pip3 install pipx
-pip3 install boto3
+pipx ensurepath
+pipx completions
 pip3 install pyasn1
 pip3 install pycryptodomex
 pip3 install pyOpenSSL
-pip3 install ldapdomaindump
-pip3 install flask
 pip3 install python3-ldap
 pip3 install pyReadline
 pip3 install dnspython
@@ -59,9 +55,7 @@ pip3 install requests==2.18.4
 pip3 install setuptools
 pip3 install iptools
 pip3 install pydispatcher
-pip3 install flask
 pip3 install macholib
-pip3 install dropbox
 pip3 install pyOpenSSL==17.2.0
 pip3 install pyinstaller
 pip3 install zlib_wrapper
@@ -71,7 +65,11 @@ pip3 install cryptography
 pip3 install pyminifier==2.1
 pip3 install xlutils
 pip3 install pycrypto
-pip3 install one-lin3r
+pipx install boto3 --include-deps
+pipx install ldapdomaindump
+pipx install flask
+pipx install dropbox --include-deps
+pipx install one-lin3r 
 
 #Install pyenv
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
