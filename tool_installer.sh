@@ -15,6 +15,7 @@ printf "\e[1;33m
 
 
 mkdir /root/tools
+sed -i -- 's/#\s\?deb-src/deb-src/g' /etc/apt/sources.list
 apt-get update -y && apt-get upgrade -y
 cd ~/tools
 gem install evil-winrm
@@ -24,7 +25,7 @@ apt-get install python3-pip -y
 apt-get install python-venv
 apt-get install libncurses5-dev -y
 apt-get install bloodhound -y
-apt-get install awscl -y
+apt-get install awscli -y
 apt-get install powershell -y
 apt-get install xrdp -y
 apt-get install veil -y
@@ -39,7 +40,7 @@ apt-get install golang-go -y
 apt-get install shellter -y
 apt-get install libssl-dev swig python3-dev gcc -y
 searchsploit -u
-python -m pip install M2Crypto
+pip3 install M2Crypto
 pip3 install pipx
 pipx ensurepath
 pipx completions
@@ -73,13 +74,13 @@ pipx install one-lin3r
 
 #Install pyenv
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
 
 #configure pipx
 pipx ensurepath
-echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.bashrc
+echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.zshrc
 
 #Install WinboxExploit
 git clone https://github.com/BigNerd95/WinboxExploit
