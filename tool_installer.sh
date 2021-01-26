@@ -13,11 +13,9 @@ printf "\e[1;33m
 ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝
 \e[0m"
 
-#Modify .bashrc file to add color similar to parrot
-#Comment it out if you dont want it
-cp bashrc.new /root/.bashrc && cp bashrc.new $HOME/.bashrc
 
 mkdir /root/tools
+apt-get update -y && apt-get upgrade -y
 cd ~/tools
 gem install evil-winrm
 apt-get install openssh-server -y
@@ -41,8 +39,9 @@ apt-get install sipvicious -y
 apt-get install seclists -y
 apt-get install golang-go -y
 apt-get install shellter -y
-apt-get install crackmapexec -y
+#apt-get install crackmapexec -y
 apt-get install libssl-dev swig python3-dev gcc -y
+searchsploit -u
 python -m pip install M2Crypto
 pip3 install pipx
 pip3 install boto3
