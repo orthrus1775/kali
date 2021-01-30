@@ -119,15 +119,12 @@ ln -sf /root/tools/routersploit/rsf.py /usr/bin/routersploit
 ln -sf /root/tools/routersploit/rsf.py /usr/bin/rsfconsole
 ln -sf /root/tools/routersploit/rsf.py /usr/bin/rsf
 
-#Install go
-#mkdir golang
-#cd golang
-#wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
-#tar -xvf go1.13.5.linux-amd64.tar.gz
-#export GOROOT=/root/tools/golang/go
-#export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-#source ~/.profile
-#cd ~/tools
+#Install chisel
+git clone https://github.com/jpillora/chisel.git
+cd chisel
+go build -ldflags="-s -w"
+upx brute chisel
+cd ~/tools
 
 #Install legion
 git clone https://github.com/carlospolop/legion.git
