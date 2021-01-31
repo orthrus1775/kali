@@ -27,6 +27,7 @@ install_all(){
     install_docker
     install_peas
     install_pspy
+    config_shellter
     clean_up
 }
 
@@ -339,17 +340,15 @@ cd ~/tools
 #/usr/share/veil/config/setup.sh --force --silent
 #cd ~/tools
 #}
+ clone https://github.com/carlospolop/legion.git
 
-#Install legion
-#install_legion(){
-#cd ~/tools
-#git clone https://github.com/carlospolop/legion.git
-#cd legion/git
-#./install.sh
-#ln -sf /root/tools/legion/legion.py /usr/local/bin/legion
-#cd ~/tools
-#}
-
+#configure shellter
+config_shellter(){
+    dpkg --add-architecture i386
+    apt-get install libwine
+    apt-get update
+    apt-get install wine32
+}
 
 #functions_check(){
 #one-lin3r &
