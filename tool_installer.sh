@@ -87,6 +87,7 @@ pipx install one-lin3r
 
 #Install WinboxExploit
 install_WinboxExploit(){
+cd ~/tools
 git clone https://github.com/BigNerd95/WinboxExploit
 cd WinboxExploit
 chmod +x *.py
@@ -96,16 +97,20 @@ ln -sf /root/tools/WinboxExploit/WinboxExploit.py /usr/local/bin/WinboxExploit
 ln -sf /root/tools/WinboxExploit/MACServerExploit.py /usr/local/bin/MACServerExploit
 ln -sf /root/tools/WinboxExploit/MACServerDiscover.py /usr/local/bin/MACServerDiscover
 ln -sf /root/tools/WinboxExploit/extract_user.py /usr/local/bin/extract_user
+cd ~
 }
 
 #Install pwnedOrNot
 install_pwnedOrNot(){
+cd ~/tools
 git clone https://github.com/thewhiteh4t/pwnedOrNot
 ln -sf /root/tools/pwnedOrNot/pwnedornot.py /usr/bin/pwnedornot
+cd ~
 }
 
 #Install Sublist3r
 install_Sublist3r(){
+cd ~/tools
 git clone https://github.com/aboul3la/Sublist3r.git
 cd Sublist3r
 pip install -r requirements.txt
@@ -115,6 +120,7 @@ ln -sf /root/tools/Sublist3r/sublist3r.py /usr/local/bin/sublist3r
 
 #Install AutoRecon
 install_autorecon(){
+cd ~/tools
 git clone https://github.com/Tib3rius/AutoRecon.git
 cd AutoRecon
 pip install -r requirements.txt
@@ -124,6 +130,7 @@ cd ~/tools
 
 #Install Routersploit
 install_routersploit(){
+cd ~/tools
 git clone https://www.github.com/threat9/routersploit
 cd routersploit
 python3 -m pip install -r requirements.txt
@@ -135,6 +142,7 @@ ln -sf /root/tools/routersploit/rsf.py /usr/bin/rsf
 
 #Install chisel
 install_chisel(){
+cd ~/tools
 git clone https://github.com/jpillora/chisel.git
 cd chisel
 go build -ldflags="-s -w"
@@ -145,6 +153,7 @@ cd ~/tools
 
 #Install legion
 install_legion(){
+cd ~/tools
 git clone https://github.com/carlospolop/legion.git
 cd legion/git
 ./install.sh
@@ -154,6 +163,7 @@ cd ~/tools
 
 #Install slurp
 install(){
+cd ~/tools
 git clone https://github.com/hehnope/slurp
 cd slurp
 go build
@@ -257,6 +267,7 @@ cd SILENTTRINITY
 pip install -r requirments.txt
 pip install --user pipenv && pipenv install && pipenv shell
 python3 st.py &
+cd ~/tools
 }
 
 #Install Docker
@@ -269,6 +280,7 @@ apt install docker-ce -y
 systemctl start docker
 systemctl enable docker
 Docker run hello-world
+cd ~/tools
 }
 
 #Install PEASS
@@ -284,6 +296,7 @@ cd ~/tools
 #Install veil
 setup_veil(){
 /usr/share/veil/config/setup.sh --force --silent
+cd ~/tools
 }
 
 functions_check(){
