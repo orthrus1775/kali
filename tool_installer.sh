@@ -1,9 +1,37 @@
 #!/bin/bash
 
-# Tools and things I run on your pentest system
+# Tools and things to run on your pentest system
 
+install_all(){
+    banner
+    prep_env
+    install_pyenv
+    config_pipx
+    install_vscode
+    install_impacket
+    install_WinboxExploit
+    install_pwnedOrNot
+    install_autorecon
+    install_routersploit
+    install_chisel
+    install_john
+    install_windapsearch
+    install_nishang
+    install_powersploit
+    install_kerbrute
+    install_evilginx
+    install_fuff
+    install_mongoinject
+    install_adidnsdump
+    install_st
+    install_docker
+    install_peas
+    install_pspy
+    clean_up
+}
 
-
+banner(){
+printf "\n\n"
 printf "\e[1;33m
 ███████╗ ██████╗ █████╗ ██████╗ ██████╗  ██████╗ ██████╗ ██████╗
 ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔═══██╗██╔══██╗██╔══██╗
@@ -12,6 +40,11 @@ printf "\e[1;33m
 ███████║╚██████╗██║  ██║██████╔╝██████╔╝╚██████╔╝██║  ██║██████╔╝
 ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝
 \e[0m"
+printf "\n"
+printf "       [*] Modern problems require modern solutions!"
+printf "\n\n"
+sleep 3
+}
 
 prep_env(){
 mkdir /root/tools
@@ -39,7 +72,11 @@ apt-get install sipvicious -y
 apt-get install seclists -y
 apt-get install golang-go -y
 apt-get install shellter -y
-apt-get install libssl-dev swig python3-dev gcc -y
+apt-get install libssl-dev
+apt-get install swig -y
+apt-get install python3-dev -y
+apt-get install gcc -y
+apt-get install powershell-empire -u
 searchsploit -u
 pip install M2Crypto
 pip install pipx
@@ -76,14 +113,26 @@ pipx install one-lin3r
 }
 
 #Install pyenv
-#git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-#Eecho 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
-#cho 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
-#echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
+install_pyenv(){}
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
+}
 
 #configure pipx
-#pipx ensurepath
-#echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.zshrc
+config_pipx(){
+pipx ensurepath
+echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.zshrc
+}
+#Install VSCode
+install_vscode(){
+apt-get install software-properties-common apt-transport-https
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+apt-get update
+apt-get install code
+}
 
 #Install WinboxExploit
 install_WinboxExploit(){
@@ -104,19 +153,19 @@ cd ~
 install_pwnedOrNot(){
 cd ~/tools
 git clone https://github.com/thewhiteh4t/pwnedOrNot
-ln -sf /root/tools/pwnedOrNot/pwnedornot.py /usr/bin/pwnedornot
+ln -sf /root/tools/pwnedOrNot/pwnedornot.py /usr/local/bin/pwnedornot
 cd ~
 }
 
 #Install Sublist3r
-install_Sublist3r(){
-cd ~/tools
-git clone https://github.com/aboul3la/Sublist3r.git
-cd Sublist3r
-pip install -r requirements.txt
-cd ~/tools
-ln -sf /root/tools/Sublist3r/sublist3r.py /usr/local/bin/sublist3r
-}
+#install_Sublist3r(){
+#cd ~/tools
+#git clone https://github.com/aboul3la/Sublist3r.git
+#cd Sublist3r
+#pip install -r requirements.txt
+#cd ~/tools
+#ln -sf /root/tools/Sublist3r/sublist3r.py /usr/local/bin/sublist3r
+#}
 
 #Install AutoRecon
 install_autorecon(){
@@ -135,9 +184,9 @@ git clone https://www.github.com/threat9/routersploit
 cd routersploit
 python3 -m pip install -r requirements.txt
 cd ~/tools
-ln -sf /root/tools/routersploit/rsf.py /usr/bin/routersploit
-ln -sf /root/tools/routersploit/rsf.py /usr/bin/rsfconsole
-ln -sf /root/tools/routersploit/rsf.py /usr/bin/rsf
+ln -sf /root/tools/routersploit/rsf.py /usr/local/bin/routersploit
+ln -sf /root/tools/routersploit/rsf.py /usr/local/bin/rsfconsole
+ln -sf /root/tools/routersploit/rsf.py /usr/local/bin/rsf
 }
 
 #Install chisel
@@ -151,43 +200,16 @@ cp chisel /usr/local/bin/chisel
 cd ~/tools
 }
 
-#Install legion
-install_legion(){
-cd ~/tools
-git clone https://github.com/carlospolop/legion.git
-cd legion/git
-./install.sh
-ln -sf /root/tools/legion/legion.py /usr/bin/legion
-cd ~/tools
-}
-
-#Install slurp
-install(){
-cd ~/tools
-git clone https://github.com/hehnope/slurp
-cd slurp
-go build
-cd ~/tools
-}
-
-#Install Powershell Empire
-install_empire(){
-git clone https://github.com/EmpireProject/Empire.git
-cd Empire
-chmod +x setup/install.sh
-./setup/install.sh
-cd ~/tools
-ln -sf /root/tools/Empire/empire /usr/bin/empire
-}
-
 #Install JohnTheRipper
 install_john(){
+cd ~/tools
 git clone https://github.com/magnumripper/JohnTheRipper.git
 cd ~/tools
 }
 
 #Install Windapsearch
 install_windapsearch(){
+cd ~/tools
 git clone https://github.com/ropnop/windapsearch.git
 apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev -y
 pip install python-ldap
@@ -196,12 +218,14 @@ cd ~tools
 }
 
 #Install Nishang
+cd ~/tools
 install_nishang(){
 git clone https://github.com/samratashok/nishang.git
 cd ~/tools
 }
 
 #Install Powersploit
+cd ~/tools
 install_powersploit(){
 git clone https://github.com/PowerShellMafia/PowerSploit
 cd ~/tools
@@ -209,6 +233,7 @@ cd ~/tools
 
 #Install impacket
 install_impacket(){
+cd ~/tools
 git clone https://github.com/SecureAuthCorp/impacket.git
 cd impacket
 pip install -r requirments.txt
@@ -218,16 +243,18 @@ cd ~/tools
 
 #adding kerbrute
 install_kerbrute(){
+cd ~/tools
 git clone https://github.com/TarlogicSecurity/kerbrute
 cd kerbrute
 sed -i '1s/^/#!\/usr\/bin\/env python3 \n/' kerbrute.py
 chmod +x kerbrute.py
-ln -sf /root/tools/kerbrute/kerbrute.py /usr/bin/kerbrute
+ln -sf /root/tools/kerbrute/kerbrute.py /usr/local/bin/kerbrute
 cd ~/tools
 }
 
 #Install Evilginx
 install_evilginx(){
+cd ~/tools
 wget https://github.com/kgretzky/evilginx2/releases/download/2.3.0/evilginx_linux_x86_2.3.0.zip
 unzip evilginx_linux_x86_2.3.0.zip -d evilginx
 cd evilginx
@@ -238,22 +265,24 @@ cd ~/tools
 
 #Install fuff
 install_fuff(){
+cd ~/tools
 git clone https://github.com/ffuf/ffuf.git
 cd ffuf
 wget https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
 tar -xzvf ffuf_1.0.2_linux_amd64.tar.gz
-cd ~/tools
-ln -sf /root/tools/ffuf/ffuf /usr/bin/ffuf
+ln -sf /root/tools/ffuf/ffuf /usr/local/bin/ffuf
 cd ~/tools
 }
 
 #Install
 install_mongoinject(){
+cd ~/tools
 git clone https://github.com/an0nlk/Nosql-MongoDB-injection-username-password-enumeration.git ~/tools/nosql-mongo-inject
 }
 
 #Install Active Directory Integrated DNS dump tool
 install_adidnsdump(){
+cd ~/tools
 git clone https://github.com/dirkjanm/adidnsdump.git
 cd adidnsdump
 pip install .
@@ -262,6 +291,7 @@ cd ~/tools
 
 #Install SilentTrinity
 install_st(){
+cd ~/tools
 git clone https://github.com/byt3bl33d3r/SILENTTRINITY
 cd SILENTTRINITY
 pip install -r requirments.txt
@@ -272,6 +302,7 @@ cd ~/tools
 
 #Install Docker
 install_docker(){
+cd ~/tools
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' | sudo tee /etc/apt/sources.list.d/docker.list
 apt-get update -y
@@ -285,39 +316,62 @@ cd ~/tools
 
 #Install PEASS
 install_peas(){
+cd ~/tools
 git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git ~/tools/peapod
 cd ~/tools
 }
 
 #Install pspy
-#https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy32s
-#https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64s
-
-#Install veil
-setup_veil(){
-/usr/share/veil/config/setup.sh --force --silent
+install_pspy(){
+cd ~/tools
+mkdir pspy
+cd pspy
+wget https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy32
+wget https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64
+wget https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy32s
+wget https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64s
+chmod +x pspy*
 cd ~/tools
 }
 
-functions_check(){
+#Install veil
+#setup_veil(){
+#/usr/share/veil/config/setup.sh --force --silent
+#cd ~/tools
+#}
 
-one-lin3r &
-evilginx &
-sublist3r &
-pwnedornot &
-routersploit &
-rsfconsole &
-rsf &
-windapsearch &
-empire &
-ffuf &
-shellter &
-}
+#Install legion
+#install_legion(){
+#cd ~/tools
+#git clone https://github.com/carlospolop/legion.git
+#cd legion/git
+#./install.sh
+#ln -sf /root/tools/legion/legion.py /usr/local/bin/legion
+#cd ~/tools
+#}
+
+
+#functions_check(){
+#one-lin3r &
+#evilginx &
+#sublist3r &
+#pwnedornot &
+#routersploit &
+#rsfconsole &
+#rsf &
+#windapsearch &
+#empire &
+#ffuf &
+#shellter &
+#}
 
 clean_up(){
 apt-get update -y && apt-get upgrade -y
-read -p "Press [ENTER] to finish"
+printf "\n\n"
+read -p "Press [ENTER] to finish and reboot"
 reboot
 }
+
+install_all
 
 "$@"
