@@ -113,7 +113,7 @@ pipx install one-lin3r
 }
 
 #Install pyenv
-install_pyenv(){}
+install_pyenv(){
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
 echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
