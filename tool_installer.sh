@@ -19,10 +19,12 @@ sed -i -- 's/#\s\?deb-src/deb-src/g' /etc/apt/sources.list
 apt-get update -y && apt-get upgrade -y
 cd ~/tools
 gem install evil-winrm
+apt-get install kali-wallpapers-all
 apt-get install ftp -y
 apt-get install python-pip -y
 apt-get install python3-pip -y
-apt-get install python-venv
+apt-get install python-venv -y
+apt-get install python3-venv -y
 apt-get install libncurses5-dev -y
 apt-get install bloodhound -y
 apt-get install awscli -y
@@ -40,32 +42,32 @@ apt-get install golang-go -y
 apt-get install shellter -y
 apt-get install libssl-dev swig python3-dev gcc -y
 searchsploit -u
-pip3 install M2Crypto
-pip3 install pipx
+pip install M2Crypto
+pip install pipx
 pipx ensurepath
 pipx completions
-pip3 install pyasn1
-pip3 install pycryptodomex
-pip3 install pyOpenSSL
-pip3 install python3-ldap
-pip3 install pyReadline
-pip3 install dnspython
-pip3 install argparse
-pip3 install urllib3==1.22
-pip3 install requests==2.18.4
-pip3 install setuptools
-pip3 install iptools
-pip3 install pydispatcher
-pip3 install macholib
-pip3 install pyOpenSSL==17.2.0
-pip3 install pyinstaller
-pip3 install zlib_wrapper
-pip3 install netifaces
-pip3 install jinja2
-pip3 install cryptography
-pip3 install pyminifier==2.1
-pip3 install xlutils
-pip3 install pycrypto
+pip install pyasn1
+pip install pycryptodomex
+pip install pyOpenSSL
+pip install python3-ldap
+pip install pyReadline
+pip install dnspython
+pip install argparse
+pip install urllib3==1.22
+pip install requests==2.18.4
+pip install setuptools
+pip install iptools
+pip install pydispatcher
+pip install macholib
+pip install pyOpenSSL==17.2.0
+pip install pyinstaller
+pip install zlib_wrapper
+pip install netifaces
+pip install jinja2
+pip install cryptography
+pip install pyminifier==2.1
+pip install xlutils
+pip install pycrypto
 pipx install boto3 --include-deps
 pipx install ldapdomaindump
 pipx install flask
@@ -86,6 +88,8 @@ echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.zshrc
 git clone https://github.com/BigNerd95/WinboxExploit
 cd WinboxExploit
 chmod +x *.py
+sed -i '1s/^/#!\/usr\/bin\/env python3 \n/' MACServerExploit.py
+sed -i '1s/^/#!\/usr\/bin\/env python3 \n/' MACServerDiscover.py
 ln -sf /root/tools/WinboxExploit/WinboxExploit.py /usr/local/bin/WinboxExploit
 ln -sf /root/tools/WinboxExploit/MACServerExploit.py /usr/local/bin/MACServerExploit
 ln -sf /root/tools/WinboxExploit/MACServerDiscover.py /usr/local/bin/MACServerDiscover
@@ -96,24 +100,24 @@ git clone https://github.com/thewhiteh4t/pwnedOrNot
 ln -sf /root/tools/pwnedOrNot/pwnedornot.py /usr/bin/pwnedornot
 
 #Install Sublist3r
-git clone https://github.com/aboul3la/Sublist3r.git
-cd Sublist3r
-pip3 install -r requirements.txt
-cd ~/tools
-ln -sf /root/tools/Sublist3r/sublist3r.py /usr/local/bin/sublist3r
+#git clone https://github.com/aboul3la/Sublist3r.git
+#cd Sublist3r
+#pip install -r requirements.txt
+#cd ~/tools
+#ln -sf /root/tools/Sublist3r/sublist3r.py /usr/local/bin/sublist3r
 
 
 #Install AutoRecon
 git clone https://github.com/Tib3rius/AutoRecon.git
 cd AutoRecon
-pip3 install -r requirements.txt
-ln -sf /root/tools/AutoRecon/autorecon.py usr/local/bin/autorecon
+pip install -r requirements.txt
+ln -sf /root/tools/AutoRecon/src/autorecon/autorecon.py /usr/local/bin/autorecon
 cd ~/tools
 
 #Install Routersploit
 git clone https://www.github.com/threat9/routersploit
 cd routersploit
-python3 -m pip3 install -r requirements.txt
+python3 -m pip install -r requirements.txt
 cd ~/tools
 ln -sf /root/tools/routersploit/rsf.py /usr/bin/routersploit
 ln -sf /root/tools/routersploit/rsf.py /usr/bin/rsfconsole
@@ -124,14 +128,15 @@ git clone https://github.com/jpillora/chisel.git
 cd chisel
 go build -ldflags="-s -w"
 upx brute chisel
+cp chisel /usr/local/bin/chisel
 cd ~/tools
 
 #Install legion
-git clone https://github.com/carlospolop/legion.git
-cd legion/git
-./install.sh
-ln -sf /root/tools/legion/legion.py /usr/bin/legion
-cd ~/tools
+#git clone https://github.com/carlospolop/legion.git
+#cd legion/git
+#./install.sh
+#ln -sf /root/tools/legion/legion.py /usr/bin/legion
+#cd ~/tools
 
 #Install slurp
 #git clone https://github.com/hehnope/slurp
@@ -154,7 +159,7 @@ cd ~/tools
 #Install Windapsearch
 git clone https://github.com/ropnop/windapsearch.git
 apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev -y
-pip3 install python-ldap
+pip install python-ldap
 ln -sf /root/tools/windapsearch/windapsearch.py /usr/bin/windapsearch
 cd ~tools
 
@@ -169,7 +174,7 @@ cd ~/tools
 #Install impacket
 git clone https://github.com/SecureAuthCorp/impacket.git
 cd impacket
-pip3 install -r requirments.txt
+pip install -r requirments.txt
 python3 setup.py install
 cd ~/tools
 
@@ -209,16 +214,16 @@ git clone https://github.com/an0nlk/Nosql-MongoDB-injection-username-password-en
 #ln -s /root/tools/legion/legion.py /usr/bin/legion
 
 #Install Active Directory Integrated DNS dump tool
-git clone https://github.com/dirkjanm/adidnsdump 
-cd adidnsdump
-pip install .
-cd ~/tools
+#git clone 
+#cd adidnsdump
+#pip install .
+#cd ~/tools
 
 #Install SilentTrinity
 git clone https://github.com/byt3bl33d3r/SILENTTRINITY
 cd SILENTTRINITY
-pip3 install -r requirments.txt
-pip3 install --user pipenv && pipenv install && pipenv shell
+pip install -r requirments.txt
+pip install --user pipenv && pipenv install && pipenv shell
 python3 st.py &
 
 #Install Docker
