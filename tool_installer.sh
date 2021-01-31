@@ -76,7 +76,7 @@ apt-get install libssl-dev
 apt-get install swig -y
 apt-get install python3-dev -y
 apt-get install gcc -y
-apt-get install powershell-empire -u
+apt-get install powershell-empire -y
 searchsploit -u
 pip install M2Crypto
 pip install pipx
