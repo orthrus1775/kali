@@ -63,7 +63,7 @@ apt-get install bloodhound -y
 apt-get install awscli -y
 apt-get install powershell -y
 apt-get install xrdp -y
-apt-get install veil -y
+#apt-get install veil -y
 apt-get install gobuster -y
 apt-get install oscanner -y
 apt-get install smtp-user-enum -y
@@ -91,19 +91,18 @@ pip install python3-ldap
 pip install pyReadline
 pip install dnspython
 pip install argparse
-pip install urllib3==1.22
-pip install requests==2.18.4
+pip install urllib3
+pip install requests
 pip install setuptools
 pip install iptools
 pip install pydispatcher
 pip install macholib
-pip install pyOpenSSL==17.2.0
 pip install pyinstaller
 pip install zlib_wrapper
 pip install netifaces
 pip install jinja2
 pip install cryptography
-pip install pyminifier==2.1
+pip install pyminifier
 pip install xlutils
 pip install pycrypto
 pipx install boto3 --include-deps
