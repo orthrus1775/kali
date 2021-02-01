@@ -27,7 +27,7 @@ install_all(){
     install_docker
     install_peas
     install_pspy
-    config_shellter
+    #config_shellter
     clean_up
 }
 
@@ -72,7 +72,7 @@ apt-get install wkhtmltopdf -y
 apt-get install sipvicious -y
 apt-get install seclists -y
 apt-get install golang-go -y
-apt-get install shellter -y
+#apt-get install shellter -y
 apt-get install libssl-dev
 apt-get install swig -y
 apt-get install python3-dev -y
@@ -342,12 +342,12 @@ cd ~/tools
  clone https://github.com/carlospolop/legion.git
 
 #configure shellter
-config_shellter(){
-    dpkg --add-architecture i386
-    apt-get install libwine
-    apt-get update
-    apt-get install wine32
-}
+#config_shellter(){
+#    dpkg --add-architecture i386
+#    apt-get install libwine
+#    apt-get update
+#    apt-get install wine32
+#}
 
 #functions_check(){
 #one-lin3r &
