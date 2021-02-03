@@ -27,6 +27,7 @@ install_all(){
     install_docker
     install_peas
     install_pspy
+    install_ghidra
     #config_shellter
     clean_up
 }
@@ -49,8 +50,9 @@ sleep 3
 
 prep_env(){
 mkdir /root/tools
-sed -i -- 's/#\s\?deb-src/deb-src/g' /etc/apt/sources.list
-apt-get update -y && apt-get upgrade -y
+#sed -i -- 's/#\s\?deb-src/deb-src/g' /etc/apt/sources.list
+#apt-get update -y && apt-get upgrade -y
+apt-get update -y
 cd ~/tools
 gem install evil-winrm
 apt-get install kali-wallpapers-all -y
@@ -78,6 +80,9 @@ apt-get install swig -y
 apt-get install python3-dev -y
 apt-get install gcc -y
 apt-get install powershell-empire -y
+apt-get install default-jre -y
+apt-get install openjdk-11-jdk -y
+apt-get install openjdk-11-jre -y
 searchsploit -u
 pip install M2Crypto
 pip install pipx
@@ -334,6 +339,18 @@ chmod +x pspy*
 cd ~/tools
 }
 
+#Install Ghidra
+install_ghidra(){
+cd ~/tools
+wget https://ghidra-sre.org/ghidra_9.0.1_PUBLIC_20190325.zip
+unzip ghidra_9.0.1_PUBLIC_20190325.zip
+rm ghidra_9.0.1_PUBLIC_20190325.zip
+cd ghidra_9.0.1
+chmod +x ghidraRun
+ln -sf /root/tools/ghidra_9.0.1/ghidraRun /usr/local/bin/ghidra
+}
+
+
 #Install veil
 #setup_veil(){
 #/usr/share/veil/config/setup.sh --force --silent
@@ -364,7 +381,7 @@ cd ~/tools
 #}
 
 clean_up(){
-apt-get update -y && apt-get upgrade -y
+apt-get update -y # && apt-get upgrade -y
 printf "\n\n"
 read -p "Press [ENTER] to finish and reboot"
 reboot
