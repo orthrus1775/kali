@@ -21,6 +21,5 @@
             - ms-dotnettools.csharp
             - ms-azuretools.vscode-docker
             - ms-python.vscode-pylance
-            - ms-python.python
             - kosz78.nim
 

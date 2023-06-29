@@ -18,6 +18,7 @@
       - kali-linux-large
       - kali-wallpapers-all
       - golang
+      - peass
       - bc
       - xplico
       - openssh-server
@@ -29,4 +30,4 @@
       - exiftool
     state: latest
   become: true
-  become_method: sudo
+  become_method: sudo  
