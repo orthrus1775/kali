@@ -17,4 +17,10 @@
             - DEVSENSE.phptools-vscode
             - GitHub.copilot-nightly
             - snyk-security.snyk-vulnerability-scanner
+            - ms-vscode.cpptools
+            - ms-dotnettools.csharp
+            - ms-azuretools.vscode-docker
+            - ms-python.vscode-pylance
+            - ms-python.python
+            - kosz78.nim
 
