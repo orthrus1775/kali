@@ -12,6 +12,16 @@
 - name: "Installing Packages"
   package:
     name:
+      - kali-tools-crypto-stego
+      - kali-tools-fuzzing
+      - kali-tools-windows-resources
+      - kali-linux-large
+      - kali-wallpapers-all
+      - golang
+      - bc
+      - xplico
+      - openssh-server
+      - mingw-w64
       - jq
       - pipx
       - ntpdate
