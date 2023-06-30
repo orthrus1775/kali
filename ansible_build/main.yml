@@ -1,11 +1,11 @@
 ---
-- name: "Customizing Parrot"
+- name: "Customizing Kali"
   hosts: localhost
   connection: local
   roles:
     - role: "roles/install-tools"
     - role: "roles/configure-tmux"
-    - role: "roles/customize-terminal"
+    #- role: "roles/customize-terminal"
     - role: "roles/customize-browser"
     - role: "roles/configure-logging"
     - role: gantsign.visual-studio-code
