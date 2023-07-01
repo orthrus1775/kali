@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   roles:
-    #- role: "roles/install-tools"
+    - role: "roles/install-tools"
     #- role: "roles/configure-tmux"
     #- role: "roles/customize-terminal"
     #- role: "roles/customize-browser"
@@ -15,11 +15,12 @@
             - streetsidesoftware.code-spell-checker
             - ms-python.python
             - DEVSENSE.phptools-vscode
-            - GitHub.copilot-nightly
-            - snyk-security.snyk-vulnerability-scanner
             - ms-vscode.cpptools
             - ms-dotnettools.csharp
             - ms-azuretools.vscode-docker
             - ms-python.vscode-pylance
             - kosz78.nim
+            #- GitHub.copilot-nightly
+            #- snyk-security.snyk-vulnerability-scanner
+
 
