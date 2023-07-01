@@ -12,6 +12,7 @@
 - name: "Installing Packages"
   package:
     name:
+      - kali-linux-everything
       - kali-tools-crypto-stego
       - kali-tools-fuzzing
       - kali-tools-windows-resources
@@ -28,6 +29,8 @@
       - ntpdate
       - flameshot
       - exiftool
+      - nim 
+      - cowsay
     state: latest
   become: true
   become_method: sudo  
