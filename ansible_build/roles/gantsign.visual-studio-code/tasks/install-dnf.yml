@@ -1,0 +1,28 @@
+---
+- name: Install dependencies (dnf)
+  become: yes
+  ansible.builtin.dnf:
+    name:
+      - libdrm
+      - libX11-xcb
+      - libxshmfence
+      - mesa-libgbm
+      - which
+    state: present
+
+- name: Install VS Code repo (dnf)
+  become: yes
+  ansible.builtin.yum_repository:
+    name: code
+    description: Visual Studio Code repo
+    file: vscode
+    baseurl: '{{ visual_studio_code_mirror }}/yumrepos/vscode'
+    gpgkey: '{{ visual_studio_code_mirror }}/keys/microsoft.asc'
+    gpgcheck: '{{ visual_studio_code_gpgcheck }}'
+  when: not visual_studio_code_skip_add_repo
+
+- name: Install VS Code (dnf)
+  become: yes
+  ansible.builtin.dnf:
+    name: "{{ visual_studio_code_package }}{{ (visual_studio_code_version | length > 0) | ternary('-' + visual_studio_code_version, '') }}"
+    state: present

@@ -1,0 +1,8 @@
+{{ ansible_managed | comment }}
+[code]
+name=Visual Studio Code
+baseurl={{ visual_studio_code_mirror }}/yumrepos/vscode
+enabled=1
+type=rpm-md
+gpgcheck={{ visual_studio_code_gpgcheck | ternary('1', '0') }}
+gpgkey={{ visual_studio_code_mirror }}/keys/microsoft.asc

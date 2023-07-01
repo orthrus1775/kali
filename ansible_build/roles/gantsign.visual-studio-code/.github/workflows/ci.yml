@@ -1,0 +1,98 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request: {}
+
+env:
+  MOLECULEW_USE_SYSTEM: 'true'
+  PY_COLORS: '1'
+  ANSIBLE_FORCE_COLOR: '1'
+
+jobs:
+  test:
+    name: Molecule test
+    runs-on: ubuntu-20.04
+
+    strategy:
+      max-parallel: 3
+      matrix:
+        architecture:
+          - amd64
+        ansible-version:
+          - '6.4.0' # max-ansible-test-version
+        molecule-scenario:
+          - rocky
+          - default
+          - fedora
+          - opensuse
+        include:
+          - architecture: amd64
+            ansible-version: '5.10.0' # min-ansible-test-version
+            molecule-scenario: ubuntu-min
+          - architecture: arm
+            ansible-version: '6.4.0' # max-ansible-test-version
+            molecule-scenario: ubuntu-arm32
+          # Disabled for taking too long
+          # - architecture: arm64
+          #   ansible-version: '6.4.0' # max-ansible-test-version
+          #   molecule-scenario: ubuntu-arm64
+    env:
+      MOLECULEW_ANSIBLE: ${{ matrix.ansible-version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      - name: Cache Molecule
+        id: molecule-cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.moleculew
+          key: Ansible-${{ matrix.ansible-version }}-${{ hashFiles('.moleculew/**') }}
+
+      - name: Install dependencies
+        if: steps.molecule-cache.outputs.cache-hit != 'true'
+        run: ./moleculew wrapper-install
+
+      - name: Dependency versions
+        run: ./moleculew wrapper-versions
+
+      - name: Set up QEMU
+        if: matrix.architecture != 'amd64'
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ matrix.architecture }}
+
+      - name: Login to Docker Hub
+        if: '!github.event.pull_request || github.event.pull_request.head.repo.full_name == github.repository'
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Molecule test
+        run: ./moleculew test --scenario-name=${{ matrix.molecule-scenario }}
+
+      - name: Compact cache
+        if: steps.molecule-cache.outputs.cache-hit != 'true'
+        run: find ~/.moleculew -name '__pycache__' -exec rm -rf {} +
+
+  test-all:
+    if: ${{ always() }}
+    name: Test (matrix)
+    runs-on: ubuntu-20.04
+    needs: test
+    steps:
+      - name: Check test matrix status
+        run: "[[ '${{ needs.test.result }}' == 'success' ]] || exit 1"
