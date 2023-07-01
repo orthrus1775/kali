@@ -8,7 +8,7 @@
     #- role: "roles/customize-terminal"
     - role: "roles/customize-browser"
     - role: "roles/configure-logging"
-    - role: gantsign.visual-studio-code
+    - role: "roles/gantsign.visual-studio-code"
       users:
         - username: "{{ ansible_user_id }}" 
           visual_studio_code_extensions:
