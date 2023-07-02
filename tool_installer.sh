@@ -9,24 +9,24 @@ install_all(){
     config_pipx
     install_vscode
     install_impacket
-    install_WinboxExploit
+    install_WinboxExploit 
     install_pwnedOrNot
-    install_autorecon
+    install_autorecon 
     install_routersploit
     install_chisel
     install_john
-    install_windapsearch
+    install_windapsearch 
     install_nishang
     install_powersploit
     install_kerbrute
     install_evilginx
     install_fuff
-    install_mongoinject
-    install_adidnsdump
+    install_mongoinject 
+    install_adidnsdump 
     install_st
     install_docker
     install_peas
-    install_pspy
+    install_pspy *
     install_ghidra
     #config_shellter
     clean_up
