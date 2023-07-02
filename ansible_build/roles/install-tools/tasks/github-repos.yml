@@ -6,6 +6,10 @@
   loop:
     - { repo: "https://github.com/Flangvik/SharpCollection", location: "/opt/SharpCollection" }
     - { repo: "https://github.com/danielmiessler/SecLists", location: "/opt/SecLists" }
+    - { repo: "https://github.com/ropnop/windapsearch", location: "/opt/windapsearch" }
+    - { repo: "https://github.com/BishopFox/sliver", location: "/opt/sliver" }
+    - { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin" }
+    - { repo: "https://github.com/its-a-feature/Mythic", location: "/opt/Mythic" }
   become: true
   become_method: sudo
 
@@ -27,13 +31,20 @@
 - name: "Downloading github releases"
   shell: "{{ build_dir.path }}/githubdownload.py {{ item.repo }} {{ item.regex }} {{ item.location }} {% if item.filename is defined %}{{ item.filename }}{% endif %}"
   loop:
-    - { repo: "jpillora/chisel",  regex: "_linux_amd64.gz", location: "/opt/chisel" }
-    - { repo: "jpillora/chisel",  regex: "_windows_amd64.gz", location: "/opt/chisel" }
+    #- { repo: "jpillora/chisel",  regex: "_linux_amd64.gz", location: "/opt/chisel" }
+    #- { repo: "jpillora/chisel",  regex: "_windows_amd64.gz", location: "/opt/chisel" }
     #- { repo: "jpillora/chisel",  regex: "_darwin_amd64", location: "/opt/chisel", filename: "chisel_osx" }
     #- { repo: "carlospolop/PEASS-ng",  regex: "linpeas.sh", location: "/opt/peas" }
     #- { repo: "carlospolop/PEASS-ng",  regex: "winPEASx64.exe", location: "/opt/peas" }
     - { repo: "WithSecureLabs/chainsaw",  regex: "chainsaw_all_", location: "/opt/" }
     - { repo: "BloodHoundAD/BloodHound", regex: "BloodHound-linux-x64.zip", location: "/opt/" }
+    - { repo: "dnSpy/dnSpy", regex: "net-win32.zip", location: "/opt/dnSpy" }
+    - { repo: "dnSpy/dnSpy", regex: "net-win64.zip", location: "/opt/dnSpy" } 
+    - { repo: "dnSpy/dnSpy", regex: "netframework.zip", location: "/opt/dnSpy" } 
+    - { repo: "DominicBreuker/pspy", regex: "pspy32", location: "/opt/pspy" }
+    - { repo: "DominicBreuker/pspy", regex: "pspy32s", location: "/opt/pspy" }
+    - { repo: "DominicBreuker/pspy", regex: "pspy64", location: "/opt/pspy" }
+    - { repo: "DominicBreuker/pspy", regex: "pspy64s", location: "/opt/pspy" }
   async: 45
   poll: 0
   become: true

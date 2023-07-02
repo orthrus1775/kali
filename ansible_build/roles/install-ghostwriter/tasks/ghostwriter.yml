@@ -1,0 +1,14 @@
+---
+- name: "Installing useful github repos"
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.location }}"
+  loop:
+    - { repo: "https://github.com/GhostManager/Ghostwriter.git", location: "/opt/Ghostwriter" }
+  become: true
+  become_method: sudo
+
+
+git clone https://github.com/GhostManager/Ghostwriter.git
+$ cd Ghostwriter
+$ ./ghostwriter-cli install

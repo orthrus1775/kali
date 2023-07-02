@@ -9,5 +9,4 @@
     - { name: 'crackmapexec', url: 'git+https://github.com/mpgn/CrackMapExec.git' }
     - { name: 'certipy-ad', url: 'git+https://github.com/ly4k/Certipy.git' }
     - { name: 'autorecon', url: 'git+https://github.com/Tib3rius/AutoRecon.git' }
-    - { name: 'windapsearch', url: 'git+https://github.com/ropnop/windapsearch.git' }
     - { name: 'adidnsdump', url: 'git+https://github.com/dirkjanm/adidnsdump.git' }  
