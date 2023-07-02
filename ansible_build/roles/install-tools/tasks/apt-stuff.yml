@@ -54,6 +54,8 @@
       - docker.io
       - docker-compose
       - podman
+      - rsyslog
+      - ufw
     state: latest
   become: true
   become_method: sudo
