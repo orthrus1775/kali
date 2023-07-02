@@ -4,6 +4,7 @@
   connection: local
   roles:
     - role: "roles/install-tools"
+    - role: "roles/install-vmtools"
     - role: "roles/configure-tmux"
     - role: "roles/customize-terminal"
     - role: "roles/customize-browser"

@@ -34,24 +34,26 @@
       - evilginx2
       - evilginx2-dbgsym
       - pure-ftpd
-      - curl 
-      - dnsrecon 
-      - enum4linux 
-      - feroxbuster 
-      - nbtscan 
-      - nikto 
-      - onesixtyone 
-      - oscanner 
-      - redis-tools 
-      - smbclient 
-      - smbmap 
-      - snmp 
-      - sslscan 
-      - sipvicious 
-      - tnscmd10g 
-      - whatweb 
+      - curl
+      - dnsrecon
+      - enum4linux
+      - feroxbuster
+      - nbtscan
+      - nikto
+      - onesixtyone
+      - oscanner
+      - redis-tools
+      - smbclient
+      - smbmap
+      - snmp
+      - sslscan
+      - sipvicious
+      - tnscmd10g
+      - whatweb
       - wkhtmltopdf
-
+      - docker.io
+      - docker-compose
+      - podman
     state: latest
   become: true
-  become_method: sudo  
+  become_method: sudo

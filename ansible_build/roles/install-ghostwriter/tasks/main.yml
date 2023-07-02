@@ -1,0 +1,3 @@
+---
+# tasks file for install-ghostwriter
+- include: "ghostwriter.yml"
