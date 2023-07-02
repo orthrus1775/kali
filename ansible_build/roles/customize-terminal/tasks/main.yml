@@ -11,8 +11,8 @@
   become: yes
   become_method: sudo 
 
- - name: "Copy PS profile"
-   copy:
+- name: "Copy PS profile"
+  copy:
     src: "{{ role_path }}/files/Microsoft.PowerShell_profile.ps1"
     dest: "{{ ansible_env.HOME }}/.config/powershell/"
   become: yes
