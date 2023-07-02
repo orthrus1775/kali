@@ -9,6 +9,7 @@
     - role: "roles/customize-terminal"
     - role: "roles/customize-browser"
     - role: "roles/configure-logging"
+    - role: "roles/install-ghostwriter"
     - role: "roles/gantsign.visual-studio-code"
       users:
         - username: "{{ ansible_user_id }}" 
