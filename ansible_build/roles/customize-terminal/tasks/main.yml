@@ -3,11 +3,13 @@
   copy:
     src: "{{ role_path }}/files/.zshrc"
     dest: "{{ ansible_env.HOME }}"
+    force: yes
 
 - name: "Copy Root ZshRC"
   copy:
     src: "{{ role_path }}/files/.zshrc"
-    dest: "{{ ansible_env.HOME }}"  
+    dest: "{{ ansible_env.HOME }}" 
+    force: yes 
   become: yes
   become_method: sudo 
 
@@ -15,13 +17,14 @@
   copy:
     src: "{{ role_path }}/files/Microsoft.PowerShell_profile.ps1"
     dest: "{{ ansible_env.HOME }}/.config/powershell/"
-  become: yes
-  become_method: sudo  
+    force: yes
+
 
 - name: "Copy Terminal Settings"
   copy:
     src: "{{ role_path }}/files/qterminal.ini"
     dest: "{{ ansible_env.HOME }}/.config/qterminal.org"  
+    force: yes
 
 # - name: "Read current mate terminal profiles"
   # dconf:
