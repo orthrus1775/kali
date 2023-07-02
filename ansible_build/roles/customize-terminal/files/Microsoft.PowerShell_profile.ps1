@@ -14,7 +14,7 @@ $NEWLINE_BEFORE_PROMPT='yes'
   If ($NEWLINE_BEFORE_PROMPT -eq 'yes') { Write-Host }
   If ($PROMPT_ALTERNATIVE -eq 'twoline') {
     Write-Host "┌──(" -NoNewLine -ForegroundColor Blue
-    Write-Host "${bold}$([environment]::username)㉿$([system.environment]::MachineName)${reset}" -NoNewLine -ForegroundColor Magenta
+    Write-Host "${bold}$([environment]::username)@$([system.environment]::MachineName)${reset}" -NoNewLine -ForegroundColor Magenta
     Write-Host ")-[" -NoNewLine -ForegroundColor Blue
     Write-Host "${bold}$(Get-Location)${reset}" -NoNewLine -ForegroundColor White
     Write-Host "]" -ForegroundColor Blue
