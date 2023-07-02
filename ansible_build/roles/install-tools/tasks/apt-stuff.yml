@@ -59,3 +59,21 @@
     state: latest
   become: true
   become_method: sudo
+
+- name: Enable service sshd, and not touch the state
+  ansible.builtin.service:
+    name: sshd
+    state: started
+    enabled: yes
+
+- name: Enable service rsyslog, and not touch the state
+  ansible.builtin.service:
+    name: rsyslog
+    state: started
+    enabled: yes    
+
+- name: Enable service ufw, and not touch the state
+  ansible.builtin.service:
+    name: ufw
+    state: started
+    enabled: yes
