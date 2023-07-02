@@ -29,8 +29,29 @@
       - ntpdate
       - flameshot
       - exiftool
-      - nim 
-      - cowsay
+      - nim
+      - veil-evasion
+      - evilginx2
+      - evilginx2-dbgsym
+      - pure-ftpd
+      - curl 
+      - dnsrecon 
+      - enum4linux 
+      - feroxbuster 
+      - nbtscan 
+      - nikto 
+      - onesixtyone 
+      - oscanner 
+      - redis-tools 
+      - smbclient 
+      - smbmap 
+      - snmp 
+      - sslscan 
+      - sipvicious 
+      - tnscmd10g 
+      - whatweb 
+      - wkhtmltopdf
+
     state: latest
   become: true
   become_method: sudo  
