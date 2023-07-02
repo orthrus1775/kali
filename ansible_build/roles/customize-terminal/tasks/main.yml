@@ -21,7 +21,7 @@
 - name: "Copy Terminal Settings"
   copy:
     src: "{{ role_path }}/files/qterminal.ini"
-    dest: "{{ ansible_env.HOME }}.config/qterminal.org"  
+    dest: "{{ ansible_env.HOME }}/.config/qterminal.org"  
 
 # - name: "Read current mate terminal profiles"
   # dconf:
