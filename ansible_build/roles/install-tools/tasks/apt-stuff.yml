@@ -62,7 +62,7 @@
 
 - name: Enable service sshd, and not touch the state
   ansible.builtin.service:
-    name: sshd
+    name: ssh
     state: started
     enabled: yes
 
