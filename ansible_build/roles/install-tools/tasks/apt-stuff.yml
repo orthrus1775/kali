@@ -64,28 +64,40 @@
   ansible.builtin.service:
     name: ssh
     state: started
-
+  become: true
+  become_method: sudo
+  
 - name: "Start service rsyslog"
   ansible.builtin.service:
     name: rsyslog
     state: started
+  become: true
+  become_method: sudo
 
 - name: "Start service ufw"
   ansible.builtin.service:
     name: ufw
     state: started  
+  become: true
+  become_method: sudo
 
 - name: "Enable service ssh"
   ansible.builtin.service:
     name: ssh
     enabled: yes
+  become: true
+  become_method: sudo
 
 - name: "Enable service rsyslog"
   ansible.builtin.service:
     name: rsyslog
     enabled: yes
+  become: true
+  become_method: sudo
 
 - name: "Enable service ufw"
   ansible.builtin.service:
     name: ufw
     enabled: yes
+  become: true
+  become_method: sudo
