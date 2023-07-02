@@ -60,20 +60,32 @@
   become: true
   become_method: sudo
 
-- name: Enable service sshd, and not touch the state
+- name: "Start service sshd"
   ansible.builtin.service:
     name: ssh
     state: started
-    enabled: yes
 
-- name: Enable service rsyslog, and not touch the state
+- name: "Start service rsyslog"
   ansible.builtin.service:
     name: rsyslog
     state: started
-    enabled: yes    
 
-- name: Enable service ufw, and not touch the state
+- name: "Start service ufw"
   ansible.builtin.service:
     name: ufw
-    state: started
+    state: started  
+
+- name: "Enable service ssh"
+  ansible.builtin.service:
+    name: ssh
+    enabled: yes
+
+- name: "Enable service rsyslog"
+  ansible.builtin.service:
+    name: rsyslog
+    enabled: yes
+
+- name: "Enable service ufw"
+  ansible.builtin.service:
+    name: ufw
     enabled: yes
