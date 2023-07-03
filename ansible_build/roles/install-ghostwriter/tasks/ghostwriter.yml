@@ -4,6 +4,6 @@
     repo: "{{ item.repo }}"
     dest: "{{ item.location }}"
   loop:
-    - { repo: "https://github.com/GhostManager/Ghostwriter.git", location: "/opt/Ghostwriter" }
+    - { repo: "https://github.com/GhostManager/Ghostwriter.git", location: "/usr/local/sbin/Ghostwriter" }
   become: true
   become_method: sudo
