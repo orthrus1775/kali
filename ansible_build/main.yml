@@ -25,5 +25,6 @@
             - kosz78.nim
             #- GitHub.copilot-nightly
             #- snyk-security.snyk-vulnerability-scanner
+    - role: "roles/cleanup"
 
 
