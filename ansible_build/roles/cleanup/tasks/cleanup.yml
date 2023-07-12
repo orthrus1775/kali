@@ -1,0 +1,8 @@
+---
+- name: "Deleting buildprep in sudoers.d"
+  file:
+    path: /etc/sudoers.d/buildprep
+    state: absent
+  become: yes
+  become_method: sudo
+
