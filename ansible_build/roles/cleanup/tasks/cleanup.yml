@@ -1,8 +1,8 @@
 ---
-- name: "Autoremoving packages"
-  apt: autoremove
-  become: true
-  become_method: sudo
+# - name: "Autoremoving packages"
+#   apt: autoremove
+#   become: true
+#   become_method: sudo
 
 - name: "Updateing packages"
   apt: update
