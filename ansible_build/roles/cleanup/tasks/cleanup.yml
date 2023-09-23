@@ -1,21 +1,23 @@
 ---
-# - name: "Autoremoving packages"
-#   apt: autoremove
-#   become: true
-#   become_method: sudo
+- name: "Autoremoving packages"
+  apt: 
+    autoremove: yes
+  become: true
+  become_method: sudo
 
 - name: "Updateing packages"
-  apt: update
+  apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
   become: true
   become_method: sudo
 
 - name: "Running clean"
-  apt: clean
+  apt: 
+    clean: yes
   become: true
   become_method: sudo
 
 - name: "Zeroing out disk"
-  command: dd if=/dev/zero of=/EMPTY bs=1M 
+  command: dd if=/dev/zero of=/EMPTY bs=1M
   become: true
   become_method: sudo
 
