@@ -54,6 +54,8 @@
       - docker.io
       - docker-compose
       - podman
+      - apache2
+      - nginx
       - rsyslog
       - ufw
       - rlwrap

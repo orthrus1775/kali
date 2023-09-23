@@ -1,12 +1,7 @@
 ---
-- name: "Autoremoving packages"
+- name: "Auto removing packages"
   apt: 
     autoremove: yes
-  become: true
-  become_method: sudo
-
-- name: "Updateing packages"
-  apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
   become: true
   become_method: sudo
 
@@ -15,17 +10,7 @@
     clean: yes
   become: true
   become_method: sudo
-
-- name: "Zeroing out disk"
-  command: dd if=/dev/zero of=/EMPTY bs=1M
-  become: true
-  become_method: sudo
-
-- name: "Removing zero'd out space"
-  command: rm -f /EMPTY
-  become: true
-  become_method: sudo
-
+  
 - name: "Deleting buildprep in sudoers.d"
   file:
     path: /etc/sudoers.d/buildprep
