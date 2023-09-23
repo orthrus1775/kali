@@ -4,27 +4,27 @@
   connection: local
   roles:
     - role: "roles/install-tools"
-    - role: "roles/install-vmtools"
-    - role: "roles/configure-tmux"
-    - role: "roles/customize-terminal"
-    - role: "roles/customize-browser"
-    - role: "roles/configure-logging"
-    - role: "roles/install-ghostwriter"
-    - role: "roles/customize-desktop"
-    - role: "roles/gantsign.visual-studio-code"
-      users:
-        - username: "{{ ansible_user_id }}" 
-          visual_studio_code_extensions:
-            - streetsidesoftware.code-spell-checker
-            - ms-python.python
-            - DEVSENSE.phptools-vscode
-            - ms-vscode.cpptools
-            - ms-dotnettools.csharp
-            - ms-azuretools.vscode-docker
-            - ms-python.vscode-pylance
-            - kosz78.nim
-            #- GitHub.copilot-nightly
-            #- snyk-security.snyk-vulnerability-scanner
+    # - role: "roles/install-vmtools"
+    # - role: "roles/configure-tmux"
+    # - role: "roles/customize-terminal"
+    # - role: "roles/customize-browser"
+    # - role: "roles/configure-logging"
+    # - role: "roles/install-ghostwriter"
+    # - role: "roles/customize-desktop"
+    # - role: "roles/gantsign.visual-studio-code"
+    #   users:
+    #     - username: "{{ ansible_user_id }}" 
+    #       visual_studio_code_extensions:
+    #         - streetsidesoftware.code-spell-checker
+    #         - ms-python.python
+    #         - DEVSENSE.phptools-vscode
+    #         - ms-vscode.cpptools
+    #         - ms-dotnettools.csharp
+    #         - ms-azuretools.vscode-docker
+    #         - ms-python.vscode-pylance
+    #         - kosz78.nim
+    #         #- GitHub.copilot-nightly
+    #         #- snyk-security.snyk-vulnerability-scanner
     - role: "roles/cleanup"
 
 

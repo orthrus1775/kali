@@ -9,7 +9,7 @@
     - { repo: "https://github.com/ropnop/windapsearch", location: "/opt/windapsearch" }
     - { repo: "https://github.com/BishopFox/sliver", location: "/opt/sliver" }
     - { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin" }
-    - { repo: "https://github.com/its-a-feature/Mythic", location: "/opt/Mythic" }
+    - { repo: "https://github.com/its-a-feature/Mythic", location: "/opt/mythic" }
   become: true
   become_method: sudo
 
