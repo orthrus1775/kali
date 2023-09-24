@@ -6,3 +6,4 @@
 - include: python-tools.yml
 - include: go_packages.yml
 - include: gem-tools.yml
+- include: code.yml

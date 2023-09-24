@@ -1,0 +1,39 @@
+---
+- name: Add Microsoft GPG key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  become: true
+  become_method: sudo
+
+- name: Add VSCode repository
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+    state: present
+  become: true
+  become_method: sudo
+
+- name: Update APT package cache
+  apt:
+    update_cache: yes
+  become: true
+  become_method: sudo
+
+- name: Install Visual Studio Code
+  apt:
+    name: code
+    state: present
+  become: true
+  become_method: sudo
+
+#vars:
+#  vscode_extensions:
+#    - ms-python.python
+#    - kosz78.nim
+#- name: Install VSCode extenssions
+#  shell: code --install-extension {{ item }}
+#  with_items: "{{ vscode_extensions }}"
+#  become: yes
+#  become_method: sudo
+
+
