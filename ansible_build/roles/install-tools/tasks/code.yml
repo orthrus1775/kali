@@ -29,9 +29,9 @@
 - name: Getting VSCode extenssions
   ansible.builtin.command:
     cmd: "code --install-extension {{ item }}" 
-    loop:
-      - ms-python.python
-      - kosz78.nim
+ :with_items:
+    - ms-python.python
+    - kosz78.nim
   become: true
   become_method: sudo
 
