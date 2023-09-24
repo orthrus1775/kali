@@ -9,7 +9,7 @@
     - { repo: "https://github.com/ropnop/windapsearch", location: "/opt/windapsearch" }
     - { repo: "https://github.com/BishopFox/sliver", location: "/opt/sliver" }
     - { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin" }
-    - { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin-agetn" }
+    - { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin-agent" }
     - { repo: "https://github.com/its-a-feature/Mythic", location: "/opt/mythic" } 
     - { repo: "https://github.com/Tylous/ScareCrow", location: "/opt/scarecrow" } 
     - { repo: "https://github.com/0xZDH/redirect.rules.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/redirect.rules" }
@@ -59,3 +59,23 @@
     path: "{{ build_dir.path }}"
     state: absent
   when: build_dir.path is defined
+
+- name: "Fixing /opt dir"
+  file:
+    path: /opt
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: '0755'
+    recursive: true
+  become: true
+  become_method: sudo
+
+- name: "Fixing redirector dir"
+  file:
+    path: "{{ ansible_env.HOME }}/Desktop/redirector/"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: '0755'
+    recursive: true
+  become: true
+  become_method: sudo  

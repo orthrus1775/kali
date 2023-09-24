@@ -1,0 +1,24 @@
+---
+- name: test task
+  command: touch foobar
+  chdir: /opt/scarecrow 
+
+- name: test go install
+  command: go get github.com/fatih/color
+  chdir: /opt/scarecrow 
+
+# - name: "install go zip"
+#   shell: go install github.com/yeka/zip@master
+
+# - name: "install go version info"
+#   shell: go install github.com/josephspurrier/goversioninfo@master
+
+# - name: "install go pe debug"
+#   shell: go install github.com/Binject/debug/pe@master 
+
+# - name: "install go rawreader"
+#   shell: go install github.com/awgh/rawreader@master 
+
+# - name: "install go satellite"
+#   shell: go install github.com/t94j0/satellite@master
+
