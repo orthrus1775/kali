@@ -1,9 +1,4 @@
 ---
-- name: "Installing Ghostwriter repo"
-  git:
-    repo: "{{ item.repo }}"
-    dest: "{{ item.location }}"
-  loop:
-    - { repo: "https://github.com/GhostManager/Ghostwriter.git", location: "/usr/local/sbin/Ghostwriter" }
-  become: true
-  become_method: sudo
+- name: "Installing Ghostwriter cli"
+  ansible.builtin.shell:
+    cmd: /usr/local/sbin/Ghostwriter/ghostwriter-cli-linux install

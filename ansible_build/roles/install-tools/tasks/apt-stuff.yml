@@ -59,7 +59,6 @@
       - ntpdate
       - flameshot
       - exiftool
-      - nim
       - veil-evasion
       - evilginx2
       - evilginx2-dbgsym
