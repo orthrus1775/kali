@@ -96,45 +96,15 @@
   become: true
   become_method: sudo
 
-- name: "Start service sshd"
+- name: "Starting and Enabling Services"
   ansible.builtin.service:
-    name: ssh
+    name: "{{ item }}"
     state: started
-  become: true
-  become_method: sudo
-  
-- name: "Start service rsyslog"
-  ansible.builtin.service:
-    name: rsyslog
-    state: started
-  become: true
-  become_method: sudo
-
-- name: "Start service ufw"
-  ansible.builtin.service:
-    name: ufw
-    state: started  
-  become: true
-  become_method: sudo
-
-- name: "Enable service ssh"
-  ansible.builtin.service:
-    name: ssh
     enabled: yes
-  become: true
-  become_method: sudo
-
-- name: "Enable service rsyslog"
-  ansible.builtin.service:
-    name: rsyslog
-    enabled: yes
-  become: true
-  become_method: sudo
-
-- name: "Enable service ufw"
-  ansible.builtin.service:
-    name: ufw
-    enabled: yes
+  loop:
+     - ssh
+     - rsyslog
+     - ufw
   become: true
   become_method: sudo
 
