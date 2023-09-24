@@ -93,6 +93,7 @@
       - rlwrap
       - openssl
       - osslsigncode
+      - SSHUTTLE
     state: latest
   become: true
   become_method: sudo
@@ -114,3 +115,7 @@
   command: pipx ensurepath
   become: true
   become_method: sudo
+
+- name: "Installing Garble"
+  ansible.builtin.shell:
+    cmd: go install mvdan.cc/garble@latest
