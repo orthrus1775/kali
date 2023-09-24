@@ -29,8 +29,6 @@
 - name: Getting VSCode python extension
   ansible.builtin.command:
     cmd: code --install-extension ms-python.python 
-  become: true
-  become_method: sudo
 
 - name: Getting VSCode extenssions
   ansible.builtin.command:
