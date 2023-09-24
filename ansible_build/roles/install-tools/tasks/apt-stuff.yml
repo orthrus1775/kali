@@ -105,6 +105,7 @@
      - ssh
      - rsyslog
      - ufw
+     - docker
   become: true
   become_method: sudo
 

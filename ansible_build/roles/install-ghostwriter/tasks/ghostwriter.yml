@@ -1,4 +1,12 @@
 ---
+- name: "Recursively change ownership and permissions of /opt/"
+  ansible.builtin.command:
+    cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} /usr/local/sbin/Ghostwriter/" 
+  become: true
+  become_method: sudo
+
 - name: "Installing Ghostwriter cli"
   ansible.builtin.shell:
-    cmd: /usr/local/sbin/Ghostwriter/ghostwriter-cli-linux install
+    cmd: "/usr/local/sbin/Ghostwriter/ghostwriter-cli-linux install"
+  become: true
+  become_method: sudo
