@@ -9,9 +9,11 @@
     - { repo: "https://github.com/ropnop/windapsearch", location: "/opt/windapsearch" }
     - { repo: "https://github.com/BishopFox/sliver", location: "/opt/sliver" }
     - { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin" }
-    - { repo: "https://github.com/its-a-feature/Mythic", location: "/opt/mythic" }
-    - { repo: "https://github.com/0xZDH/redirect.rules", location: "{{ ansible_env.HOME }}/Desktop/redirector/redirect.rules" }
-    - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.gits", location: "{{ ansible_env.HOME }}/Desktop/redirector/redteam-infrastructure-automation" }
+    - { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin-agetn" }
+    - { repo: "https://github.com/its-a-feature/Mythic", location: "/opt/mythic" } 
+    - { repo: "https://github.com/Tylous/ScareCrow", location: "/opt/scarecrow" } 
+    - { repo: "https://github.com/0xZDH/redirect.rules.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/redirect.rules" }
+    - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/redteam-infrastructure-automation" }
     - { repo: "https://github.com/t94j0/satellite.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/satellite" }
   become: true
   become_method: sudo

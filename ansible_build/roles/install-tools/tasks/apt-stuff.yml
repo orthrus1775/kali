@@ -61,6 +61,8 @@
       - rsyslog
       - ufw
       - rlwrap
+      - openssl
+      - osslsigncode
     state: latest
   become: true
   become_method: sudo

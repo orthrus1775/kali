@@ -7,41 +7,19 @@
 
 - name: "Adding files to new directory"
   copy:
-    src: "{{ role_path }}/files/{{ item }}"
+    src: "{{ item }}"
     dest: "{{ ansible_env.HOME }}/Desktop/redirector/"
-    loop:
-      - iptables.sh
-      - buildredteam.sh
-      - ManageDNS.sh
-      - RegisterDNS.sh
-      - revert.sh
-      - ca/
-      - phish/ 
-    force: yes
+  with_fileglob:
+    - "{{ role_path }}/files/"  
 
 - name: "Enabling Apache Mods"
-  command: a2enmod "{{ item }}"
+  command: "a2enmod {{ item }}"
   loop:
     - proxy
     - proxy_http
     - rewrite
   become: true
   become_method: sudo
-
-- name: "Installing useful github repos"
-  git:
-    repo: "{{ item.repo }}"
-    dest: "{{ item.location }}"
-  loop:
-    - { repo: "https://github.com/0xZDH/redirect.rules", location: "{{ ansible_env.HOME }}/Desktop/redirector/redirect.rules" }
-    - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.gits", location: "{{ ansible_env.HOME }}/Desktop/redirector/redteam-infrastructure-automation" }
-    - { repo: "https://github.com/t94j0/satellite.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/satellite" }
-    - { repo: "https://github.com/BishopFox/sliver", location: "/opt/sliver" }
-    - { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin" }
-    - { repo: "https://github.com/its-a-feature/Mythic", location: "/opt/mythic" }
-  become: true
-  become_method: sudo
-
 
   
 
