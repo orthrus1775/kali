@@ -93,7 +93,7 @@
       - rlwrap
       - openssl
       - osslsigncode
-      - SSHUTTLE
+      - sshuttle
     state: latest
   become: true
   become_method: sudo

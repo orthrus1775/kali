@@ -10,7 +10,17 @@
     clean: yes
   become: true
   become_method: sudo
-  
+
+- name: "Clearing logs"
+  command: "rm -rf /var/log/*"
+  become: true
+  become_method: sudo
+
+- name: "Clearing history"
+  command: "history -c"
+  become: true
+  become_method: sudo
+
 - name: "Deleting buildprep in sudoers.d"
   file:
     path: /etc/sudoers.d/buildprep
