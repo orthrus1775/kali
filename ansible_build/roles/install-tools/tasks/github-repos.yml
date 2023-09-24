@@ -75,7 +75,7 @@
   shell: "{{ build_dir.path }}/nim-install.sh"    
 
 - name: "Installing winim for nim"
-  shell: "nimble install winim"
+  shell: "export PATH={{ ansible_env.HOME }}.nimble/bin:$PATH && nimble install winim -y"
 
 - name: Remove temporary build directory
   ansible.builtin.file:
