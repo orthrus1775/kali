@@ -10,7 +10,7 @@
     src: "{{ role_path }}/files/.zshrc"
     dest: "{{ ansible_env.HOME }}" 
     force: yes 
-  become: yes
+  become: true
   become_method: sudo 
 
 - name: "Copy PS profile"

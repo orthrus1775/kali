@@ -12,6 +12,8 @@
     - { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin-agent" }
     - { repo: "https://github.com/its-a-feature/Mythic", location: "/opt/mythic" } 
     - { repo: "https://github.com/Tylous/ScareCrow", location: "/opt/scarecrow" } 
+    - { repo: "https://github.com/t3l3machus/hoaxshell", location: "/opt/hoaxshell" } 
+    - { repo: "https://github.com/HavocFramework/Havoc", location: "/opt/havoc" }
     - { repo: "https://github.com/0xZDH/redirect.rules.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/redirect.rules" }
     - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/redteam-infrastructure-automation" }
     - { repo: "https://github.com/t94j0/satellite.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/satellite" }
@@ -48,6 +50,10 @@
     - { repo: "DominicBreuker/pspy", regex: "pspy32s", location: "/usr/share/pspy" }
     - { repo: "DominicBreuker/pspy", regex: "pspy64", location: "/usr/share/pspy" }
     - { repo: "DominicBreuker/pspy", regex: "pspy64s", location: "/usr/share/pspy" } 
+    - { repo: nicocha30/ligolo-ng", regex: "ligolo-ng_agent_0.4.4_linux_amd64.tar.gz", location: "/usr/share/ligolo-ng" }
+    - { repo: "nicocha30/ligolo-ng", regex: "ligolo-ng_agent_0.4.4_windows_amd64.zip", location: "/usr/share/ligolo-ng" } 
+    - { repo: nicocha30/ligolo-ng", regex: "ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz", location: "/usr/share/ligolo-ng" }
+    - { repo: "nicocha30/ligolo-ng", regex: "ligolo-ng_proxy_0.4.4_windows_amd64.zip", location: "/usr/share/ligolo-ng" } 
     - { repo: "t94j0/satellite", regex: "_linux_amd64.deb", location: "{{ ansible_env.HOME }}/Desktop/redirector/satellite" }
   async: 45
   poll: 0

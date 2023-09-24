@@ -34,15 +34,26 @@
   ansible.builtin.command:
     cmd: code --install-extension kosz78.nim
 
+- name: Getting VSCode extenssions
+  ansible.builtin.command:
+    cmd: code --install-extension streetsidesoftware.code-spell-checker
 
-#vars:
-#  vscode_extensions:
-#    - ms-python.python
-#    - kosz78.nim
-#- name: Install VSCode extenssions
-#  shell: code --install-extension {{ item }}
-#  with_items: "{{ vscode_extensions }}"
-#  become: yes
-#  become_method: sudo
+- name: Getting VSCode extenssions
+  ansible.builtin.command:
+    cmd: code --install-extension ms-vscode.cpptools
 
+- name: Getting VSCode extenssions
+  ansible.builtin.command:
+    cmd: code --install-extension DEVSENSE.phptools-vscode
 
+- name: Getting VSCode extenssions
+  ansible.builtin.command:
+    cmd: code --install-extension ms-dotnettools.csharp
+
+- name: Getting VSCode extenssions
+  ansible.builtin.command:
+    cmd: code --install-extension ms-azuretools.vscode-docker
+
+- name: Getting VSCode extenssions
+  ansible.builtin.command:
+    cmd: code --install-extension ms-python.vscode-pylance
