@@ -18,6 +18,9 @@
     - proxy
     - proxy_http
     - rewrite
+    - headers
+    - ssl
+    - cache
   become: true
   become_method: sudo
 

@@ -86,6 +86,7 @@
       - apache2
       - postfix
       - nginx
+      - nginx-extras
       - whois
       - rsyslog
       - ufw
