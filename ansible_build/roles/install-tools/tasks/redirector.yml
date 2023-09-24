@@ -21,7 +21,3 @@
   become: true
   become_method: sudo
 
-- name: "Installing Nim"
-  ansible.builtin.command:
-    cmd: curl https://nim-lang.org/choosenim/init.sh -sSf  | sh  -s -- -y  
-

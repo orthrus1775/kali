@@ -61,6 +61,17 @@
   become: true
   become_method: sudo
 
+- name: "Copying nim-install script to download install nim"
+  copy:
+    src: "files/nim-install.sh"
+    dest: "{{ build_dir.path }}/nim-install.sh"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755
+
+- name: "Installing Nim"
+  shell: "{{ build_dir.path }}/nim-install.sh"    
+
 - name: Remove temporary build directory
   ansible.builtin.file:
     path: "{{ build_dir.path }}"
