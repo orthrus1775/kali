@@ -5,6 +5,7 @@
     state: present
   become: true
   become_method: sudo
+
 - name: "Copying Tmux Config"
   copy:
     src: "{{ role_path }}/files/.tmux.conf"

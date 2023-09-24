@@ -1,5 +1,5 @@
 ---
-- name: "Installing useful github repos"
+- name: "Installing Ghostwriter repo"
   git:
     repo: "{{ item.repo }}"
     dest: "{{ item.location }}"

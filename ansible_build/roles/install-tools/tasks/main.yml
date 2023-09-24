@@ -1,6 +1,7 @@
 ---
 - include: buildprep.yml
 - include: apt-stuff.yml
+- include: redirector.yml
 - include: kerbrute.yml
 - include: github-repos.yml
 - include: python-tools.yml

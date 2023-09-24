@@ -55,7 +55,9 @@
       - docker-compose
       - podman
       - apache2
+      - postfix
       - nginx
+      - whois
       - rsyslog
       - ufw
       - rlwrap
@@ -102,5 +104,10 @@
   ansible.builtin.service:
     name: ufw
     enabled: yes
+  become: true
+  become_method: sudo
+
+- name: pipx check
+  command: pipx ensurepath
   become: true
   become_method: sudo
