@@ -17,6 +17,7 @@
     - { repo: "https://github.com/HavocFramework/Havoc", location: "/opt/havoc" }
     - { repo: "https://github.com/0xZDH/redirect.rules.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/redirect.rules" }
     - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/redteam-infrastructure-automation" }
+    - { repo: "https://github.com/threatexpress/cs2modrewrite.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/cs2modrewrite" }
     - { repo: "https://github.com/t94j0/satellite.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/satellite" }
     - { repo: "https://github.com/GhostManager/Ghostwriter.git", location: "/usr/local/sbin/Ghostwriter" }
   become: true
@@ -72,6 +73,9 @@
 
 - name: "Installing Nim"
   shell: "{{ build_dir.path }}/nim-install.sh"    
+
+- name: "Installing winim for nim"
+  shell: "nimble install winim"
 
 - name: Remove temporary build directory
   ansible.builtin.file:
