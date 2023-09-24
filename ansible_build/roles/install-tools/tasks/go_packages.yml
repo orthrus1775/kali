@@ -3,7 +3,7 @@
   shell: go install github.com/ropnop/kerbrute@master
 
 - name: "install go color"
-  shell: go install github.com/fatih/color@latest
+  shell: go install github.com/fatih/color@master
 
 - name: "install go zip"
   shell: go install github.com/yeka/zip@master
