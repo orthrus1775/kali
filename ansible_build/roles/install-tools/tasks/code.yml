@@ -26,14 +26,16 @@
   become: true
   become_method: sudo
 
-- name: Getting VSCode extenssions
+- name: Getting VSCode python extension
   ansible.builtin.command:
-    cmd: "code --install-extension {{ item }}" 
- :with_items:
-    - ms-python.python
-    - kosz78.nim
+    cmd: code --install-extension ms-python.python 
   become: true
   become_method: sudo
+
+- name: Getting VSCode extenssions
+  ansible.builtin.command:
+    cmd: code --install-extension kosz78.nim
+
 
 #vars:
 #  vscode_extensions:
