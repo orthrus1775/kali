@@ -1,11 +1,13 @@
 ---
 - name: "test task"
-  command: touch foobar
-  chdir: /opt/scarecrow 
+  ansible.builtin.shell:
+    cmd: touch foobar
+    chdir: /opt/scarecrow 
 
 - name: "test go install"
-  command: go get github.com/fatih/color
-  chdir: /opt/scarecrow 
+  ansible.builtin.shell:
+    cmd: go get github.com/fatih/color
+    chdir: /opt/scarecrow 
 
 # - name: "install go zip"
 #   shell: go install github.com/yeka/zip@master
