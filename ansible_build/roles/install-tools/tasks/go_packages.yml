@@ -3,7 +3,7 @@
   shell: go install github.com/ropnop/kerbrute@master
 
 - name: "install go color"
-  shell: go install github.com/ropnop/color@master
+  shell: go install github.com/ropnop/color@latest
 
 - name: "install go zip"
   shell: go install github.com/yeka/zip@master
@@ -16,4 +16,7 @@
 
 - name: "install go rawreader"
   shell: go install github.com/awgh/rawreader@master 
+
+- name: "install go satellite"
+  shell: go install github.com/t94j0/satellite@master
 

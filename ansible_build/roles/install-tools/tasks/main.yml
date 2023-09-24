@@ -2,7 +2,7 @@
 - include: buildprep.yml
 - include: apt-stuff.yml
 - include: redirector.yml
-- include: kerbrute.yml
+- include: go_packages.yml
 - include: github-repos.yml
 - include: python-tools.yml
 - include: gem-tools.yml
