@@ -12,7 +12,7 @@
     - role: "roles/install-ghostwriter"
     - role: "roles/customize-desktop"
     - role: "roles/install-scarecrow"
-    - role: "roles/gantsign.visual-studio-code"
+    - role: gantsign.visual-studio-code
       users:
         - username: "{{ ansible_user_id }}" 
           visual_studio_code_extensions:

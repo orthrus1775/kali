@@ -60,22 +60,15 @@
     state: absent
   when: build_dir.path is defined
 
-- name: "Fixing /opt dir"
-  file:
-    path: /opt
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
-    mode: '0755'
-    recursive: true
+- name: "Recursively change ownership and permissions of /opt/"
+  ansible.builtin.command:
+    cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} /opt/" 
   become: true
   become_method: sudo
 
-- name: "Fixing redirector dir"
-  file:
-    path: "{{ ansible_env.HOME }}/Desktop/redirector/"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
-    mode: '0755'
-    recursive: true
+- name: "Recursively change ownership and permissions of redirector"
+  ansible.builtin.command:
+    cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} {{ ansible_env.HOME }}/Desktop/redirector/" 
   become: true
-  become_method: sudo  
+  become_method: sudo
+
