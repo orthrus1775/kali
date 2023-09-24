@@ -1,9 +1,9 @@
 ---
-- name: test task
+- name: "test task"
   command: touch foobar
   chdir: /opt/scarecrow 
 
-- name: test go install
+- name: "test go install"
   command: go get github.com/fatih/color
   chdir: /opt/scarecrow 
 
