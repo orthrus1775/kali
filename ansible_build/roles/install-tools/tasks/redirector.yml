@@ -10,7 +10,18 @@
     src: "{{ item }}"
     dest: "{{ ansible_env.HOME }}/Desktop/redirector/"
   with_fileglob:
-    - "{{ role_path }}/files/"  
+    - "{{ role_path }}/files/*"  
+
+- name: "Adding ca directory"
+  copy:
+    src: "{{ role_path }}/files/ca"
+    dest: "{{ ansible_env.HOME }}/Desktop/redirector/ca/"
+    remote_src: true
+- name: "Adding phish directory"
+  copy:
+    src: "{{ role_path }}/files/phish"
+    dest: "{{ ansible_env.HOME }}/Desktop/redirector/phish/"
+    remote_src: true 
 
 - name: "Enabling Apache Mods"
   command: "a2enmod {{ item }}"
