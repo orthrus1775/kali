@@ -3,7 +3,7 @@
   shell: go install github.com/ropnop/kerbrute@master
 
 - name: "install go garble"
-  shell: go install go install mvdan.cc/garble@latest
+  shell: go install mvdan.cc/garble@latest
 
 
 # - name: "install go zip"
