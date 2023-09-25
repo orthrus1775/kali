@@ -17,9 +17,7 @@
   become_method: sudo
 
 - name: "Clearing history"
-  command: "history -c"
-  become: true
-  become_method: sudo
+  command: "rm -f ~/.zsh_history"
 
 - name: "Deleting buildprep in sudoers.d"
   file:
