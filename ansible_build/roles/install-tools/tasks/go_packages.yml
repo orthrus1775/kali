@@ -2,8 +2,9 @@
 - name: "install Kerbrute"
   shell: go install github.com/ropnop/kerbrute@master
 
-# - name: "install go color"
-#   shell: go install github.com/fatih/color@master
+- name: "install go garble"
+  shell: go install go install mvdan.cc/garble@latest
+
 
 # - name: "install go zip"
 #   shell: go install github.com/yeka/zip@master
