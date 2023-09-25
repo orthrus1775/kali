@@ -5,8 +5,16 @@
   become: true
   become_method: sudo
 
+- name: "Verify docker is running"
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+  become: true
+  become_method: sudo
+
 - name: "Installing Ghostwriter cli"
   ansible.builtin.shell:
     cmd: "/usr/local/sbin/Ghostwriter/ghostwriter-cli-linux install"
   become: true
-  become_method: sudo
+  become_method: sudo  

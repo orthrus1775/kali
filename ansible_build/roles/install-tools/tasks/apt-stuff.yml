@@ -102,7 +102,7 @@
   ansible.builtin.service:
     name: "{{ item }}"
     state: started
-    enabled: yes
+    enabled: true
   loop:
      - ssh
      - rsyslog
