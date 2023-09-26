@@ -1,0 +1,9 @@
+---
+- name: "Customizing Kali"
+  hosts: localhost
+  connection: local
+  roles:
+    - role: "roles/install-tools"
+    - role: "roles/cleanup"
+
+

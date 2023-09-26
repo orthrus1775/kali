@@ -1,0 +1,27 @@
+---
+- name: "Auto removing packages"
+  apt: 
+    autoremove: yes
+  become: true
+  become_method: sudo
+
+- name: "Running clean"
+  apt: 
+    clean: yes
+  become: true
+  become_method: sudo
+
+- name: "Clearing logs"
+  command: "rm -rf /var/log/*"
+  become: true
+  become_method: sudo
+
+- name: "Clearing history"
+  command: "rm -f ~/.zsh_history"
+
+- name: "Deleting buildprep in sudoers.d"
+  file:
+    path: /etc/sudoers.d/buildprep
+    state: absent
+  become: true
+  become_method: sudo
