@@ -1,6 +1,0 @@
----
-- import_tasks: install.yml
-
-- import_tasks: install-extensions.yml
-
-- import_tasks: write-settings.yml

@@ -10,7 +10,7 @@
     - role: "roles/configure-logging"
     - role: "roles/install-ghostwriter"
     #- role: "roles/customize-desktop"
-    - role: "roles/install-scarecrow"
+    - role: "roles/build-tools"
     # - role: gantsign.visual-studio-code
     #   users:
     #     - username: "{{ ansible_user_id }}" 

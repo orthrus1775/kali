@@ -1,0 +1,34 @@
+---
+- name: "go install mod sys"
+  ansible.builtin.shell:
+    cmd: go mod download golang.org/x/sys
+    chdir: /opt/havoc/teamserver
+
+- name: "go install mod ugorji/go"
+  ansible.builtin.shell:
+    cmd: go mod download github.com/ugorji/go
+    chdir: /opt/havoc/teamserver
+
+- name: "Build havoc team server"
+  ansible.builtin.shell:
+    cmd: make ts-build
+    chdir: /opt/havoc/
+  become: true
+  become_method: sudo  
+
+- name: "Build havoc client"
+  ansible.builtin.shell:
+    cmd: make client-build
+    chdir: /opt/havoc/
+
+- name: "Creating a symlink"
+  ansible.builtin.shell:
+    cmd: ln -s /opt/havoc/client/Havoc /usr/bin/havoc-client
+  become: true
+  become_method: sudo  
+
+- name: "Creating a symlink"
+  ansible.builtin.shell:
+    cmd: ln -s /opt/havoc/havoc /usr/bin/havoc-server
+  become: true
+  become_method: sudo

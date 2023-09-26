@@ -68,14 +68,6 @@
   become: true
   become_method: sudo
 
-- name: "Copying nim-install script to download install nim"
-  copy:
-    src: "files/nim-install.sh"
-    dest: "{{ build_dir.path }}/nim-install.sh"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
-    mode: 0755
-
 - name: "Copying sliver-install script to download install sliver"
   copy:
     src: "files/sliver-install.sh"
@@ -92,20 +84,6 @@
     group: "{{ ansible_user_id }}"
     mode: 0755
 
-- name: "Copying rust-install script to download install rust"
-  copy:
-    src: "files/rust-install.sh"
-    dest: "{{ build_dir.path }}/rust-install.sh"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
-    mode: 0755
-
-- name: "Installing Nim"
-  shell: "{{ build_dir.path }}/nim-install.sh"    
-
-- name: "Installing winim"
-  shell: "export PATH=$HOME/.nimble/bin:$PATH && nimble install winim -y"
-
 - name: "Installing sliver"
   shell: "{{ build_dir.path }}/sliver-install.sh" 
   become: true
@@ -116,26 +94,11 @@
   become: true
   become_method: sudo
 
-- name: "Installing rust"
-  shell: "{{ build_dir.path }}/rust-install.sh -y"     
-
-- name: "Installing windows build target"
-  shell: "export PATH=$HOME/.cargo/bin:$PATH && rustup target add x86_64-pc-windows-gnu"
-
-- name: Remove temporary build directory
-  ansible.builtin.file:
-    path: "{{ build_dir.path }}"
-    state: absent
-  when: build_dir.path is defined
-
 - name: "Recursively change ownership and permissions of /opt/"
   ansible.builtin.command:
     cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} /opt/" 
   become: true
   become_method: sudo
-
-- name: "Test build of rustyneedle"
-  shell: "export PATH=$HOME/.cargo/bin:$PATH && cargo build --manifest-path=/opt/rustyneedle/Cargo.toml --target x86_64-pc-windows-gnu --release"  
 
 - name: "Recursively change ownership and permissions of redirector"
   ansible.builtin.command:
