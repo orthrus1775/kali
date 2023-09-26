@@ -1,7 +1,0 @@
----
-- include: buildprep.yml
-- include: apt-stuff.yml
-- include: redirector.yml
-- include: github-repos.yml
-- include: python-tools.yml
-- include: go_packages.yml

@@ -84,7 +84,7 @@
     group: "{{ ansible_user_id }}"
     mode: 0755
 
-- name: "Copying merlin-install script to download install sliver"
+- name: "Copying merlin-install script to download install merlin"
   copy:
     src: "files/merlin-install.sh"
     dest: "{{ build_dir.path }}/merlin-install.sh"
@@ -94,7 +94,7 @@
 
 - name: "Copying rust-install script to download install rust"
   copy:
-    src: "files/merlin-install.sh"
+    src: "files/rust-install.sh"
     dest: "{{ build_dir.path }}/rust-install.sh"
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"
