@@ -8,6 +8,7 @@
     - { repo: "https://github.com/Flangvik/SharpCollection", location: "/opt/SharpCollection" }
     - { repo: "https://github.com/danielmiessler/SecLists", location: "/opt/SecLists" }
     - { repo: "https://github.com/ropnop/windapsearch", location: "/opt/windapsearch" }
+    - { repo: "https://github.com/mttaggart/rustyneedle.git", location: "/opt/rustyneedle" }
     #- { repo: "https://github.com/BishopFox/sliver", location: "/opt/sliver" }
     #- { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin" }  Compile issues with the version of go, quic-go
     #- { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin-agent" } Compile issues with the version of go, quic-go
@@ -91,6 +92,14 @@
     group: "{{ ansible_user_id }}"
     mode: 0755
 
+- name: "Copying rust-install script to download install rust"
+  copy:
+    src: "files/merlin-install.sh"
+    dest: "{{ build_dir.path }}/rust-install.sh"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755
+
 - name: "Installing Nim"
   shell: "{{ build_dir.path }}/nim-install.sh"    
 
@@ -101,11 +110,18 @@
   shell: "{{ build_dir.path }}/sliver-install.sh" 
   become: true
   become_method: sudo
-  
+
 - name: "Installing merlin"
   shell: "{{ build_dir.path }}/merlin-install.sh"     
   become: true
   become_method: sudo
+
+- name: "Installing rust"
+  shell: "{{ build_dir.path }}/rust-install.sh -y"     
+
+- name: "Installing windows build target"
+  shell: "export PATH=$HOME/.cargo/bin:$PATH && rustup target add x86_64-pc-windows-gnu"
+
 - name: Remove temporary build directory
   ansible.builtin.file:
     path: "{{ build_dir.path }}"
@@ -117,6 +133,9 @@
     cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} /opt/" 
   become: true
   become_method: sudo
+
+- name: "Test build of rustyneedle"
+  shell: "export PATH=$HOME/.cargo/bin:$PATH && cargo build --manifest-path=/opt/rustyneedle/Cargo.toml --target x86_64-pc-windows-gnu --release"  
 
 - name: "Recursively change ownership and permissions of redirector"
   ansible.builtin.command:
