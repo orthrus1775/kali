@@ -1,0 +1,6 @@
+- name: "Build Covenant Docker"
+  ansible.builtin.shell:
+    cmd: docker build -t covenant .
+    chdir: /opt/covenant/Covenant/Covenant
+  become: true
+  become_method: sudo
