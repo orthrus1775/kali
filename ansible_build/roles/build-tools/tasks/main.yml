@@ -3,3 +3,4 @@
 - include: havoc.yml
 - include: needle.yml
 - include: covenant.yml
+- include: mythic.yml

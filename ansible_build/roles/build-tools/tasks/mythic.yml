@@ -1,0 +1,54 @@
+- name: "Installing Mythic Agent Repos"
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.location }}"
+    force: true 
+  loop:
+    - { repo: "https://github.com/MythicAgents/Athena.git", location: "/opt/mythicagents/athena" }
+    - { repo: "https://github.com/MythicAgents/Apollo.git", location: "/opt/mythicagents/apollo" }
+    - { repo: "https://github.com/MythicAgents/Medusa.git", location: "/opt/mythicagents/medusa" }
+    - { repo: "https://github.com/MythicAgents/poseidon.git", location: "/opt/mythicagents/poseidon" }
+  become: true
+  become_method: sudo
+
+- name: "Installing Mythic C2 Profile Repos"
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.location }}"
+    force: true 
+  loop:
+    - { repo: "https://github.com/MythicC2Profiles/http.git", location: "/opt/mythicC2profiles/http" }
+    - { repo: "https://github.com/MythicC2Profiles/discord.git", location: "/opt/mythicC2profiles/discord" }
+    - { repo: "https://github.com/MythicC2Profiles/dynamichttp.git", location: "/opt/mythicC2profiles/dynamichttp" }
+    - { repo: "https://github.com/MythicC2Profiles/dns.git", location: "/opt/mythicC2profiles/dns" }
+    - { repo: "https://github.com/MythicC2Profiles/smb.git", location: "/opt/mythicC2profiles/smb" }
+    - { repo: "https://github.com/MythicC2Profiles/tcp.git", location: "/opt/mythicC2profiles/tcp" }
+  become: true
+  become_method: sudo  
+
+- name: "Build mythic-cli"
+  ansible.builtin.shell:
+    cmd: make 
+    chdir: /opt/mythic
+  become: true
+  become_method: sudo    
+
+- name: "Verify docker is running"
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+  become: true
+  become_method: sudo
+
+- name: "Installing Mythic-cli"
+  ansible.builtin.shell:
+    cmd: "/opt/mythic-cli install"
+  become: true
+  become_method: sudo
+
+- name: "Stopping Ghostwriter" 
+  ansible.builtin.shell:
+    cmd: "/opt/mythic-cli install stop"
+  become: true
+  become_method: sudo  
