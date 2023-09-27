@@ -43,19 +43,22 @@
 
 - name: "Installing Mythic-cli"
   ansible.builtin.shell:
-    cmd: "/opt/mythic-cli start"
+    cmd: "mythic-cli start"
+    chdir: /opt/mythic
   become: true
   become_method: sudo
 
 - name: "Installing Mythic Apollo Agent"
   ansible.builtin.shell:
-    cmd: "/opt/mythic-cli install github https://github.com/MythicAgents/apollo"
+    cmd: "mythic-cli install github https://github.com/MythicAgents/apollo"
+    chdir: /opt/mythic
   become: true
   become_method: sudo
 
 - name: "Installing Mythic Http Profile"
   ansible.builtin.shell:
-    cmd: "/opt/mythic-cli install github https://github.com/MythicC2Profiles/http"
+    cmd: "mythic-cli install github https://github.com/MythicC2Profiles/http"
+    chdir: /opt/mythic  
   become: true
   become_method: sudo
 
@@ -67,18 +70,21 @@
 
 - name: "Installing Mythic SMB Profile"
   ansible.builtin.shell:
-    cmd: "/opt/mythic-cli install github https://github.com/MythicC2Profiles/smb"
+    cmd: "mythic-cli install github https://github.com/MythicC2Profiles/smb"
+    chdir: /opt/mythic
   become: true
   become_method: sudo
 
 - name: "Installing Mythic DynamicHTTP Profile"
   ansible.builtin.shell:
-    cmd: "/opt/mythic-cli install github https://github.com/MythicC2Profiles/smb"
+    cmd: "mythic-cli install github https://github.com/MythicC2Profiles/smb"
+    chdir: /opt/mythic
   become: true
   become_method: sudo
 
 - name: "Stopping Mythic" 
   ansible.builtin.shell:
-    cmd: "/opt/mythic-cli stop"
+    cmd: "mythic-cli stop"
+    chdir: /opt/mythic    
   become: true
   become_method: sudo  
