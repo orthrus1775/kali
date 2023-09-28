@@ -25,8 +25,6 @@
   when: burp_cert.stat.exists == False
   ignore_errors: true
 
-
-
 - name: Get running processes
   shell: "ps -ef | grep -v grep | grep -w burpsuite | awk '{print $2}' | awk 'FNR == 1 {print}'"
   register: running_processes
@@ -51,7 +49,7 @@
   become: true
   become_method: sudo
   when: burp_cert.stat.exists == False
-  ignore_unreachable: true
+  ignore_errors: true
 
 - name: Create directory for Burp Suite extras
   ansible.builtin.file:
