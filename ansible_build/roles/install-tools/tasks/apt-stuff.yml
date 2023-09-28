@@ -80,8 +80,6 @@
       - tnscmd10g
       - whatweb
       - wkhtmltopdf
-      - docker.io
-      - docker-compose
       - podman
       - apache2
       - postfix
@@ -97,6 +95,37 @@
     state: latest
   become: true
   become_method: sudo
+
+- name: Adding Docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+  become: true
+  become_method: sudo
+
+- name: Add Docker repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable
+    state: present
+  become: true
+  become_method: sudo
+
+- name: Update APT package cache
+  apt:
+    update_cache: yes
+  become: true
+  become_method: sudo
+
+- name: "Install Docker"
+  apt:
+    name: 
+       - docker-ce
+       - docker-compose-plugin
+    state: present
+    install_recommends: false
+  become: true
+  become_method: sudo
+
 
 - name: "Starting and Enabling Services"
   ansible.builtin.service:
