@@ -31,7 +31,7 @@
     cmd: make 
     chdir: /opt/mythic
   become: true
-  become_method: sudo    
+  become_method: sudo
 
 - name: "Verify docker is running"
   ansible.builtin.service:
@@ -39,26 +39,41 @@
     state: started
     enabled: true
   become: true
-  become_method: sudo
+  become_method: sudo    
+
+# - name: Create temporary build directory
+#   ansible.builtin.tempfile:
+#     state: directory
+#   register: build_dir
+
+# - name: "Copying merlin-install script to download install merlin"
+#   copy:
+#     src: "files/merlin-install.sh"
+#     dest: "{{ build_dir.path }}/merlin-install.sh"
+#     owner: "{{ ansible_user_id }}"
+#     group: "{{ ansible_user_id }}"
+#     mode: 0755
+
+# - name: "Installing sliver"
+#   shell: "{{ build_dir.path }}/sliver-install.sh" 
+#   become: true
+#   become_method: sudo
 
 - name: "Installing Mythic-cli"
   ansible.builtin.shell:
-    cmd: "mythic-cli start"
-    chdir: /opt/mythic
+    cmd: "/opt/mythic/mythic-cli start"
   become: true
   become_method: sudo
 
 - name: "Installing Mythic Apollo Agent"
   ansible.builtin.shell:
-    cmd: "mythic-cli install github https://github.com/MythicAgents/apollo"
-    chdir: /opt/mythic
+    cmd: "/opt/mythic/mythic-cli install github https://github.com/MythicAgents/apollo"
   become: true
   become_method: sudo
 
 - name: "Installing Mythic Http Profile"
   ansible.builtin.shell:
-    cmd: "mythic-cli install github https://github.com/MythicC2Profiles/http"
-    chdir: /opt/mythic  
+    cmd: "/opt/mythic/mythic-cli install github https://github.com/MythicC2Profiles/http"
   become: true
   become_method: sudo
 
@@ -88,3 +103,9 @@
     chdir: /opt/mythic    
   become: true
   become_method: sudo  
+
+# - name: Remove temporary build directory
+#   ansible.builtin.file:
+#     path: "{{ build_dir.path }}"
+#     state: absent
+#   when: build_dir.path is defined  

@@ -118,3 +118,8 @@
   become: true
   become_method: sudo
 
+- name: Remove temporary build directory
+  ansible.builtin.file:
+    path: "{{ build_dir.path }}"
+    state: absent
+  when: build_dir.path is defined
