@@ -258,3 +258,4 @@ if [ -f /etc/zsh_command_not_found ]; then
 fi
 export GOPATH=$HOME/go
 export PATH=/home/kali/.nimble/bin:$PATH
+export PATH=/opt/mythic/:$PATH

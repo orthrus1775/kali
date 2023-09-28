@@ -41,71 +41,71 @@
   become: true
   become_method: sudo    
 
-# - name: Create temporary build directory
-#   ansible.builtin.tempfile:
-#     state: directory
-#   register: build_dir
+- name: Create temporary build directory
+  ansible.builtin.tempfile:
+    state: directory
+  register: build_dir
 
-# - name: "Copying merlin-install script to download install merlin"
-#   copy:
-#     src: "files/merlin-install.sh"
-#     dest: "{{ build_dir.path }}/merlin-install.sh"
-#     owner: "{{ ansible_user_id }}"
-#     group: "{{ ansible_user_id }}"
-#     mode: 0755
+- name: "Copying mythic-install script to download install mythic"
+  copy:
+    src: "files/mythic-install.sh"
+    dest: "{{ build_dir.path }}/mythic-install.sh"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755
 
-# - name: "Installing sliver"
-#   shell: "{{ build_dir.path }}/sliver-install.sh" 
+- name: "Installing Mythic"
+  shell: "{{ build_dir.path }}/mythic-install.sh" 
+  become: true
+  become_method: sudo
+
+# - name: "Installing Mythic-cli"
+#   ansible.builtin.shell:
+#     cmd: "/opt/mythic/mythic-cli start"
 #   become: true
 #   become_method: sudo
 
-- name: "Installing Mythic-cli"
-  ansible.builtin.shell:
-    cmd: "/opt/mythic/mythic-cli start"
-  become: true
-  become_method: sudo
+# - name: "Installing Mythic Apollo Agent"
+#   ansible.builtin.shell:
+#     cmd: "/opt/mythic/mythic-cli install github https://github.com/MythicAgents/apollo"
+#   become: true
+#   become_method: sudo
 
-- name: "Installing Mythic Apollo Agent"
-  ansible.builtin.shell:
-    cmd: "/opt/mythic/mythic-cli install github https://github.com/MythicAgents/apollo"
-  become: true
-  become_method: sudo
+# - name: "Installing Mythic Http Profile"
+#   ansible.builtin.shell:
+#     cmd: "/opt/mythic/mythic-cli install github https://github.com/MythicC2Profiles/http"
+#   become: true
+#   become_method: sudo
 
-- name: "Installing Mythic Http Profile"
-  ansible.builtin.shell:
-    cmd: "/opt/mythic/mythic-cli install github https://github.com/MythicC2Profiles/http"
-  become: true
-  become_method: sudo
+# - name: "Installing Mythic TCP Profile"
+#   ansible.builtin.shell:
+#     cmd: "/opt/mythic-cli install github https://github.com/MythicC2Profiles/tcp"
+#   become: true
+#   become_method: sudo
 
-- name: "Installing Mythic TCP Profile"
-  ansible.builtin.shell:
-    cmd: "/opt/mythic-cli install github https://github.com/MythicC2Profiles/tcp"
-  become: true
-  become_method: sudo
+# - name: "Installing Mythic SMB Profile"
+#   ansible.builtin.shell:
+#     cmd: "mythic-cli install github https://github.com/MythicC2Profiles/smb"
+#     chdir: /opt/mythic
+#   become: true
+#   become_method: sudo
 
-- name: "Installing Mythic SMB Profile"
-  ansible.builtin.shell:
-    cmd: "mythic-cli install github https://github.com/MythicC2Profiles/smb"
-    chdir: /opt/mythic
-  become: true
-  become_method: sudo
+# - name: "Installing Mythic DynamicHTTP Profile"
+#   ansible.builtin.shell:
+#     cmd: "mythic-cli install github https://github.com/MythicC2Profiles/smb"
+#     chdir: /opt/mythic
+#   become: true
+#   become_method: sudo
 
-- name: "Installing Mythic DynamicHTTP Profile"
-  ansible.builtin.shell:
-    cmd: "mythic-cli install github https://github.com/MythicC2Profiles/smb"
-    chdir: /opt/mythic
-  become: true
-  become_method: sudo
+# - name: "Stopping Mythic" 
+#   ansible.builtin.shell:
+#     cmd: "mythic-cli stop"
+#     chdir: /opt/mythic    
+#   become: true
+#   become_method: sudo  
 
-- name: "Stopping Mythic" 
-  ansible.builtin.shell:
-    cmd: "mythic-cli stop"
-    chdir: /opt/mythic    
-  become: true
-  become_method: sudo  
-
-# - name: Remove temporary build directory
-#   ansible.builtin.file:
-#     path: "{{ build_dir.path }}"
-#     state: absent
-#   when: build_dir.path is defined  
+- name: Remove temporary build directory
+  ansible.builtin.file:
+    path: "{{ build_dir.path }}"
+    state: absent
+  when: build_dir.path is defined  
