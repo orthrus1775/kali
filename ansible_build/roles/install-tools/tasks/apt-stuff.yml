@@ -96,6 +96,13 @@
   become: true
   become_method: sudo
 
+- name: Remove Docker
+  ansible.builtin.file:
+    path: /usr/bin/docker
+    state: absent
+  become: true
+  become_method: sudo
+  
 - name: Adding Docker GPG key
   apt_key:
     url: https://download.docker.com/linux/debian/gpg
