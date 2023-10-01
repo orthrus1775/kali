@@ -5,7 +5,7 @@
   become_method: sudo  
 
 - name: "Creating a symlink"
-ansible.builtin.shell:
-  cmd: ln -s /opt/hoaxshell/hoaxshell.py /usr/bin/windapsearch
-become_method: sudo  
+  ansible.builtin.shell:
+    cmd: ln -s /opt/hoaxshell/hoaxshell.py /usr/bin/windapsearch
+  become_method: sudo  
 
