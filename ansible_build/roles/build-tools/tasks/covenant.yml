@@ -29,7 +29,7 @@
   become_method: sudo
   ignore_errors: true
 
- - name: "Stopping Covenant"
+- name: "Stopping Covenant"
   ansible.builtin.shell:
     cmd: docker stop covenant 
   become: true
