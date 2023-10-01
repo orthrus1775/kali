@@ -15,14 +15,14 @@
 
 - name: "Fixing Docker Restart configs" 
   ansible.builtin.shell:
-    cmd: "sed -i 's/restart: always/restart: on-failure:10/g' production.yml && sed -i 's/restart: always/restart: on-failure:10/g' /opt/ghostwriter/local.yml"
+    cmd: "sed -i 's/restart: always/restart: on-failure:10/g' /opt/ghostwriter/production.yml && sed -i 's/restart: always/restart: on-failure:10/g' /opt/ghostwriter/local.yml"
   become: true
   become_method: sudo
   ignore_errors: true
 
 - name: "Fixing Ghostwriter Ports" 
   ansible.builtin.shell:
-    cmd: "sed -i sed -i 's/0.0.0.0:80:80/0.0.0.0:8980:80/g' production.yml && sed -i 's/0.0.0.0:443:443/0.0.0.0:8443:443/g' /opt/ghostwriter/production.yml"
+    cmd: "sed -i sed -i 's/0.0.0.0:80:80/0.0.0.0:8980:80/g' /opt/ghostwriter/production.yml && sed -i 's/0.0.0.0:443:443/0.0.0.0:8443:443/g' /opt/ghostwriter/production.yml"
   become: true
   become_method: sudo
   ignore_errors: true
@@ -47,7 +47,7 @@
 
 - name: "Rebuilding Ghostwriter" 
   ansible.builtin.shell:
-    cmd: "/opt/ghostwriter/ghostwriter-cli-linux stop"
+    cmd: "/opt/ghostwriter/ghostwriter-cli-linux containers stop"
   become: true
   become_method: sudo
  

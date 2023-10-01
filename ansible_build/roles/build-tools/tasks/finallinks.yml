@@ -6,6 +6,16 @@
 
 - name: "Creating a symlink"
   ansible.builtin.shell:
-    cmd: ln -s /opt/hoaxshell/hoaxshell.py /usr/bin/windapsearch
+    cmd: ln -s /opt/hoaxshell/hoaxshell.py /usr/bin/hoaxshell
   become_method: sudo  
+
+- name: "Creating a symlink"
+  ansible.builtin.shell:
+    cmd: ln -s /opt/hoaxshell/hoaxshell.py /usr/bin/hoaxshell
+  become_method: sudo  
+
+- name: "Creating a symlink"
+  ansible.builtin.shell:
+    cmd: ln -s "{{ ansible_env.HOME }}"./local/pipx/venvs/adidnsdump/bin/adidnsdump /usr/bin/hoaxshell
+  become_method: sudo 
 
