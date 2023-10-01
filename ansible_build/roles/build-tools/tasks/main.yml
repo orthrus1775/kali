@@ -4,3 +4,5 @@
 - include: needle.yml
 - include: covenant.yml
 - include: mythic.yml
+- include: ghostwriter
+- include: finallinks.yml

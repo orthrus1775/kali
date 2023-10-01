@@ -1,0 +1,56 @@
+---
+- name: "Verify docker is running"
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+  become: true
+  become_method: sudo
+
+- name: "Installing Ghostwriter cli"
+  ansible.builtin.shell:
+    cmd: "/opt/ghostwriter/ghostwriter-cli-linux install"
+  become: true
+  become_method: sudo
+
+- name: "Fixing Docker Restart configs" 
+  ansible.builtin.shell:
+    cmd: "sed -i 's/restart: always/restart: on-failure:10/g' production.yml && sed -i 's/restart: always/restart: on-failure:10/g' local.yml"
+  become: true
+  become_method: sudo
+
+- name: "Fixing Ghostwriter Ports" 
+  ansible.builtin.shell:
+    cmd: "sed -i sed -i 's/0.0.0.0:80:80/0.0.0.0:8980:80/g' production.yml && sed -i 's/0.0.0.0:443:443/0.0.0.0:8443:443/g' production.yml"
+  become: true
+  become_method: sudo
+
+- name: "Rebuilding Ghostwriter" 
+  ansible.builtin.shell:
+    cmd: "/opt/ghostwriter/ghostwriter-cli-linux containers down"
+  become: true
+  become_method: sudo
+
+- name: "Rebuilding Ghostwriter" 
+  ansible.builtin.shell:
+    cmd: "/opt/ghostwriter/ghostwriter-cli-linux containers up"
+  become: true
+  become_method: sudo
+
+- name: "Fixing Ghostwriter Restart" 
+  ansible.builtin.shell:
+    cmd: "docker update --restart on-failure:10 $(docker ps -q)"
+  become: true
+  become_method: sudo
+
+- name: "Rebuilding Ghostwriter" 
+  ansible.builtin.shell:
+    cmd: "/opt/ghostwriter/ghostwriter-cli-linux stop"
+  become: true
+  become_method: sudo
+ 
+- name: "Creating a symlink"
+  ansible.builtin.shell:
+    cmd: ln -s /opt/ghostwriter/ghostwriter-cli-linux /usr/bin/ghostwriter-cli
+  become: true
+  become_method: sudo  

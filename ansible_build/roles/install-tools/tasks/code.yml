@@ -28,8 +28,7 @@
 
 - name: "Getting VSCode extensions"
   ansible.builtin.command:
-    cmd: "code --install-extension {{ item }}"
-     
+    cmd: "code --install-extension {{ item }}"    
   loop:
     - ms-python.python
     - ms-python.vscode-pylance

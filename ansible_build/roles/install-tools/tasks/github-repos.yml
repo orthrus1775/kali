@@ -5,23 +5,23 @@
     dest: "{{ item.location }}"
     force: true 
   loop:
-    - { repo: "https://github.com/Flangvik/SharpCollection", location: "/opt/SharpCollection" }
-    #- { repo: "https://github.com/danielmiessler/SecLists", location: "/opt/SecLists" }
+    - { repo: "https://github.com/Flangvik/SharpCollection", location: "/opt/sharpcollection" }  
     - { repo: "https://github.com/ropnop/windapsearch", location: "/opt/windapsearch" }
     - { repo: "https://github.com/mttaggart/rustyneedle.git", location: "/opt/rustyneedle" }
     - { repo: "https://github.com/m0nad/Diamorphine.git", location: "/opt/diamorphine"}
-    #- { repo: "https://github.com/BishopFox/sliver", location: "/opt/sliver" }
-    #- { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin" }  Compile issues with the version of go, quic-go
-    #- { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin-agent" } Compile issues with the version of go, quic-go
     - { repo: "https://github.com/its-a-feature/Mythic.git", location: "/opt/mythic" } 
     - { repo: "https://github.com/Tylous/ScareCrow", location: "/opt/scarecrow" } 
     - { repo: "https://github.com/t3l3machus/hoaxshell", location: "/opt/hoaxshell" } 
     - { repo: "https://github.com/HavocFramework/Havoc", location: "/opt/havoc" }
-    - { repo: "https://github.com/0xZDH/redirect.rules.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/redirect.rules" }
-    - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/redteam-infrastructure-automation" }
-    - { repo: "https://github.com/threatexpress/cs2modrewrite.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/cs2modrewrite" }
-    - { repo: "https://github.com/t94j0/satellite.git", location: "{{ ansible_env.HOME }}/Desktop/redirector/satellite" }
-    - { repo: "https://github.com/GhostManager/Ghostwriter.git", location: "/usr/local/sbin/Ghostwriter" }
+    - { repo: "https://github.com/0xZDH/redirect.rules.git", location: "/opt/redirector/redirect.rules" }
+    - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.git", location: "/opt/redirector/redteam-infrastructure-automation" }
+    - { repo: "https://github.com/threatexpress/cs2modrewrite.git", location: "/opt/redirector/cs2modrewrite" }
+    - { repo: "https://github.com/t94j0/satellite.git", location: "/opt/redirector/satellite" }
+    - { repo: "https://github.com/GhostManager/Ghostwriter.git", location: "/opt/ghostwriter" }
+   #- { repo: "https://github.com/danielmiessler/SecLists", location: "/opt/SecLists" }
+   #- { repo: "https://github.com/BishopFox/sliver", location: "/opt/sliver" }
+   #- { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin" }  Compile issues with the version of go, quic-go
+   #- { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin-agent" } Compile issues with the version of go, quic-go
   become: true
   become_method: sudo
 
@@ -70,7 +70,7 @@
     - { repo: "nicocha30/ligolo-ng", regex: "ligolo-ng_agent_0.4.4_windows_amd64.zip", location: "/usr/share/ligolo-ng" } 
     - { repo: nicocha30/ligolo-ng", regex: "ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz", location: "/usr/share/ligolo-ng" }
     - { repo: "nicocha30/ligolo-ng", regex: "ligolo-ng_proxy_0.4.4_windows_amd64.zip", location: "/usr/share/ligolo-ng" } 
-    - { repo: "t94j0/satellite", regex: "_linux_amd64.deb", location: "{{ ansible_env.HOME }}/Desktop/redirector/satellite" } 
+    - { repo: "t94j0/satellite", regex: "_linux_amd64.deb", location: "/opt/redirector/satellite" } 
     #- { repo: "Ne0nd0g/merlin", regex: "merlinServer-Linux-x64.7z", location: "/usr/bin/" }
     #- { repo: "Ne0nd0g/merlin", regex: "merlinAgent-Windows-x64.7z", location: "/usr/share/merlin-agents" }
     #- { repo: "Ne0nd0g/merlin", regex: "merlinAgent-Linux-x64.7z", location: "/usr/share/merlin-agents" }
@@ -109,12 +109,6 @@
 - name: "Recursively change ownership and permissions of /opt/"
   ansible.builtin.command:
     cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} /opt/" 
-  become: true
-  become_method: sudo
-
-- name: "Recursively change ownership and permissions of redirector"
-  ansible.builtin.command:
-    cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} {{ ansible_env.HOME }}/Desktop/redirector/" 
   become: true
   become_method: sudo
 
