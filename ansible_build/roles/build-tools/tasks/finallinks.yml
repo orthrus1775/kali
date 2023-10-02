@@ -17,7 +17,7 @@
 - name: "Creating symlinks"
   ansible.builtin.file:
     src: "{{ item.src }}"
-    dst: "{{ item.dst }}"
+    path: "{{ item.dst }}"
     state: link
   loop:
     - { src: /opt/windapsearch/windapsearch.py, dst: /usr/bin/windapsearch }

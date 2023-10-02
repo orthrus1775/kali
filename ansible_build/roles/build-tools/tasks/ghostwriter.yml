@@ -22,7 +22,7 @@
 
 - name: "Fixing Ghostwriter Ports" 
   ansible.builtin.shell:
-    cmd: "sed -i sed -i 's/0.0.0.0:80:80/0.0.0.0:8980:80/g' /opt/ghostwriter/production.yml && sed -i 's/0.0.0.0:443:443/0.0.0.0:8443:443/g' /opt/ghostwriter/production.yml"
+    cmd: "sed -i 's/0.0.0.0:80:80/0.0.0.0:8980:80/g' /opt/ghostwriter/production.yml && sed -i 's/0.0.0.0:443:443/0.0.0.0:8443:443/g' /opt/ghostwriter/production.yml"
   become: true
   become_method: sudo
   ignore_errors: true
