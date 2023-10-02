@@ -15,7 +15,7 @@
 #   become_method: sudo  
 
 - name: "Creating symlinks"
-  ansible.fuiltin.file:
+  ansible.builtin.file:
     src: "{{ item.src }}"
     dst: "{{ item.dst }}"
     state: link
