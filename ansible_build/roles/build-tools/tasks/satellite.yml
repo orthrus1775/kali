@@ -27,6 +27,14 @@
   become: true
   become_method: sudo
 
+- name: "Copying satellite binary"  
+  copy:
+    src: /usr/bin/satellite
+    dest: /usr/local/bin/satelite
+    mode: 0755
+  become: true
+  become_method: sudo
+
 - name: "Starting Satellite"
   ansible.builtin.service:
     name: satellite
