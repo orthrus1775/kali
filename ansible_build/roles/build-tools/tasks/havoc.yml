@@ -21,6 +21,17 @@
     cmd: make client-build
     chdir: /opt/havoc/
 
+- name: "Installing LatLoader"
+  git:
+    repo: "https://github.com/icyguider/LatLoader.git"
+    dest: "/opt/havoc/client/Modules/LatLoader"
+    force: true
+
+- name: "Build havoc client"
+  ansible.builtin.shell:
+    cmd: make 
+    chdir: /opt/havoc/client/Modules/LatLoader
+
 - name: "Creating a symlink"
   ansible.builtin.shell:
     cmd: ln -s /opt/havoc/client/Havoc /usr/bin/havoc-client
