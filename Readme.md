@@ -1,6 +1,6 @@
-** Make sure to pip install ansible, apt has an older copy **
+# Tools that help get things done.  
 
-# Instructions
+## Instructions  
 * Install Ansible (pip3 install ansible)
 * Ensure Ansible is in your path
 * Clone and enter the repo (git clone)
