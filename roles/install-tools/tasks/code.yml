@@ -1,0 +1,68 @@
+---
+- name: Add Microsoft GPG key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  become: true
+  become_method: sudo
+
+- name: Add VSCode repository
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+    state: present
+  become: true
+  become_method: sudo
+
+- name: Update APT package cache
+  apt:
+    update_cache: yes
+  become: true
+  become_method: sudo
+
+- name: "Install Visual Studio Code"
+  apt:
+    name: code
+    state: present
+  become: true
+  become_method: sudo
+
+- name: "Getting VSCode extensions"
+  ansible.builtin.command:
+    cmd: "code --install-extension {{ item }}"    
+  loop:
+    - ms-python.python
+    - ms-python.vscode-pylance
+    - kosz78.nim
+    - streetsidesoftware.code-spell-checker
+    - ms-vscode.cpptools
+    - DEVSENSE.phptools-vscode
+    - ms-dotnettools.csharp
+    - ms-azuretools.vscode-docker
+
+# - name: Getting VSCode extenssions
+#   ansible.builtin.command:
+#     cmd: code --install-extension kosz78.nim
+
+# - name: Getting VSCode extenssions
+#   ansible.builtin.command:
+#     cmd: code --install-extension streetsidesoftware.code-spell-checker
+
+# - name: Getting VSCode extenssions
+#   ansible.builtin.command:
+#     cmd: code --install-extension ms-vscode.cpptools
+
+# - name: Getting VSCode extenssions
+#   ansible.builtin.command:
+#     cmd: code --install-extension DEVSENSE.phptools-vscode
+
+# - name: Getting VSCode extenssions
+#   ansible.builtin.command:
+#     cmd: code --install-extension ms-dotnettools.csharp
+
+# - name: Getting VSCode extenssions
+#   ansible.builtin.command:
+#     cmd: code --install-extension ms-azuretools.vscode-docker
+
+# - name: Getting VSCode extenssions
+#   ansible.builtin.command:
+#     cmd: code --install-extension ms-python.vscode-pylance

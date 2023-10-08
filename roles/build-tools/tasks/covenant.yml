@@ -1,0 +1,43 @@
+- name: "Build Covenant Docker"
+  ansible.builtin.shell:
+    cmd: docker build -t covenant .
+    chdir: /opt/covenant/Covenant/
+  become: true
+  become_method: sudo
+
+- name: "Copying covenant.sh"
+  copy:
+    src: "files/covenant.sh"
+    dest: /opt/covenant/Covenant/covenant.sh"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755  
+
+- name: "Verify docker is running"
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+  become: true
+  become_method: sudo
+
+- name: "Running Covenant"
+  ansible.builtin.shell:
+    cmd: "docker run -p 7443:7443 -p 80:80 -p 443:443 --name covenant -v /opt/covenant/Covenant/Data:/app/Data covenant &" 
+    chdir: /opt/covenant/Covenant/
+  become: true
+  become_method: sudo
+  ignore_errors: true
+
+- name: "Stopping Covenant"
+  ansible.builtin.shell:
+    cmd: docker stop covenant 
+  become: true
+  become_method: sudo
+  ignore_errors: true 
+
+- name: "Creating a symlink"
+  ansible.builtin.shell:
+    cmd: ln -s /opt/covenant/Covenant/covenant.sh /usr/bin/covenant
+  become: true
+  become_method: sudo

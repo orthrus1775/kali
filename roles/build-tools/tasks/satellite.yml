@@ -1,0 +1,53 @@
+---
+- name: Install a satellite package
+  ansible.builtin.apt:
+    deb: /opt/redirector/satellite/satellite_0.0.4_linux_amd64.deb
+  become: true
+  become_method: sudo 
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /etc/satellite/keys
+    state: directory
+    mode: '0755'
+  become: true
+  become_method: sudo 
+
+- name: "Generating Test Keys"
+  ansible.builtin.shell:
+    cmd: 'openssl req -nodes -new -x509 -subj "/C=US/ST=SC/L=Charleston/O=Hacker/CN=satellite" -keyout /etc/satellite/keys/key.pem -out /etc/satellite/keys/cert.pem -days 365'
+  become: true
+  become_method: sudo
+
+- name: "Copying basic satellite config"
+  copy:
+    src: "files/satellite.config.yml"
+    dest: /etc/satellite/config.yml
+    mode: 0755
+  become: true
+  become_method: sudo
+
+- name: "Copying satellite binary"  
+  copy:
+    src: /usr/bin/satellite
+    dest: /usr/local/bin/satelite
+    mode: 0755
+  become: true
+  become_method: sudo
+
+- name: "Starting Satellite"
+  ansible.builtin.service:
+    name: satellite
+    state: started
+  become: true
+  become_method: sudo
+  ignore_errors: true
+
+- name: "Stopping Satellite"
+  ansible.builtin.service:
+    name: satellite
+    state: stopped
+  become: true
+  become_method: sudo
+  ignore_errors: true
+

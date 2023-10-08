@@ -1,0 +1,10 @@
+---
+- include: buildprep.yml
+- include: apt-stuff.yml
+- include: github-repos.yml
+- include: python-tools.yml
+- include: go_packages.yml
+- include: gem-tools.yml
+- include: code.yml
+- include: "vmtools.yml"
+- include: redirector.yml

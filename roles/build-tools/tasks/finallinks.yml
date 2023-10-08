@@ -1,0 +1,27 @@
+---
+# - name: "Creating a windapsearch symlink"
+#   ansible.builtin.shell:
+#     cmd: ln -s /opt/windapsearch/windapsearch.py /usr/bin/windapsearch
+#   become_method: sudo  
+
+# - name: "Creating a hoaxshell symlink"
+#   ansible.builtin.shell:
+#     cmd: ln -s /opt/hoaxshell/hoaxshell.py /usr/bin/hoaxshell
+#   become_method: sudo  
+
+# - name: "Creating a adidnsdump symlink"
+#   ansible.builtin.shell:
+#     cmd: ln -s "{{ ansible_env.HOME }}/.local/pipx/venvs/adidnsdump/bin/adidnsdump" /usr/bin/adidnsdump
+#   become_method: sudo  
+
+- name: "Creating symlinks"
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    path: "{{ item.dst }}"
+    state: link
+  loop:
+    - { src: /opt/windapsearch/windapsearch.py, dst: /usr/bin/windapsearch }
+    - { src: /opt/hoaxshell/hoaxshell.py, dst: /usr/bin/hoaxshell } 
+    - { src: "{{ ansible_env.HOME }}/.local/pipx/venvs/adidnsdump/bin/adidnsdump", dst: /usr/bin/adidnsdump }   
+  become: true
+  become_method: sudo 
