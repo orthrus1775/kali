@@ -1,9 +1,0 @@
-- name: "Installing mount-shared-foldersn"
-  command: "install -v -D -m0755 /usr/lib/kali_tweaks/data/mount-shared-folders /usr/local/sbin/mount-shared-folders"
-  become: true
-  become_method: sudo
-
-- name: "Installing restart-vm-tools"
-  command: "install -v -D -m0755 /usr/lib/kali_tweaks/data/restart-vm-tools /usr/local/sbin/restart-vm-tools"
-  become: true
-  become_method: sudo
