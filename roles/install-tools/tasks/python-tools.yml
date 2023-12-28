@@ -3,10 +3,12 @@
   community.general.pipx:
     name: "{{ item.name }}"
     source: "{{ item.url }}"
-    state: latest
+    state: install
+    system_site_packages: true
   loop:
     # - { name: 'impacket', url: 'git+https://github.com/fortra/impacket.git' }
     # - { name: 'crackmapexec', url: 'git+https://github.com/byt3bl33d3r/CrackMapExec.git' }
     # - { name: 'certipy-ad', url: 'git+https://github.com/ly4k/Certipy.git' }
     - { name: 'autorecon', url: 'git+https://github.com/Tib3rius/AutoRecon.git' }
-    - { name: 'adidnsdump', url: 'git+https://github.com/dirkjanm/adidnsdump.git' }  
+    - { name: 'adidnsdump', url: 'git+https://github.com/dirkjanm/adidnsdump.git' }
+    - { name: 'wesng', url: 'git+https://github.com/bitsadmin/wesng.git' }  

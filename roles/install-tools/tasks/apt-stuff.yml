@@ -116,7 +116,7 @@
 #   become: true
 #   become_method: sudo
 
-- name: "Fixing Docker Restart configs" 
+- name: "Setting up Veil" 
   ansible.builtin.shell:
     cmd: "/usr/share/veil/config/setup.sh --force --silent"
   become: true
