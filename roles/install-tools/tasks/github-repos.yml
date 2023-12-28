@@ -46,6 +46,7 @@
     - { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin/merlin-server" }  #Compile issues with the version of go, quic-go
     - { repo: "https://github.com/Ne0nd0g/merlin-docker", location: "/opt/merlin/merlin-docker" }  #compile using docker container
     - { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin/merlin-agent" } #Compile issues with the version of go, quic-go
+    - { repo: "https://github.com/Ne0nd0g/merlin-cli.git", location: "/opt/merlin/merlin-cli"}
     - { repo: "https://github.com/bitsadmin/wesng.git", location: "/opt/wesng" }
     - { repo: "https://github.com/cobbr/Covenant", location: "/opt/covenant" }   
   become: true
