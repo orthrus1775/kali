@@ -15,7 +15,7 @@
 
 - name: "Fixing Docker Restart configs" 
   ansible.builtin.shell:
-    cmd: "sed -i 's/restart: always/restart: no/g' /opt/ghostwriter/production.yml && sed -i 's/restart: always/restart: no/g' /opt/ghostwriter/local.yml"
+    cmd: "sed -i 's/restart: always/restart: on-failure:10/g' /opt/ghostwriter/production.yml && sed -i 's/restart: always/restart: on-failure:10/g' /opt/ghostwriter/local.yml"
   become: true
   become_method: sudo
   ignore_errors: true

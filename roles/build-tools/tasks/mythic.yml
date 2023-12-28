@@ -46,7 +46,7 @@
 
 - name: "Stopping Mythic"
   ansible.builtin.shell:
-    cmd: mythic-cli stop
+    cmd: /opt/mythic/mythic-cli stop
   become: true
   become_method: sudo 
   ignore_errors: true
