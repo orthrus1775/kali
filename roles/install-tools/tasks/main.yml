@@ -6,5 +6,6 @@
 - import_tasks: go_packages.yml
 - import_tasks: gem-tools.yml
 - import_tasks: code.yml
-- import_tasks: "vmtools.yml"
+- import_tasks: nim-modules.yml
+- import_tasks: vmtools.yml
 - import_tasks: redirector.yml

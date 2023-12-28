@@ -1,0 +1,14 @@
+- name: "Creating Nim modules directory"
+  ansible.builtin.file:
+    path: "/opt/nimmods"
+    state: directory
+    mode: '0755'
+
+- name: "Installing useful github repos"
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.location }}"
+    force: true 
+  loop:
+    - { repo: "https://github.com/Sn1r/Nim-Reverse-Shell.git", location: "/opt/nimmods/nim-rev-shell" }  
+    - { repo: "https://github.com/byt3bl33d3r/OffensiveNim.git", location: "/opt/nimmods/offensivenim" }
