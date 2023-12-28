@@ -4,8 +4,8 @@
     cmd: go build ScareCrow.go
     chdir: /opt/scarecrow
 
-- name: "Creating a symlink"
-  ansible.builtin.shell:
-    cmd: ln -s /opt/scarecrow/ScareCrow /usr/bin/scarecrow
-  become: true
-  become_method: sudo  
+# - name: "Creating a symlink"
+#   ansible.builtin.shell:
+#     cmd: ln -s /opt/scarecrow/ScareCrow /usr/bin/scarecrow
+#   become: true
+#   become_method: sudo  

@@ -24,6 +24,8 @@
     - { src: /opt/hoaxshell/hoaxshell.py, dst: /usr/bin/hoaxshell } 
     - { src: "{{ ansible_env.HOME }}/.local/pipx/venvs/adidnsdump/bin/adidnsdump", dst: /usr/bin/adidnsdump }
     - { src: /usr/bin/crackmapexec, dst: /usr/bin/cme }
-    - { src: "{{ ansible_env.HOME }}/.local/bin/wes", dst: /usr/bin/wes-ng }    
+    - { src: /opt/wesng/wes.py, dst: /usr/bin/wesng }
+    - { src: /opt/wesng/wes.py, dst: /usr/bin/wes }  
+    - { src: /opt/scarecrow/ScareCrow, dst: /usr/bin/scarecrow}   
   become: true
   become_method: sudo 

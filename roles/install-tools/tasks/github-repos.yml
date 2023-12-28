@@ -1,4 +1,26 @@
 ---
+- name: Install mechanicalsoup python package
+  ansible.builtin.pip:
+    name: mechanicalsoup
+
+- name: Create temporary build directory
+  ansible.builtin.tempfile:
+    state: directory
+  register: build_dir
+
+- name: "Copying merlin-install script to download install merlin"
+  copy:
+    src: "files/merlin-install.sh"
+    dest: "{{ build_dir.path }}/merlin-install.sh"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755
+
+- name: "Installing merlin"
+  shell: "{{ build_dir.path }}/merlin-install.sh"     
+  become: true
+  become_method: sudo
+
 - name: "Installing useful github repos"
   git:
     repo: "{{ item.repo }}"
@@ -12,36 +34,22 @@
     - { repo: "https://github.com/its-a-feature/Mythic.git", location: "/opt/mythic" } 
     - { repo: "https://github.com/Tylous/ScareCrow", location: "/opt/scarecrow" } 
     - { repo: "https://github.com/t3l3machus/hoaxshell", location: "/opt/hoaxshell" } 
-    # - { repo: "https://github.com/HavocFramework/Havoc", location: "/opt/havoc" }
+    # - { repo: "https://github.com/HavocFramework/Havoc", location: "/opt/havoc" } # Included in kali 2023.4
     - { repo: "https://github.com/0xZDH/redirect.rules.git", location: "/opt/redirector/redirect.rules" }
     - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.git", location: "/opt/redirector/redteam-infrastructure-automation" }
     - { repo: "https://github.com/threatexpress/cs2modrewrite.git", location: "/opt/redirector/cs2modrewrite" }
     - { repo: "https://github.com/t94j0/satellite.git", location: "/opt/redirector/satellite" }
     - { repo: "https://github.com/GhostManager/Ghostwriter.git", location: "/opt/ghostwriter" } 
     - { repo: "https://github.com/icyguider/MoreImpacketExamples.git", location: "/opt/moreimpacketexamples" } 
-    # - { repo: "https://github.com/danielmiessler/SecLists", location: "/opt/SecLists" }
-    # - { repo: "https://github.com/BishopFox/sliver", location: "/opt/sliver" }
-    # - { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin" }  Compile issues with the version of go, quic-go
-    - { repo: "https://github.com/Ne0nd0g/merlin-docker", location: "/opt/merlin-docker" }  #compile using docker container
-    # - { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin-agent" } Compile issues with the version of go, quic-go
-  become: true
-  become_method: sudo
-
-- name: "Installing useful github repos"
-  git:
-    repo: "{{ item.repo }}"
-    dest: "{{ item.location }}"
-    recursive: true
-    force: true 
-  loop:
+    # - { repo: "https://github.com/danielmiessler/SecLists", location: "/opt/SecLists" } # Included in kali
+    # - { repo: "https://github.com/BishopFox/sliver", location: "/opt/sliver" } # Included in kali
+    - { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin/merlin-server" }  #Compile issues with the version of go, quic-go
+    - { repo: "https://github.com/Ne0nd0g/merlin-docker", location: "/opt/merlin/merlin-docker" }  #compile using docker container
+    - { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin/merlin-agent" } #Compile issues with the version of go, quic-go
+    - { repo: "https://github.com/bitsadmin/wesng.git", location: "/opt/wesng" }
     - { repo: "https://github.com/cobbr/Covenant", location: "/opt/covenant" }   
   become: true
   become_method: sudo
-
-- name: Create temporary build directory
-  ansible.builtin.tempfile:
-    state: directory
-  register: build_dir
 
 - name: "Copying python script to download github releases"
   copy:
@@ -73,40 +81,23 @@
     - { repo: nicocha30/ligolo-ng", regex: "ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz", location: "/usr/share/ligolo-ng" }
     - { repo: "nicocha30/ligolo-ng", regex: "ligolo-ng_proxy_0.4.4_windows_amd64.zip", location: "/usr/share/ligolo-ng" } 
     - { repo: "t94j0/satellite", regex: "_linux_amd64.deb", location: "/opt/redirector/satellite" } 
-    #- { repo: "Ne0nd0g/merlin", regex: "merlinServer-Linux-x64.7z", location: "/usr/bin/" }
-    #- { repo: "Ne0nd0g/merlin", regex: "merlinAgent-Windows-x64.7z", location: "/usr/share/merlin-agents" }
-    #- { repo: "Ne0nd0g/merlin", regex: "merlinAgent-Linux-x64.7z", location: "/usr/share/merlin-agents" }
-    #-  { repo: "Ne0nd0g/merlin", regex: "merlinAgent-Darwin-x64.7z", location: "/usr/share/merlin-agents" }
   async: 45
   poll: 0
   become: true
   become_method: sudo
 
-- name: "Copying sliver-install script to download install sliver"
-  copy:
-    src: "files/sliver-install.sh"
-    dest: "{{ build_dir.path }}/sliver-install.sh"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
-    mode: 0755
+# - name: "Copying sliver-install script to download install sliver"
+#   copy:
+#     src: "files/sliver-install.sh"
+#     dest: "{{ build_dir.path }}/sliver-install.sh"
+#     owner: "{{ ansible_user_id }}"
+#     group: "{{ ansible_user_id }}"
+#     mode: 0755  
 
-- name: "Copying merlin-install script to download install merlin"
-  copy:
-    src: "files/merlin-install.sh"
-    dest: "{{ build_dir.path }}/merlin-install.sh"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
-    mode: 0755
-
-- name: "Installing sliver"
-  shell: "{{ build_dir.path }}/sliver-install.sh" 
-  become: true
-  become_method: sudo
-
-- name: "Installing merlin"
-  shell: "{{ build_dir.path }}/merlin-install.sh"     
-  become: true
-  become_method: sudo
+# - name: "Installing sliver"
+#   shell: "{{ build_dir.path }}/sliver-install.sh" 
+#   become: true
+#   become_method: sudo
 
 - name: "Recursively change ownership and permissions of /opt/"
   ansible.builtin.command:

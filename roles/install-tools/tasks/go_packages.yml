@@ -11,25 +11,25 @@
 
 - name: "go install color"
   ansible.builtin.shell:
-    cmd: go install github.com/fatih/color@latest
-  ignore_errors: true  
+    cmd: go get github.com/fatih/color
+    chdir: /opt/scarecrow
 
-- name: "go install zip"
+- name: "go install zipr"
   ansible.builtin.shell:
-    cmd: go install github.com/yeka/zip@latest
-  ignore_errors: true
+    cmd: go get github.com/yeka/zip
+    chdir: /opt/scarecrow
 
 - name: "go install version_info"
   ansible.builtin.shell:
-    cmd: go install github.com/josephspurrier/goversioninfo@latest
-  ignore_errors: true
-
+    cmd: go get github.com/josephspurrier/goversioninfo
+    chdir: /opt/scarecrow
+  
 - name: "go install pe debug"
   ansible.builtin.shell:
-    cmd: go install github.com/Binject/debug/pe@latest
-  ignore_errors: true
+    cmd: go get github.com/Binject/debug/pe
+    chdir: /opt/scarecrow
 
 - name: "go install rawreader"
   ansible.builtin.shell:
-    cmd: go install github.com/awgh/rawreader@latest  
-  ignore_errors: true
+    cmd: go get github.com/awgh/rawreader
+    chdir: /opt/scarecrow
