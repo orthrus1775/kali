@@ -2,27 +2,34 @@
 - name: "go install Kerbrute"
   ansible.builtin.shell:
     cmd: go install github.com/ropnop/kerbrute@latest
+  ignore_errors: true  
 
 - name: "go install garble"
   ansible.builtin.shell:
     cmd: go install mvdan.cc/garble@latest
+  ignore_errors: true  
 
 - name: "go install color"
   ansible.builtin.shell:
     cmd: go install github.com/fatih/color@latest
+  ignore_errors: true  
 
 - name: "go install zip"
   ansible.builtin.shell:
     cmd: go install github.com/yeka/zip@latest
+  ignore_errors: true
 
 - name: "go install version_info"
   ansible.builtin.shell:
     cmd: go install github.com/josephspurrier/goversioninfo@latest
+  ignore_errors: true
 
 - name: "go install pe debug"
   ansible.builtin.shell:
     cmd: go install github.com/Binject/debug/pe@latest
+  ignore_errors: true
 
 - name: "go install rawreader"
   ansible.builtin.shell:
     cmd: go install github.com/awgh/rawreader@latest  
+  ignore_errors: true
