@@ -1,10 +1,10 @@
 ---
-- include: buildprep.yml
-- include: apt-stuff.yml
-- include: github-repos.yml
-- include: python-tools.yml
-- include: go_packages.yml
-- include: gem-tools.yml
-- include: code.yml
-- include: "vmtools.yml"
-- include: redirector.yml
+- import_tasks: buildprep.yml
+- import_tasks: apt-stuff.yml
+- import_tasks: github-repos.yml
+- import_tasks: python-tools.yml
+- import_tasks: go_packages.yml
+- import_tasks: gem-tools.yml
+- import_tasks: code.yml
+- import_tasks: "vmtools.yml"
+- import_tasks: redirector.yml

@@ -1,2 +1,2 @@
 ---
-- include: "cleanup.yml"
+- import_tasks: "cleanup.yml"
