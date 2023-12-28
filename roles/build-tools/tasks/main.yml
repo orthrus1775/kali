@@ -1,9 +1,10 @@
 ---
 - include: scarecrow.yml
-- include: havoc.yml
+# - include: havoc.yml
 - include: needle.yml
 - include: satellite.yml
 - include: covenant.yml
-- include: mythic.yml
-- include: ghostwriter.yml
+# - include: mythic.yml
+# - include: ghostwriter.yml
+- include: merlin.yml
 - include: finallinks.yml

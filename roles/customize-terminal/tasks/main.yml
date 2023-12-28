@@ -19,9 +19,9 @@
 #     dest: "{{ ansible_env.HOME }}/.config/powershell/"
 #     force: yes
 
-- name: "setting go path"
-  shell: 'echo export GOPATH=$HOME/go >> "/home/{{ ansible_user_id }}/.zshrc"'
-  ignore_errors: true  
+# - name: "setting go path"
+#   shell: 'echo export GOPATH=$HOME/go >> "/home/{{ ansible_user_id }}/.zshrc"'
+#   ignore_errors: true  
 
 - name: "setting nimble path"
   shell: 'echo export PATH=/home/kali/.nimble/bin:$PATH >> "/home/{{ ansible_user_id }}/.zshrc"' 

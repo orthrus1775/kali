@@ -1,0 +1,6 @@
+- name: "Build Merlin Docker"
+  ansible.builtin.shell:
+    cmd: docker build -t merlin-base .
+    chdir: /opt/merlin-docker
+  become: true
+  become_method: sudo

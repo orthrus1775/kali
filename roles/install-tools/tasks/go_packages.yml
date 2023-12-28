@@ -1,23 +1,28 @@
 ---
-- name: "install Kerbrute"
-  shell: go install github.com/ropnop/kerbrute@master
+- name: "go install Kerbrute"
+  ansible.builtin.shell:
+    cmd: go install github.com/ropnop/kerbrute@latest
 
-- name: "install go garble"
-  shell: go install mvdan.cc/garble@latest
+- name: "go install garble"
+  ansible.builtin.shell:
+    cmd: go install mvdan.cc/garble@latest
 
+- name: "go install color"
+  ansible.builtin.shell:
+    cmd: go install github.com/fatih/color@latest
 
-# - name: "install go zip"
-#   shell: go install github.com/yeka/zip@master
+- name: "go install zip"
+  ansible.builtin.shell:
+    cmd: go install github.com/yeka/zip@latest
 
-# - name: "install go version info"
-#   shell: go install github.com/josephspurrier/goversioninfo@master
+- name: "go install version_info"
+  ansible.builtin.shell:
+    cmd: go install github.com/josephspurrier/goversioninfo@latest
 
-# - name: "install go pe debug"
-#   shell: go install github.com/Binject/debug/pe@master 
+- name: "go install pe debug"
+  ansible.builtin.shell:
+    cmd: go install github.com/Binject/debug/pe@latest
 
-# - name: "install go rawreader"
-#   shell: go install github.com/awgh/rawreader@master 
-
-# - name: "install go satellite"
-#   shell: go install github.com/t94j0/satellite@master
-
+- name: "go install rawreader"
+  ansible.builtin.shell:
+    cmd: go install github.com/awgh/rawreader@latest  

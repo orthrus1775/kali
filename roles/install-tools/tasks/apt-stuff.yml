@@ -12,6 +12,7 @@
 - name: "Installing Packages"
   package:
     name:
+      - kali-linux-everything
       - build-essential
       - apt-utils
       - cmake 
@@ -42,13 +43,11 @@
       - libboost-all-dev 
       - mingw-w64 
       - nasm
-      - kali-linux-everything
       - kali-tools-crypto-stego
       - kali-tools-fuzzing
       - kali-tools-windows-resources
       - kali-linux-large
       - kali-wallpapers-all
-      - golang
       - peass
       - bc
       - xplico
@@ -59,7 +58,6 @@
       - ntpdate
       - flameshot
       - exiftool
-      - veil-evasion
       - evilginx2
       - evilginx2-dbgsym
       - pure-ftpd
@@ -92,28 +90,35 @@
       - openssl
       - osslsigncode
       - sshuttle
+      - docker-compose
     state: latest
   become: true
   become_method: sudo
 
-- name: Remove Docker
-  ansible.builtin.file:
-    path: /usr/bin/docker
-    state: absent
-  become: true
-  become_method: sudo
+# - name: Remove Docker
+#   ansible.builtin.file:
+#     path: /usr/bin/docker
+#     state: absent
+#   become: true
+#   become_method: sudo
   
-- name: Adding Docker GPG key
-  apt_key:
-    url: https://download.docker.com/linux/debian/gpg
-    state: present
-  become: true
-  become_method: sudo
+# - name: Adding Docker GPG key
+#   apt_key:
+#     url: https://download.docker.com/linux/debian/gpg
+#     state: present
+#   become: true
+#   become_method: sudo
 
-- name: Add Docker repository
-  apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable
-    state: present
+# - name: Add Docker repository
+#   apt_repository:
+#     repo: deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable
+#     state: present
+#   become: true
+#   become_method: sudo
+
+- name: "Fixing Docker Restart configs" 
+  ansible.builtin.shell:
+    cmd: "/usr/share/veil/config/setup.sh --force --silent"
   become: true
   become_method: sudo
 
@@ -123,15 +128,15 @@
   become: true
   become_method: sudo
 
-- name: "Install Docker"
-  apt:
-    name: 
-       - docker-ce
-       - docker-compose-plugin
-    state: present
-    install_recommends: false
-  become: true
-  become_method: sudo
+# - name: "Install Docker"
+#   apt:
+#     name: 
+#        - docker-ce
+#        - docker-compose-plugin
+#     state: present
+#     install_recommends: false
+#   become: true
+#   become_method: sudo
 
 
 - name: "Starting and Enabling Services"

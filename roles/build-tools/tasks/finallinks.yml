@@ -22,6 +22,7 @@
   loop:
     - { src: /opt/windapsearch/windapsearch.py, dst: /usr/bin/windapsearch }
     - { src: /opt/hoaxshell/hoaxshell.py, dst: /usr/bin/hoaxshell } 
-    - { src: "{{ ansible_env.HOME }}/.local/pipx/venvs/adidnsdump/bin/adidnsdump", dst: /usr/bin/adidnsdump }   
+    - { src: "{{ ansible_env.HOME }}/.local/pipx/venvs/adidnsdump/bin/adidnsdump", dst: /usr/bin/adidnsdump }
+    - { src: /usr/bin/crackmapexec, dst: /usr/bin/cme }    
   become: true
   become_method: sudo 
