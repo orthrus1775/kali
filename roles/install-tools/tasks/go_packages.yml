@@ -33,3 +33,10 @@
   ansible.builtin.shell:
     cmd: go get github.com/awgh/rawreader
     chdir: /opt/scarecrow
+
+- name: "go install go-isattyr"
+  ansible.builtin.shell:
+    cmd: go get github.com/mattn/go-isatty@v0.0.20
+    chdir: /opt/scarecrow
+
+   
