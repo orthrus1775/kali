@@ -41,12 +41,13 @@
   become: true
   become_method: sudo
 
-- name: "Fixing parse_mitre.py" 
-  ansible.builtin.shell:
-    cmd: "sed -i 's/\/opt\/Havoc\/data\/extensions\/mitre4havoc\/tactics.json/\/usr\/share\/havoc\/client\/Modules\/mitre4havoc\/tactics.json/g' /usr/share/havoc/client/Modules/mitre4havoc/parse_mitre.py"
+- name: "Copy modified parse_mitre"
+  copy:
+    src: "{{ role_path }}/files/parse_mitre.py"
+    dest: "/usr/share/havoc/client/Modules/mitre4havoc/parse_mitre.py" 
+    force: yes 
   become: true
-  become_method: sudo
-  ignore_errors: true
+  become_method: sudo 
  
   
 - name: "Creating MITRE json"
