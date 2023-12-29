@@ -38,7 +38,7 @@
   ansible.builtin.shell:
     cmd: make 
     chdir: /usr/share/havoc/client/Modules/LatLoader
-    become: true
+  become: true
   become_method: sudo
   
 - name: "Creating a symlink"
