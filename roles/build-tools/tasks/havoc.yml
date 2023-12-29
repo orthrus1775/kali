@@ -31,12 +31,16 @@
     - { repo: "https://github.com/jakobfriedl/havoc-NoPowerShell", location: "/usr/share/havoc/client/Modules/NoPowerShell" }
     - { repo: "https://github.com/jakobfriedl/mitre4havoc.git", location: "/usr/share/havoc/client/Modules/mitre4havoc" } 
     - { repo: "https://github.com/jakobfriedl/havoc-reporter.git", location: "/usr/share/havoc/client/Modules/Reporter" }  
+  become: true
+  become_method: sudo
 
 - name: "Build LatLoader Module"
   ansible.builtin.shell:
     cmd: make 
     chdir: /usr/share/havoc/client/Modules/LatLoader
-
+    become: true
+  become_method: sudo
+  
 - name: "Creating a symlink"
   ansible.builtin.shell:
     cmd: /usr/bin/python /usr/share/havoc/client/Modules/mitre4havoc
