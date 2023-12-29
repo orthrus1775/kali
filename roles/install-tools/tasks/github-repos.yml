@@ -1,8 +1,4 @@
 ---
-- name: Install mechanicalsoup python package
-  ansible.builtin.pip:
-    name: mechanicalsoup
-
 - name: Create temporary build directory
   ansible.builtin.tempfile:
     state: directory
@@ -48,7 +44,9 @@
     - { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin/merlin-agent" } #Compile issues with the version of go, quic-go
     - { repo: "https://github.com/Ne0nd0g/merlin-cli.git", location: "/opt/merlin/merlin-cli"}
     - { repo: "https://github.com/bitsadmin/wesng.git", location: "/opt/wesng" }
-    - { repo: "https://github.com/cobbr/Covenant", location: "/opt/covenant" }   
+    - { repo: "https://github.com/cobbr/Covenant", location: "/opt/covenant" }
+    - { repo: "https://github.com/icyguider/Shhhloader.git", location: "/opt/shhhloader"}   
+    - { repo: "https://github.com/jakobfriedl/precompiled-binaries.git", location: "/opt/ADbinaries"}
   become: true
   become_method: sudo
 

@@ -95,6 +95,24 @@
   become: true
   become_method: sudo
 
+- name: "Installing python packages"
+  ansible.builtin.pip:
+    name: 
+      - mechanicalsoup
+      - openpyxl
+      - Faker
+      - python-docx
+      - python-pptx
+      - requests
+      - fabric
+      - wmi
+      - requests-html
+      - numpy
+      - selenium
+      - webdriver-manager
+      - tldextract
+      - bs4  
+
 # - name: Remove Docker
 #   ansible.builtin.file:
 #     path: /usr/bin/docker
@@ -156,7 +174,3 @@
   command: pipx ensurepath
   become: true
   become_method: sudo
-
-- name: "Installing Garble"
-  ansible.builtin.shell:
-    cmd: go install mvdan.cc/garble@latest

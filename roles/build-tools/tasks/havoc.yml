@@ -21,16 +21,28 @@
 #     cmd: make client-build
 #     chdir: /opt/havoc/
 
-- name: "Installing LatLoader"
+- name: "Installing Havoc Modules"
   git:
-    repo: "https://github.com/icyguider/LatLoader.git"
-    dest: "/opt/havoc/client/Modules/LatLoader"
+    repo: "{{ item.repo }}"
+    dest: "{{ item.location }}"
     force: true
+  loop:
+    - { repo: "https://github.com/icyguider/LatLoader.git", location: "/usr/share/havoc/client/Modules/LatLoader" }  
+    - { repo: "https://github.com/jakobfriedl/havoc-NoPowerShell", location: "/usr/share/havoc/client/Modules/NoPowerShell" }
+    - { repo: "https://github.com/jakobfriedl/mitre4havoc.git", location: "/usr/share/havoc/client/Modules/mitre4havoc" } 
+    - { repo: "https://github.com/jakobfriedl/havoc-reporter.git", location: "/usr/share/havoc/client/Modules/Reporter" }  
 
 - name: "Build LatLoader Module"
   ansible.builtin.shell:
     cmd: make 
-    chdir: /opt/havoc/client/Modules/LatLoader
+    chdir: /usr/share/havoc/client/Modules/LatLoader
+
+- name: "Creating a symlink"
+  ansible.builtin.shell:
+    cmd: /usr/bin/python /usr/share/havoc/client/Modules/mitre4havoc
+  become: true
+  become_method: sudo 
+
 
 # - name: "Creating a symlink"
 #   ansible.builtin.shell:
