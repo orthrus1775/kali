@@ -40,10 +40,18 @@
     chdir: /usr/share/havoc/client/Modules/LatLoader
   become: true
   become_method: sudo
-  
-- name: "Creating a symlink"
+
+- name: "Fixing parse_mitre.py" 
   ansible.builtin.shell:
-    cmd: /usr/bin/python /usr/share/havoc/client/Modules/mitre4havoc
+    cmd: "sed -i 's/\/opt\/Havoc\/data\/extensions\/mitre4havoc\/tactics.json/\/usr\/share\/havoc\/client\/Modules\/mitre4havoc\/tactics.json/g' /usr/share/havoc/client/Modules/mitre4havoc/parse_mitre.py"
+  become: true
+  become_method: sudo
+  ignore_errors: true
+ 
+  
+- name: "Creating MITRE json"
+  ansible.builtin.shell:
+    cmd: /usr/bin/python /usr/share/havoc/client/Modules/mitre4havoc/parse_mitre.py
   become: true
   become_method: sudo 
 
