@@ -44,17 +44,18 @@
 - name: "Copy modified parse_mitre"
   copy:
     src: "{{ role_path }}/files/parse_mitre.py"
-    dest: "/usr/share/havoc/client/Modules/mitre4havoc/parse_mitre.py" 
+    dest: "{{ ansible_env.HOME }}/Desktop/parse_mitre.py" 
     force: yes 
-  become: true
-  become_method: sudo 
- 
   
 - name: "Creating MITRE json"
   ansible.builtin.shell:
-    cmd: /usr/bin/python /usr/share/havoc/client/Modules/mitre4havoc/parse_mitre.py
+    cmd: /usr/bin/python  "{{ ansible_env.HOME }}/Desktop/parse_mitre.py"
+
+- name: "Copy tactics.json"
+  ansible.builtin.shell:
+    cmd: mv "{{ ansible_env.HOME }}/Desktop/tactics.json" /usr/share/havoc/client/Modules/mitre4havoc/tactics.json
   become: true
-  become_method: sudo 
+  become_method: sudo
 
 
 # - name: "Creating a symlink"

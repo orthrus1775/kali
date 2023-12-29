@@ -22,7 +22,7 @@ tactics = [
     "TA0010", "TA0040"
 ]
 mitre = []
-outfile = "/usr/share/client/Modules/mitre4havoc/tactics.json" 
+outfile = "~/Desktop/tactics.json" 
 tactics_file = "tactics.py"
 
 def filter(lst):
