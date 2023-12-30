@@ -41,19 +41,21 @@
   become: true
   become_method: sudo
 
-- name: "Copy modified parse_mitre"
-  copy:
-    src: "{{ role_path }}/files/parse_mitre.py"
-    dest: "{{ ansible_env.HOME }}/Desktop/parse_mitre.py" 
-    force: yes 
-  
-- name: "Creating MITRE json"
-  ansible.builtin.shell:
-    cmd: /usr/bin/python  "{{ ansible_env.HOME }}/Desktop/parse_mitre.py"
+- name: Create temporary build directory
+  ansible.builtin.tempfile:
+    state: directory
+  register: build_dir
 
-- name: "Copy tactics.json"
-  ansible.builtin.shell:
-    cmd: mv "{{ ansible_env.HOME }}/Desktop/tactics.json" /usr/share/havoc/client/Modules/mitre4havoc/tactics.json
+- name: "Copying merlin-install script to download install merlin"
+  copy:
+    src: "files/parse_mitre.py"
+    dest: "{{ build_dir.path }}/parse_mitre.py"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755
+
+- name: "Creating MITRE json"
+  shell: "/usr/bin/python {{ build_dir.path }}/parse_mitre.py"     
   become: true
   become_method: sudo
 
