@@ -27,7 +27,9 @@
   shell: 'echo export PATH=/home/kali/.nimble/bin:$PATH >> "/home/{{ ansible_user_id }}/.zshrc"' 
   ignore_errors: true
 
-
+- name: "setting Rust path"
+  shell: 'echo export PATH=$HOME/.cargo/bin:$PATH >> "/home/{{ ansible_user_id }}/.zshrc"' 
+  ignore_errors: true
 
 # - name: "Copy Terminal Settings"
 #   copy:
