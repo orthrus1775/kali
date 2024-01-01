@@ -22,10 +22,44 @@
   loop:
     - { src: /opt/windapsearch/windapsearch.py, dst: /usr/bin/windapsearch }
     - { src: /opt/hoaxshell/hoaxshell.py, dst: /usr/bin/hoaxshell } 
-    # - { src: "{{ ansible_env.HOME }}/.local/share/pipx/venvs/adidnsdump/bin/adidnsdump", dst: /usr/bin/adidnsdump }
+    - { src: "{{ ansible_env.HOME }}/.local/share/pipx/venvs/adidnsdump/bin/adidnsdump", dst: /usr/bin/adidnsdump }
     - { src: /usr/bin/crackmapexec, dst: /usr/bin/cme }
     - { src: /opt/wesng/wes.py, dst: /usr/bin/wesng }
     - { src: /opt/wesng/wes.py, dst: /usr/bin/wes }  
-    - { src: /opt/scarecrow/ScareCrow, dst: /usr/bin/scarecrow}   
+    - { src: /opt/scarecrow/ScareCrow, dst: /usr/bin/scarecrow}
+    - { src: "{{ ansible_env.HOME }}/.nimble/bin/choosenim", dst: /usr/bin/choosenim }
+    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nim", dst: /usr/bin/nim }
+    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nim-gdb", dst: /usr/bin/nim-gdb }  
+    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nimble", dst: /usr/bin/nimble }  
+    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nimgrep", dst: /usr/bin/nimgrep }  
+    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nimpretty", dst: /usr/bin/nimpretty }  
+    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nimsuggest", dst: /usr/bin/nimsuggest }  
+    - { src: "{{ ansible_env.HOME }}/.nimble/bin/testament", dst: /usr/bin/testament }  
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo", dst: /usr/bin/cargo-clippy }
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo-fmt", dst: /usr/bin/cargo-fmt }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo-miri", dst: /usr/bin/cargo-miri }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/clippy-driver", dst: /usr/bin/clippy-driver }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rls", dst: /usr/bin/rls }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rust-analyzer", dst: /usr/bin/rust-analyzer }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rust-gdb", dst: /usr/bin/rust-gdb }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rust-gdbgui", dst: /usr/bin/rust-gdbgui }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rust-lldb", dst: /usr/bin/rust-lldb }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustc", dst: /usr/bin/rustc }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustdoc", dst: /usr/bin/rustdoc }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustfmt", dst: /usr/bin/rustfmt }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/", dst: /usr/bin/ }     
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustup", dst: /usr/bin/rustup }          
   become: true
   become_method: sudo 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
