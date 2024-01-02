@@ -34,8 +34,9 @@
     - { src: "{{ ansible_env.HOME }}/.nimble/bin/nimgrep", dst: /usr/bin/nimgrep }  
     - { src: "{{ ansible_env.HOME }}/.nimble/bin/nimpretty", dst: /usr/bin/nimpretty }  
     - { src: "{{ ansible_env.HOME }}/.nimble/bin/nimsuggest", dst: /usr/bin/nimsuggest }  
-    - { src: "{{ ansible_env.HOME }}/.nimble/bin/testament", dst: /usr/bin/testament }  
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo", dst: /usr/bin/cargo-clippy }
+    - { src: "{{ ansible_env.HOME }}/.nimble/bin/testament", dst: /usr/bin/testament }
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo", dst: /usr/bin/cargo }  
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo-clippy", dst: /usr/bin/cargo-clippy }
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo-fmt", dst: /usr/bin/cargo-fmt }     
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo-miri", dst: /usr/bin/cargo-miri }     
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/clippy-driver", dst: /usr/bin/clippy-driver }     
@@ -47,7 +48,6 @@
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustc", dst: /usr/bin/rustc }     
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustdoc", dst: /usr/bin/rustdoc }     
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustfmt", dst: /usr/bin/rustfmt }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/", dst: /usr/bin/ }     
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustup", dst: /usr/bin/rustup }          
   become: true
   become_method: sudo 
