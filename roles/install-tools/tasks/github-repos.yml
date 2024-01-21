@@ -47,6 +47,7 @@
     - { repo: "https://github.com/cobbr/Covenant", location: "/opt/covenant" }
     - { repo: "https://github.com/icyguider/Shhhloader.git", location: "/opt/shhhloader"}   
     - { repo: "https://github.com/jakobfriedl/precompiled-binaries.git", location: "/opt/ADbinaries"}
+    - { repo: "https://github.com/Tylous/Freeze.rs.git", location: "/opt/freeze"}
   become: true
   become_method: sudo
 

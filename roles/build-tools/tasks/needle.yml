@@ -18,8 +18,11 @@
 - name: "Installing windows build target"
   shell: "export PATH=$HOME/.cargo/bin:$PATH && rustup target add x86_64-pc-windows-gnu"
 
-- name: "Build of rustyneedle"
+- name: "Build rustyneedle"
   shell: "export PATH=$HOME/.cargo/bin:$PATH && cargo build --manifest-path=/opt/rustyneedle/Cargo.toml --target x86_64-pc-windows-gnu --release" 
+
+- name: "Build freeze"
+  shell: "export PATH=$HOME/.cargo/bin:$PATH && cargo build --manifest-path=/opt/freeze/Cargo.toml --target x86_64-pc-windows-gnu --release"
 
 - name: "Copying nim-install script to download install nim"
   copy:
