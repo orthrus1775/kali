@@ -122,7 +122,7 @@
 #     mode: 0755
 
 - name: "Creating MITRE json"
-  shell: "/usr/bin/python /opt/havoc/data/extensions/mitre4havoc/parse_mitre.py"     
+  shell: "/usr/bin/python3 /opt/havoc/data/extensions/mitre4havoc/parse_mitre.py"     
   become: true
   become_method: sudo
 
