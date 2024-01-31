@@ -69,7 +69,7 @@
     dest: "{{ item.location }}"
     mode: '0755'
   loop:
-    - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/docker-compose.yml", location: "/opt/bloodhound-ce/docker-compose.yml" } 
+    - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/docker-compose.yml", location: "/opt/bloodhound/docker-compose.yml" } 
     - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/.env.example", location: "/opt/bloodhound/.env" }
 
 
