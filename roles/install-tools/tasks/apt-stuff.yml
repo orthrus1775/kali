@@ -111,7 +111,8 @@
       - selenium
       - webdriver-manager
       - tldextract
-      - bs4  
+      - bs4
+      - pycryptodome   
 
 # - name: Remove Docker
 #   ansible.builtin.file:

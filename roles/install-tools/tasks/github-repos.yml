@@ -30,7 +30,7 @@
     - { repo: "https://github.com/its-a-feature/Mythic.git", location: "/opt/mythic" } 
     - { repo: "https://github.com/Tylous/ScareCrow", location: "/opt/scarecrow" } 
     - { repo: "https://github.com/t3l3machus/hoaxshell", location: "/opt/hoaxshell" } 
-    # - { repo: "https://github.com/HavocFramework/Havoc", location: "/opt/havoc" } # Included in kali 2023.4
+    - { repo: "https://github.com/HavocFramework/Havoc", location: "/opt/havoc" } # Included in kali 2023.4
     - { repo: "https://github.com/0xZDH/redirect.rules.git", location: "/opt/redirector/redirect.rules" }
     - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.git", location: "/opt/redirector/redteam-infrastructure-automation" }
     - { repo: "https://github.com/threatexpress/cs2modrewrite.git", location: "/opt/redirector/cs2modrewrite" }
@@ -45,9 +45,12 @@
     - { repo: "https://github.com/Ne0nd0g/merlin-cli.git", location: "/opt/merlin/merlin-cli"}
     - { repo: "https://github.com/bitsadmin/wesng.git", location: "/opt/wesng" }
     - { repo: "https://github.com/cobbr/Covenant", location: "/opt/covenant" }
-    - { repo: "https://github.com/icyguider/Shhhloader.git", location: "/opt/shhhloader"}   
+    - { repo: "https://github.com/icyguider/Shhhloader.git", location: "/opt/Shhhloader"}   
     - { repo: "https://github.com/jakobfriedl/precompiled-binaries.git", location: "/opt/ADbinaries"}
-    - { repo: "https://github.com/Tylous/Freeze.rs.git", location: "/opt/freeze"}
+    - { repo: "https://github.com/Tylous/Freeze.rs.git", location: "/opt/freeze"} 
+    - { repo: "https://github.com/assume-breach/Home-Grown-Red-Team.git", location: "/opt/hgrt"} 
+    - { repo: "https://github.com/matro7sh/myph.git", location: "/opt/myph"} 
+    - { repo: "https://github.com/CMEPW/221b.git", location: "/opt/221b"}  
   become: true
   become_method: sudo
 

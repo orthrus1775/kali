@@ -1,25 +1,25 @@
 ---
-# - name: "go install mod sys"
-#   ansible.builtin.shell:
-#     cmd: go mod download golang.org/x/sys
-#     chdir: /opt/havoc/teamserver
+- name: "go install mod sys"
+  ansible.builtin.shell:
+    cmd: go mod download golang.org/x/sys
+    chdir: /opt/havoc/teamserver
 
-# - name: "go install mod ugorji/go"
-#   ansible.builtin.shell:
-#     cmd: go mod download github.com/ugorji/go
-#     chdir: /opt/havoc/teamserver
+- name: "go install mod ugorji/go"
+  ansible.builtin.shell:
+    cmd: go mod download github.com/ugorji/go
+    chdir: /opt/havoc/teamserver
 
-# - name: "Build havoc team server"
-#   ansible.builtin.shell:
-#     cmd: make ts-build
-#     chdir: /opt/havoc/
-#   become: true
-#   become_method: sudo  
+- name: "Build havoc team server"
+  ansible.builtin.shell:
+    cmd: make ts-build
+    chdir: /opt/havoc/
+  become: true
+  become_method: sudo  
 
-# - name: "Build havoc client"
-#   ansible.builtin.shell:
-#     cmd: make client-build
-#     chdir: /opt/havoc/
+- name: "Build havoc client"
+  ansible.builtin.shell:
+    cmd: make client-build
+    chdir: /opt/havoc/
 
 - name: "Installing Havoc Modules"
   git:
@@ -27,47 +27,90 @@
     dest: "{{ item.location }}"
     force: true
   loop:
-    - { repo: "https://github.com/icyguider/LatLoader.git", location: "/usr/share/havoc/client/Modules/LatLoader" }  
-    - { repo: "https://github.com/jakobfriedl/havoc-NoPowerShell", location: "/usr/share/havoc/client/Modules/NoPowerShell" }
-    - { repo: "https://github.com/jakobfriedl/mitre4havoc.git", location: "/usr/share/havoc/client/Modules/mitre4havoc" } 
-    - { repo: "https://github.com/jakobfriedl/havoc-reporter.git", location: "/usr/share/havoc/client/Modules/Reporter" }  
+    - { repo: "https://github.com/icyguider/LatLoader.git", location: "/opt/havoc/client/Modules/LatLoader" }  
+    - { repo: "https://github.com/jakobfriedl/havoc-NoPowerShell.git", location: "/opt/havoc/data/extensions/havoc-NoPowerShell" }
+    - { repo: "https://github.com/jakobfriedl/mitre4havoc.git", location: "/opt/havoc/data/extensions/mitre4havoc" } 
+    - { repo: "https://gist.githubusercontent.com/p4p1/ac7b50eb5ec37529b8745e13718ed746/raw/9b77dcc916033c578192498051de8525e31b45f1/havoc-fetch.py", location: "/opt/havoc/data/extensions/havoc-fetch.py" }  
+    - { repo: "https://gist.githubusercontent.com/p4p1/e24bca8407d69c8ea28d4bc9d423f85b/raw/5f219faae462b6dffe0a1dcfcc537550a178e0e3/auto_suite.py", location: "/opt/havoc/data/extensions/auto_suite.py" }  
+    - { repo: "https://github.com/matro7sh/matro7sh_loaders.git", location: "/opt/havoc/data/extensions/matro7sh_loaders" }  
+    - { repo: "https://gist.githubusercontent.com/jakobfriedl/f55bd4f870348e68e0eb27ad6a2fa48b/raw/7403a6035f1f34147529c46d526815cf43c3fb72/ADOE.py", location: "/opt/havoc/data/extensions/ADOE.py" }  
+    - { repo: "https://github.com/p4p1/havoc-privkit", location: "/opt/havoc/data/extensions/havoc-privkit" }  
+    - { repo: "https://github.com/Cipher7/havoc-SauronEye.git", location: "/opt/havoc/data/extensions/havoc-SauronEye" }
+    - { repo: "https://github.com/p4p1/havoc-ligolo.git", location: "/opt/havoc/data/extensions/havoc-ligolo" }  
+    - { repo: "https://github.com/Cipher7/havoc-PoolParty.git", location: "/opt/havoc/data/extensions/havoc-PoolParty" }
+    - { repo: "https://github.com/p4p1/havoc-bloodhound.git", location: "/opt/havoc/data/extensions/havoc-bloodhound" }
+    - { repo: "https://github.com/m7rick/Havoc-DLLHijack.git", location: "/opt/havoc/data/extensions/havoc-bloodhound" }
+
+- name: Create a BloodhoundCE directory 
+  ansible.builtin.file:
+    path: /opt/bloodhound-ce
+    state: directory
+    mode: '0755'
+
+- name: Download Bloodhound-CE Docker Files
+  ansible.builtin.get_url:
+    url: "{{ item.file }}"
+    dest: dest: "{{ item.location }}"
+    mode: '0755'
+  loop:
+    - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/docker-compose.yml", location: "/opt/bloodhound-ce/docker-compose.yml" }  
+    - { repo: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/.env.example", location: "/opt/bloodhound-ce/.env" }
+
+- name: "Build Bloodhound-CE"
+  ansible.builtin.shell:
+    cmd: docker-compose -f - up
+    chdir: /opt/bloodhound-ce
   become: true
   become_method: sudo
 
 - name: "Build LatLoader Module"
   ansible.builtin.shell:
     cmd: make 
-    chdir: /usr/share/havoc/client/Modules/LatLoader
+    chdir: /opt/havoc/client/Modules/LatLoader
   become: true
   become_method: sudo
 
-- name: Create temporary build directory
-  ansible.builtin.tempfile:
-    state: directory
-  register: build_dir
+- name: "Build 221b"
+  ansible.builtin.shell:
+    cmd: go build -o 221b ./main.go
+    chdir: /opt/221b
+  become: true
+  become_method: sudo
 
-- name: "Copying merlin-install script to download install merlin"
-  copy:
-    src: "files/parse_mitre.py"
-    dest: "{{ build_dir.path }}/parse_mitre.py"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
-    mode: 0755
+- name: "Build myph"
+  ansible.builtin.shell:
+    cmd: make
+    chdir: /opt/myph
+  become: true
+  become_method: sudo
+
+# - name: Create temporary build directory
+#   ansible.builtin.tempfile:
+#     state: directory
+#   register: build_dir
+
+# - name: "Copying merlin-install script to download install merlin"
+#   copy:
+#     src: "files/parse_mitre.py"
+#     dest: "{{ build_dir.path }}/parse_mitre.py"
+#     owner: "{{ ansible_user_id }}"
+#     group: "{{ ansible_user_id }}"
+#     mode: 0755
 
 - name: "Creating MITRE json"
-  shell: "/usr/bin/python {{ build_dir.path }}/parse_mitre.py"     
+  shell: "/usr/bin/python /opt/havoc/data/extensions/mitre4havoc/parse_mitre.py"     
   become: true
   become_method: sudo
 
-
-# - name: "Creating a symlink"
-#   ansible.builtin.shell:
-#     cmd: ln -s /opt/havoc/client/Havoc /usr/bin/havoc-client
-#   become: true
-#   become_method: sudo  
-
-# - name: "Creating a symlink"
-#   ansible.builtin.shell:
-#     cmd: ln -s /opt/havoc/havoc /usr/bin/havoc-server
-#   become: true
-#   become_method: sudo
+- name: "Creating symlinks"
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    path: "{{ item.dst }}"
+    state: link
+  loop:
+    - { src: /opt/havoc/client/Havoc, dst: /usr/bin/havoc-client }
+    - { src: /opt/havoc/havoc, dst: /usr/bin/havoc-server } 
+    - { src: /opt/myph/myph, dst: /usr/bin/myph }  
+    - { src: /opt/221b/221b, dst: /usr/bin/221b }   
+  become: true
+  become_method: sudo

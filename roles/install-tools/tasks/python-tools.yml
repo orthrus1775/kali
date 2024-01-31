@@ -12,7 +12,7 @@
     - { name: 'autorecon', url: 'git+https://github.com/Tib3rius/AutoRecon.git' }
     - { name: 'adidnsdump', url: 'git+https://github.com/dirkjanm/adidnsdump.git' }
     - { name: 'wesng', url: 'git+https://github.com/bitsadmin/wesng.git' }  
-
+    - { name: 'NetExec', url: 'git+https://github.com/Pennyw0rth/NetExec' }
 
 
 
