@@ -40,7 +40,7 @@
 
 - name: Create a BloodhoundCE directory 
   ansible.builtin.file:
-    path: /opt/bloodhound-ce
+    path: /opt/bloodhound
     state: directory
     mode: '0755'
 
@@ -53,12 +53,21 @@
     - { file: "https://gist.githubusercontent.com/p4p1/ac7b50eb5ec37529b8745e13718ed746/raw/9b77dcc916033c578192498051de8525e31b45f1/havoc-fetch.py", location: "/opt/havoc/data/extensions/havoc-fetch.py" }  
     - { file: "https://gist.githubusercontent.com/p4p1/e24bca8407d69c8ea28d4bc9d423f85b/raw/5f219faae462b6dffe0a1dcfcc537550a178e0e3/auto_suite.py", location: "/opt/havoc/data/extensions/auto_suite.py" } 
     - { file: "https://gist.githubusercontent.com/jakobfriedl/f55bd4f870348e68e0eb27ad6a2fa48b/raw/7403a6035f1f34147529c46d526815cf43c3fb72/ADOE.py", location: "/opt/havoc/data/extensions/ADOE.py" }  
-    - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/docker-compose.yml", location: "/opt/bloodhound-ce/docker-compose.yml" }  
-    - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/.env.example", location: "/opt/bloodhound-ce/.env" }
+    - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/docker-compose.yml", location: "/opt/bloodhound/docker-compose.yml" }  
+    - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/.env.example", location: "/opt/bloodhound/.env" }
+    - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/.env.example", location: "/opt/bloodhound/.env" }
+    - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/bloodhound.config.json", location: "/opt/bloodhound/bloodhound.config.json" }
 
 - name: "Build Bloodhound-CE"
   ansible.builtin.shell:
-    cmd: docker-compose -f - up
+    cmd: "docker-compose up -d"
+    chdir: /opt/bloodhound-ce
+  become: true
+  become_method: sudo
+
+- name: "Build Bloodhound-CE"
+  ansible.builtin.shell:
+    cmd: "docker-compose logs >> initial.log"
     chdir: /opt/bloodhound-ce
   become: true
   become_method: sudo
