@@ -50,7 +50,7 @@
 - name: Download Bloodhound-CE Docker Files
   ansible.builtin.get_url:
     url: "{{ item.file }}"
-    dest: dest: "{{ item.location }}"
+    dest: "{{ item.location }}"
     mode: '0755'
   loop:
     - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/docker-compose.yml", location: "/opt/bloodhound-ce/docker-compose.yml" }  
