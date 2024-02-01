@@ -50,7 +50,7 @@
 - name: "Copying BloodhoundCE config"
   copy:
     src: "files/bloodhound.config.json"
-    dest: /opt/bloodhound/bloodhound.config.json"
+    dest: /opt/bloodhound/bloodhound.config.json
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"
     mode: 0755  
@@ -120,8 +120,8 @@
 #     owner: "{{ ansible_user_id }}"
 #     group: "{{ ansible_user_id }}"
 #     mode: 0755
-sed -i 's/Havoc/havoc/g' /opt/havoc/data/extensions/mitre4havoc/parse_mitre.py 
-- name: "Fixing Docker Restart configs" 
+
+- name: "Fixing parse_mitre path" 
   ansible.builtin.shell:
     cmd: "sed -i 's/Havoc/havoc/g' /opt/havoc/data/extensions/mitre4havoc/parse_mitre.py"
   become: true
