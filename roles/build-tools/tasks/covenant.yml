@@ -1,4 +1,4 @@
-- name: "Build Covenant Docker"
+- name: "Build Covenant Docker"  # Issues with running dotnet core 3.1
   ansible.builtin.shell:
     cmd: docker build -t covenant .
     chdir: /opt/covenant/Covenant/
