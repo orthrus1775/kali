@@ -44,8 +44,7 @@
     state: directory
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"
-    mode: 0755  
-    mode: '0755'
+    mode: 0755
 
 - name: "Copying BloodhoundCE config"
   copy:

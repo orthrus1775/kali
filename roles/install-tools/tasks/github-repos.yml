@@ -4,6 +4,7 @@
     state: directory
   register: build_dir
 
+
 - name: "Copying merlin-install script to download install merlin"
   copy:
     src: "files/merlin-install.sh"
