@@ -16,7 +16,8 @@
       - build-essential
       - apt-utils
       - cmake 
-      - libfontconfig1 
+      - libfontconfig1
+      - libkrb5-dev 
       - libglu1-mesa-dev 
       - libgtest-dev 
       - libspdlog-dev 

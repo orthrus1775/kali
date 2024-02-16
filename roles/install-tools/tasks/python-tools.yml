@@ -13,6 +13,6 @@
     - { name: 'adidnsdump', url: 'git+https://github.com/dirkjanm/adidnsdump.git' }
     - { name: 'wesng', url: 'git+https://github.com/bitsadmin/wesng.git' }  
     - { name: 'NetExec', url: 'git+https://github.com/Pennyw0rth/NetExec' }
-
+    - { name: 'bloodyAD', url: 'git+https://github.com/CravateRouge/bloodyAD.git' }
 
 
