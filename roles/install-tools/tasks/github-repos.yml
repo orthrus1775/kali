@@ -51,7 +51,15 @@
     - { repo: "https://github.com/Tylous/Freeze.rs.git", location: "/opt/freeze"} 
     - { repo: "https://github.com/assume-breach/Home-Grown-Red-Team.git", location: "/opt/hgrt"} 
     - { repo: "https://github.com/matro7sh/myph.git", location: "/opt/myph"} 
-    - { repo: "https://github.com/CMEPW/221b.git", location: "/opt/221b"}  
+    - { repo: "https://github.com/CMEPW/221b.git", location: "/opt/221b"}
+    - { repo: "https://github.com/dirkjanm/krbrelayx.git", location: "/opt/krbrelayx"}  
+    - { repo: "https://github.com/dirkjanm/PKINITtools", location: "/opt/PKINITtools"}
+    - { repo: "https://github.com/CCob/SweetPotato" , location: "/opt/sweetpotato" }   
+    - { repo: "https://github.com/ShutdownRepo/pywhisker.git" , location: "/opt/pywhisker"}
+    - { repo: "https://github.com/Ridter/noPac" , location: "/opt/noPac"}
+    - { repo: "https://github.com/ly4k/PetitPotam" , location: "/opt/PetitPotam"} 
+    - { repo: " https://github.com/Kevin-Robertson/InveighZero" , location: "/opt/InveighZero"} 
+    - { repo: "https://github.com/praetorian-inc/PortBender" , location: "/opt/PortBender"}   
   become: true
   become_method: sudo
 

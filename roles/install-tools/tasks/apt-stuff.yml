@@ -113,7 +113,8 @@
       - webdriver-manager
       - tldextract
       - bs4
-      - pycryptodome   
+      - pycryptodome
+      - minikerberos
 
 # - name: Remove Docker
 #   ansible.builtin.file:
