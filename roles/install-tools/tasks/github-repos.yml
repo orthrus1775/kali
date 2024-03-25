@@ -58,7 +58,7 @@
     - { repo: "https://github.com/ShutdownRepo/pywhisker.git" , location: "/opt/pywhisker"}
     - { repo: "https://github.com/Ridter/noPac" , location: "/opt/noPac"}
     - { repo: "https://github.com/ly4k/PetitPotam" , location: "/opt/PetitPotam"} 
-    - { repo: " https://github.com/Kevin-Robertson/InveighZero" , location: "/opt/InveighZero"} 
+    - { repo: "https://github.com/Kevin-Robertson/InveighZero" , location: "/opt/InveighZero"} 
     - { repo: "https://github.com/praetorian-inc/PortBender" , location: "/opt/PortBender"}   
   become: true
   become_method: sudo
