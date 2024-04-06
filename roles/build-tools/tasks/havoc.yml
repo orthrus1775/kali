@@ -81,13 +81,7 @@
     chdir: /opt/bloodhound
   become: true
   become_method: sudo
-
-- name: "Build Bloodhound-CE"
-  ansible.builtin.shell:
-    cmd: "docker-compose logs > initial.log"
-    chdir: /opt/bloodhound
-  become: true
-  become_method: sudo
+# to get password run docker-compose down -v and then docker-compose up --force-recreate
 
 - name: "Build LatLoader Module"
   ansible.builtin.shell:
