@@ -1,5 +1,5 @@
 #!/bin/bash
-/bin/bash -c "/usr/lib/jvm/java-17-openjdk-amd64/bin/java -Djava.awt.headless=true -jar /usr/share/burpsuite/burpsuite.jar < <(echo y) &" 
+/bin/bash -c "/usr/lib/jvm/java-1-openjdk-amd64/bin/java -Djava.awt.headless=true -jar /usr/share/burpsuite/burpsuite.jar < <(echo y) &" 
 sleep 20
 
 # counter=0
