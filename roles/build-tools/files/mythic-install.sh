@@ -13,7 +13,7 @@ sudo /opt/mythic/mythic-cli install github https://github.com/MythicAgents/thana
 sudo /opt/mythic/mythic-cli install github https://github.com/MythicAgents/arachne
 sudo /opt/mythic/mythic-cli install github https://github.com/MythicAgents/sliver
 sudo /opt/mythic/mythic-cli install github https://github.com/MythicAgents/ghostwriter
-sudo /opt/mythic/mythic-cli install github https://github.com/MythicAgents/scarecrow_wrapper
+#sudo /opt/mythic/mythic-cli install github https://github.com/MythicAgents/scarecrow_wrapper
 sudo /opt/mythic/mythic-cli install github https://github.com/MythicAgents/pickle_wrapper.git
 #sed -i 's/restart: always/restart: on-failure:10/g' docker-compose.yml
 sudo /opt/mythic/mythic-cli stop
