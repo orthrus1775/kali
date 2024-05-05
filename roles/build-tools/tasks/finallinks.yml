@@ -24,6 +24,8 @@
     - { src: /opt/hoaxshell/hoaxshell.py, dst: /usr/bin/hoaxshell } 
     - { src: "{{ ansible_env.HOME }}/.local/share/pipx/venvs/adidnsdump/bin/adidnsdump", dst: /usr/bin/adidnsdump }
     - { src: "{{ ansible_env.HOME }}/.local/share/pipx/venvs/bloodyad/bin/bloodyAD", dst: /usr/bin/bloodyAD }
+    - { src: "{{ ansible_env.HOME }}/.local/share/pipx/venvs/netexec/bin/nxc", dst: /usr/bin/nxc }
+    - { src: "/usr/bin/nxc", dst: /usr/bin/netexec }
     - { src: /usr/bin/crackmapexec, dst: /usr/bin/cme }
     - { src: /opt/wesng/wes.py, dst: /usr/bin/wesng }
     - { src: /opt/wesng/wes.py, dst: /usr/bin/wes }  
