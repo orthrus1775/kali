@@ -36,6 +36,7 @@
     - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.git", location: "/opt/redirector/redteam-infrastructure-automation" }
     - { repo: "https://github.com/threatexpress/cs2modrewrite.git", location: "/opt/redirector/cs2modrewrite" }
     - { repo: "https://github.com/t94j0/satellite.git", location: "/opt/redirector/satellite" }
+    - { repo: "https://github.com/threatexpress/mythic2modrewrite.git", location: "/opt/redirector/mythic2modrewrite" }
     - { repo: "https://github.com/GhostManager/Ghostwriter.git", location: "/opt/ghostwriter" } 
     - { repo: "https://github.com/icyguider/MoreImpacketExamples.git", location: "/opt/moreimpacketexamples" } 
     # - { repo: "https://github.com/danielmiessler/SecLists", location: "/opt/SecLists" } # Included in kali
