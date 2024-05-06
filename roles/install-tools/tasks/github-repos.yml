@@ -117,3 +117,9 @@
     path: "{{ build_dir.path }}"
     state: absent
   when: build_dir.path is defined
+
+- name: "Recursively change ownership and permissions of /opt/"
+  ansible.builtin.command:
+    cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} /opt/" 
+  become: true
+  become_method: sudo    
