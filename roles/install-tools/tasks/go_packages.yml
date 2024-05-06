@@ -46,7 +46,7 @@
     state: link
     loop:
     - { src: "{{ ansible_env.HOME }}/go/bin/garble", dst: /usr/bin/garble }
-    - { src: "{{ ansible_env.HOME }}/go/bin/kerb", dst: /usr/bin/kerbrute }        
+    - { src: "{{ ansible_env.HOME }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }        
   become: true
   become_method: sudo 
      

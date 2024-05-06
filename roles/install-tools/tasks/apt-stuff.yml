@@ -137,17 +137,17 @@
 #   become: true
 #   become_method: sudo
 
-- name: "Setting up Veil" 
-  ansible.builtin.shell:
-    cmd: "/usr/share/veil/config/setup.sh --force --silent"
-  become: true
-  become_method: sudo
+# - name: "Setting up Veil" 
+#   ansible.builtin.shell:
+#     cmd: "/usr/share/veil/config/setup.sh --force --silent"
+#   become: true
+#   become_method: sudo
 
-- name: Update APT package cache
-  apt:
-    update_cache: yes
-  become: true
-  become_method: sudo
+# - name: Update APT package cache
+#   apt:
+#     update_cache: yes
+#   become: true
+#   become_method: sudo
 
 # - name: "Install Docker"
 #   apt:
