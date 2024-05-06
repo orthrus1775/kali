@@ -4,7 +4,7 @@
 - import_tasks: needle.yml
 - import_tasks: satellite.yml
 #- import_tasks: covenant.yml
-#- import_tasks: mythic.yml
+- import_tasks: mythic.yml
 #- import_tasks: ghostwriter.yml
 - import_tasks: merlin.yml
 - import_tasks: finallinks.yml

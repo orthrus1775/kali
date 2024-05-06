@@ -4,26 +4,34 @@
     path: "/opt/redirector"
     state: directory
     mode: '0755'
+  become: true
+  become_method: sudo
 
 - name: "Adding files to new directory"
   copy:
     src: "{{ item }}"
     dest: "/opt/redirector/"
   with_fileglob:
-    - "{{ role_path }}/files/*"  
+    - "{{ role_path }}/files/*"
+  become: true
+  become_method: sudo    
 
 - name: "Adding ca directory"
   copy:
     src: "{{ role_path }}/files/ca"
     dest: "/opt/redirector/ca/"
     remote_src: true
+  become: true
+  become_method: sudo  
     
 - name: "Adding phish directory"
   copy:
     src: "{{ role_path }}/files/phish"
     dest: "/opt/redirector/phish/"
     remote_src: true 
-
+  become: true
+  become_method: sudo
+  
 - name: "Enabling Apache Mods"
   command: "a2enmod {{ item }}"
   loop:

@@ -9,3 +9,4 @@
 - import_tasks: nim-modules.yml
 - import_tasks: vmtools.yml
 - import_tasks: redirector.yml
+- import_tasks: sysinternals.yml

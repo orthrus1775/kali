@@ -1,0 +1,48 @@
+---
+- name: Create a BloodhoundCE directory 
+  ansible.builtin.file:
+    path: /opt/bloodhound
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755
+
+- name: "Copying BloodhoundCE config"
+  copy:
+    src: "files/bloodhound.config.json"
+    dest: /opt/bloodhound/bloodhound.config.json
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755  
+
+# - name: "Copying BloodhoundCE install"
+#   copy:
+#     src: "files/bloodhound-install.sh"
+#     dest: /opt/bloodhound/bloodhound-install.sh"
+#     owner: "{{ ansible_user_id }}"
+#     group: "{{ ansible_user_id }}"
+#     mode: 0755  
+
+- name: Download Bloodhound-CE Docker Files
+  ansible.builtin.get_url:
+    url: "{{ item.file }}"
+    dest: "{{ item.location }}"
+    mode: '0755'
+  loop:
+    - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/docker-compose.yml", location: "/opt/bloodhound/docker-compose.yml" } 
+    - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/.env.example", location: "/opt/bloodhound/.env" }
+
+- name: "Build Bloodhound-CE"
+  ansible.builtin.shell:
+    cmd: "docker-compose up"
+    chdir: /opt/bloodhound
+  become: true
+  become_method: sudo
+
+- name: "Build Bloodhound-CE"
+  ansible.builtin.shell:
+    cmd: "docker-compose down -v"
+    chdir: /opt/bloodhound
+  become: true
+  become_method: sudo  
+# to get password run docker-compose down -v and then docker-compose up --force-recreate    
