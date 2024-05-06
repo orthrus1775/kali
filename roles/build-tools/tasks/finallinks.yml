@@ -29,7 +29,8 @@
     - { src: /usr/bin/crackmapexec, dst: /usr/bin/cme }
     - { src: /opt/wesng/wes.py, dst: /usr/bin/wesng }
     - { src: /opt/wesng/wes.py, dst: /usr/bin/wes }  
-    - { src: /opt/scarecrow/ScareCrow, dst: /usr/bin/scarecrow}
+    - { src: /opt/scarecrow/ScareCrow, dst: /usr/bin/scarecrow }
+    - { src: /opt/mythic/mythic-cli, dst: /usr/bin/mythic-cli }
     - { src: "{{ ansible_env.HOME }}/.nimble/bin/choosenim", dst: /usr/bin/choosenim }
     - { src: "{{ ansible_env.HOME }}/.nimble/bin/nim", dst: /usr/bin/nim }
     - { src: "{{ ansible_env.HOME }}/.nimble/bin/nim-gdb", dst: /usr/bin/nim-gdb }  
@@ -51,9 +52,13 @@
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustc", dst: /usr/bin/rustc }     
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustdoc", dst: /usr/bin/rustdoc }     
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustfmt", dst: /usr/bin/rustfmt }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustup", dst: /usr/bin/rustup }       
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustup", dst: /usr/bin/rustup }
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustup", dst: /usr/bin/rustup }
+    - { src: "{{ ansible_env.HOME }}/go/bin/garble", dst: /usr/bin/garble }
+    - { src: "{{ ansible_env.HOME }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }        
   become: true
-  become_method: sudo 
+  become_method: sudo
+  ignore_errors: true 
 
   
 - name: "Recursively change ownership and permissions of /opt/"

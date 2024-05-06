@@ -38,11 +38,11 @@
     state: absent
   when: build_dir.path is defined 
 
-- name: "Creating a symlink"
-  ansible.builtin.shell:
-    cmd: ln -s /opt/mythic/mythic-cli /usr/bin/mythic-cli
-  become: true
-  become_method: sudo   
+# - name: "Creating a symlink"
+#   ansible.builtin.shell:
+#     cmd: ln -s /opt/mythic/mythic-cli /usr/bin/mythic-cli
+#   become: true
+#   become_method: sudo   
 
 - name: "Stopping Mythic"
   ansible.builtin.shell:
