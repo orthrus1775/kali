@@ -39,14 +39,14 @@
     cmd: go get github.com/mattn/go-isatty@v0.0.20
     chdir: /opt/scarecrow
 
-- name: "Creating symlinks"
-  ansible.builtin.file:
-    src: "{{ item.src }}"
-    path: "{{ item.dst }}"
-    state: link
-    loop:
-    - { src: "{{ ansible_env.HOME }}/go/bin/garble", dst: /usr/bin/garble }
-    - { src: "{{ ansible_env.HOME }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }        
-  become: true
-  become_method: sudo 
+# - name: "Creating symlinks"
+#   ansible.builtin.file:
+#     src: "{{ item.src }}"
+#     path: "{{ item.dst }}"
+#     state: link
+#     loop:
+#     - { src: "{{ ansible_env.HOME }}/go/bin/garble", dst: /usr/bin/garble }
+#     - { src: "{{ ansible_env.HOME }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }        
+#   become: true
+#   become_method: sudo 
      

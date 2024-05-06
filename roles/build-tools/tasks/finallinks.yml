@@ -51,7 +51,7 @@
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustc", dst: /usr/bin/rustc }     
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustdoc", dst: /usr/bin/rustdoc }     
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustfmt", dst: /usr/bin/rustfmt }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustup", dst: /usr/bin/rustup }          
+    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustup", dst: /usr/bin/rustup }       
   become: true
   become_method: sudo 
 
