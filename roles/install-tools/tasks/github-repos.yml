@@ -60,7 +60,11 @@
     - { repo: "https://github.com/Ridter/noPac" , location: "/opt/noPac"}
     - { repo: "https://github.com/ly4k/PetitPotam" , location: "/opt/PetitPotam"} 
     - { repo: "https://github.com/Kevin-Robertson/InveighZero" , location: "/opt/InveighZero"} 
-    - { repo: "https://github.com/praetorian-inc/PortBender" , location: "/opt/PortBender"}   
+    - { repo: "https://github.com/praetorian-inc/PortBender" , location: "/opt/PortBender"}
+    - { repo: "https://github.com/csandker/pxethiefy.git", location: "/opt/sccm/pxethiefy"}
+    - { repo: "https://github.com/garrettfoster13/sccmhunter.git", location: "/opt/sccm/sccmhunter"}
+    - { repo: "https://github.com/zyn3rgy/smbtakeover.git", location: "/opt/sccm/smbtakeover"}
+    - { repo: "https://github.com/XiaoliChan/wmiexec-Pro.git", location: "/opt/sccm/wmiexec-pro"}   
   become: true
   become_method: sudo
 
