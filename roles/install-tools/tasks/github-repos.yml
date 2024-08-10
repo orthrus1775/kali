@@ -64,7 +64,8 @@
     - { repo: "https://github.com/csandker/pxethiefy.git", location: "/opt/sccm/pxethiefy"}
     - { repo: "https://github.com/garrettfoster13/sccmhunter.git", location: "/opt/sccm/sccmhunter"}
     - { repo: "https://github.com/zyn3rgy/smbtakeover.git", location: "/opt/sccm/smbtakeover"}
-    - { repo: "https://github.com/XiaoliChan/wmiexec-Pro.git", location: "/opt/sccm/wmiexec-pro"}   
+    - { repo: "https://github.com/XiaoliChan/wmiexec-Pro.git", location: "/opt/sccm/wmiexec-pro"}
+    - { repo: "https://github.com/ricardojoserf/NativeDump.git", location: "/opt/nativedump"}    
   become: true
   become_method: sudo
 
