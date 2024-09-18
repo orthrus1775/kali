@@ -92,6 +92,7 @@
       - osslsigncode
       - sshuttle
       - docker-compose
+      - golang-github-binject-go-donut
     state: latest
   become: true
   become_method: sudo
@@ -109,6 +110,7 @@
       - wmi
       - requests-html
       - numpy
+      - requests
       - selenium
       - webdriver-manager
       - tldextract
@@ -160,18 +162,18 @@
 #   become_method: sudo
 
 
-- name: "Starting and Enabling Services"
-  ansible.builtin.service:
-    name: "{{ item }}"
-    state: started
-    enabled: true
-  loop:
-     - ssh
-     - rsyslog
-     - ufw
-     - docker
-  become: true
-  become_method: sudo
+# - name: "Starting and Enabling Services"
+#   ansible.builtin.service:
+#     name: "{{ item }}"
+#     state: started
+#     enabled: true
+#   loop:
+#      - ssh
+#      - rsyslog
+#      - ufw
+#      - docker
+#   become: true
+#   become_method: sudo
 
 - name: pipx check
   command: pipx ensurepath
