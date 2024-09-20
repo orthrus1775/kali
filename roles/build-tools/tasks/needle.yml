@@ -22,7 +22,7 @@
   shell: "export PATH=$HOME/.cargo/bin:$PATH && cd /opt/rustyneedle && rustup target add x86_64-pc-windows-gnu && cargo build --manifest-path=/opt/rustyneedle/Cargo.toml --target x86_64-pc-windows-gnu --release" 
 
 - name: "Build freeze"
-  shell: "export PATH=$HOME/.cargo/bin:$PATH && && cd /opt/freeze && rustup target add x86_64-pc-windows-gnu && cargo build --manifest-path=/opt/freeze/Cargo.toml --target x86_64-pc-windows-gnu --release"
+  shell: "export PATH=$HOME/.cargo/bin:$PATH && cd /opt/freeze && rustup target add x86_64-pc-windows-gnu && cargo build --manifest-path=/opt/freeze/Cargo.toml --target x86_64-pc-windows-gnu --release"
 
 - name: "Copying nim-install script to download install nim"
   copy:
