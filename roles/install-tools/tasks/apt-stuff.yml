@@ -127,26 +127,26 @@
   become: true
   become_method: sudo
 
-- name: "Installing python packages"
-  ansible.builtin.pip:
-    name: 
-      - mechanicalsoup
-      - openpyxl
-      - Faker
-      - python-docx
-      - python-pptx
-      - requests
-      - fabric
-      - wmi
-      - requests-html
-      - numpy
-      - requests
-      - selenium
-      - webdriver-manager
-      - tldextract
-      - bs4
-      - pycryptodome
-      - minikerberos
+# - name: "Installing python packages"
+#   ansible.builtin.pip:
+#     name: 
+#       - mechanicalsoup
+#       - openpyxl
+#       - Faker
+#       - python-docx
+#       - python-pptx
+#       - requests
+#       - fabric
+#       - wmi
+#       - requests-html
+#       - numpy
+#       - requests
+#       - selenium
+#       - webdriver-manager
+#       - tldextract
+#       - bs4
+#       - pycryptodome
+#       - minikerberos
 
 # - name: Remove Docker
 #   ansible.builtin.file:
