@@ -6,7 +6,7 @@
 
 - name: "go install mod ugorji/go"
   ansible.builtin.shell:
-    cmd: go mod download github.com/ugorji/go
+    cmd: go mod download github.com/ugorji/go@latest
     chdir: /opt/Havoc/teamserver
 
 - name: "Build havoc team server"
