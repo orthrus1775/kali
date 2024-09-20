@@ -12,7 +12,21 @@
 - name: "Installing Packages"
   package:
     name:
-      - kali-linux-everything
+      - kali-linux-headless
+      - kali-linux-large
+      - kali-system-gui
+      - kali-system-cli
+      - kali-system-core
+      - kali-tools-exploitation
+      - kali-tools-fuzzing
+      - kali-tools-passwords
+      - kali-tools-post-exploitation
+      - kali-tools-reverse-engineering
+      - kali-tools-windows-resources
+      - kali-tools-vulnerability
+      - kali-tools-forensics
+      - kali-tools-web
+      - kali-tools-top10
       - build-essential
       - apt-utils
       - cmake 
