@@ -107,6 +107,22 @@
       - sshuttle
       - docker-compose
       - golang-github-binject-go-donut
+      - python3-minikerberos
+      - python3-mechanicalsoup
+      - python3-openpyxl
+      - faker
+      - python3-docx
+      - python3-pptx
+      - python3-requests
+      - python3-fabric
+      - python3-winrm
+      - python3-numpy
+      - python3-requests-ntlm
+      - python3-requests
+      - python3-selenium
+      - python3-pycryptodome
+      - python3-tldextract
+      - python3-arsenic
     state: latest
   become: true
   become_method: sudo
