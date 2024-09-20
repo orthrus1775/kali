@@ -43,7 +43,7 @@
 
 - name: "Copying Sliver Client files to /usr/bin/"
   copy:
-    src: "/opt/sliver/bins/sliver-client.exe"
+    src: "/opt/sliver/bins/sliver-client_linamd64"
     dest: "/usr/bin/sliver-client"
     owner: root
     group: root
@@ -53,7 +53,7 @@
 
 - name: "Copying Sliver Server files to /usr/bin/"
   copy:
-    src: "/opt/sliver/bins/sliver-server"
+    src: "/opt/sliver/bins/sliver-server_linamd64"
     dest: /usr/bin/sliver-server
     owner: root
     group: root
