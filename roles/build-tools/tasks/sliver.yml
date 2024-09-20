@@ -30,7 +30,7 @@
 
 - name: "Building windows client"
   ansible.builtin.shell:
-    cmd: make windows
+    cmd: make windows-amd64
     chdir: /opt/sliver
 
 - name: "Copying Windows Sliver Client files to /bins"
