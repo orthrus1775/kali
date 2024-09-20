@@ -42,6 +42,8 @@
   ansible.builtin.shell:
     cmd: go mod init github.com/Tylous/Limelighter
     chdir: /opt/limelighter
+  ignore_errors: true  
+
 
 - name: "Add Color"
   ansible.builtin.shell:
