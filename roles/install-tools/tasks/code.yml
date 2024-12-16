@@ -38,6 +38,7 @@
     - DEVSENSE.phptools-vscode
     - ms-dotnettools.csharp
     - ms-azuretools.vscode-docker
+  become: false  
 
 # - name: Getting VSCode extenssions
 #   ansible.builtin.command:
