@@ -105,7 +105,7 @@
       - openssl
       - osslsigncode
       - sshuttle
-      - docker-compose
+      - autossh
       - golang-github-binject-go-donut
       - python3-minikerberos
       - python3-mechanicalsoup
@@ -148,7 +148,7 @@
 #       - pycryptodome
 #       - minikerberos
 
-# - name: Remove Docker
+# - name: Remove autossh
 #   ansible.builtin.file:
 #     path: /usr/bin/docker
 #     state: absent
