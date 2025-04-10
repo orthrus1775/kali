@@ -26,18 +26,9 @@
 
 # Download Microsoft GPG key
 - name: Download Microsoft GPG key
-  ansible.builtin.command: wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-  args:
-    creates: packages.microsoft.gpg
+  ansible.builtin.command: "wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg"
   become: true
   become_method: sudo  
-# Install GPG key
-- name: Install Microsoft GPG key
-  ansible.builtin.command: install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-  args:
-    creates: /etc/apt/keyrings/packages.microsoft.gpg
-  become: true
-  become_method: sudo
 
 # Add VS Code repository
 - name: Add VS Code repository
