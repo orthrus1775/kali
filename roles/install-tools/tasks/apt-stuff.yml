@@ -209,19 +209,6 @@
   become: true
   become_method: sudo
 
-- name: "Disabling Services"
-  ansible.builtin.service:
-    name: "{{ item }}"
-    state: stopped
-    enabled: false
-  loop:
-     - apache2
-    #  - rsyslog
-    #  - ufw
-    #  - docker
-  become: true
-  become_method: sudo  
-
 - name: pipx check
   command: pipx ensurepath
   become: true

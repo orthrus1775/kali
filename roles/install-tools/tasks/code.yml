@@ -1,81 +1,42 @@
 ---
-# - name: Add Microsoft GPG key
-#   apt_key:
-#     url: https://packages.microsoft.com/keys/microsoft.asc
-#     state: present
-#   become: true
-#   become_method: sudo
-
-# - name: Add VSCode repository
-#   apt_repository:
-#     repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
-#     state: present
-#   become: true
-#   become_method: sudo
-
-# - name: Update APT package cache
-#   apt:
-#     update_cache: yes
-#   become: true
-#   become_method: sudo
-
-# - name: "Install Visual Studio Code"
-#   apt:
-#     name: code
-#     state: present
-
-# Download Microsoft GPG key
-- name: Download Microsoft GPG key
-  ansible.builtin.command: "wget -O microsoft.asc -q https://packages.microsoft.com/keys/microsoft.asc"
-  become: true
-  become_method: sudo  
-
-- name: Download Microsoft GPG key
-  ansible.builtin.command: "cat microsoft.asc | gpg --dearmor > packages.microsoft.gpg" 
-  become: true
-  become_method: sudo  
-
-- name: Download Microsoft GPG key
-  ansible.builtin.command: "sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg"
-  become: true
-  become_method: sudo  
-
-# Add VS Code repository
-- name: Add VS Code repository
-  ansible.builtin.shell: echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | tee /etc/apt/sources.list.d/vscode.list > /dev/null
-  args:
-    creates: /etc/apt/sources.list.d/vscode.list
+- name: Check if dos2unix is installed
+  command: which dos2unix
+  register: dos2unix_check
+  ignore_errors: true
+  changed_when: false
   become: true
   become_method: sudo
 
-# Remove temporary GPG file
-- name: Remove temporary GPG file
-  ansible.builtin.file:
-    path: packages.microsoft.gpg
-    state: absent
+- name: Install dos2unix if not present
+  package:
+    name: dos2unix
+    state: present
+  when: dos2unix_check.rc != 0
+  become: true
+  become_method: sudo  
+  
+- name: Copy the VSCode installation script
+  copy:
+    src: "{{ role_path }}/files/code/install_vscode.sh"  # Update with the local path to your script
+    dest: /tmp/install_vscode.sh
+    mode: '0755'  # Make the script executable
   become: true
   become_method: sudo    
- 
-# Install apt-transport-https
-- name: Install apt-transport-https
-  ansible.builtin.apt:
-    name: apt-transport-https
-    state: present
+  
+- name: Run dos2unix on the script
+  command: dos2unix /tmp/install_vscode.sh
   become: true
-  become_method: sudo
-
-# Update apt cache
-- name: Update apt cache
-  ansible.builtin.apt:
-    update_cache: yes
+  become_method: sudo  
+  
+- name: Execute the VSCode installation script
+  command: /tmp/install_vscode.sh
   become: true
-  become_method: sudo
-
-# Install VS Code
-- name: Install VS Code
-  ansible.builtin.apt:
-    name: code
-    state: present
+  become_method: sudo  
+  
+- name: Delete the script after execution
+  file:
+    path: /tmp/install_vscode.sh
+    state: absent
   become: true
   become_method: sudo
 
