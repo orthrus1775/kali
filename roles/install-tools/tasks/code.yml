@@ -1,30 +1,70 @@
 ---
+# - name: Add Microsoft GPG key
+#   apt_key:
+#     url: https://packages.microsoft.com/keys/microsoft.asc
+#     state: present
+#   become: true
+#   become_method: sudo
+
+# - name: Add VSCode repository
+#   apt_repository:
+#     repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+#     state: present
+#   become: true
+#   become_method: sudo
+
+# - name: Update APT package cache
+#   apt:
+#     update_cache: yes
+#   become: true
+#   become_method: sudo
+
+# - name: "Install Visual Studio Code"
+#   apt:
+#     name: code
+#     state: present
+#   become: true
+#   become_method: sudo
+
+- name: Install dependencies
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+      - software-properties-common
+    state: present
+    update_cache: yes
+
 - name: Add Microsoft GPG key
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://packages.microsoft.com/keys/microsoft.asc
     state: present
-  become: true
-  become_method: sudo
 
-- name: Add VSCode repository
-  apt_repository:
-    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+- name: Add VS Code repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
     state: present
-  become: true
-  become_method: sudo
+    filename: vscode
 
-- name: Update APT package cache
-  apt:
+- name: Install VS Code
+  ansible.builtin.apt:
+    name: "code{% if vscode_version == 'insiders' %}-insiders{% endif %}"
+    state: present
     update_cache: yes
-  become: true
-  become_method: sudo
 
-- name: "Install Visual Studio Code"
-  apt:
-    name: code
-    state: present
-  become: true
-  become_method: sudo
+- name: Verify VS Code installation
+  ansible.builtin.command: "code{% if vscode_version == 'insiders' %}-insiders{% endif %} --version"
+  register: vscode_version_output
+  changed_when: false
+  ignore_errors: yes
+  check_mode: no
+
+- name: Display VS Code version
+  ansible.builtin.debug:
+    msg: "{{ vscode_version_output.stdout }}"
+  when: vscode_version_output.rc == 0
 
 - name: "Getting VSCode extensions"
   ansible.builtin.command:
