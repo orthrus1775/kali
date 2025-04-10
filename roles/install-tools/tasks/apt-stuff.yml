@@ -93,7 +93,7 @@
       - sipvicious
       - tnscmd10g
       - whatweb
-      - wkhtmltopdf
+      #- wkhtmltopdf
       - podman
       - apache2
       - postfix

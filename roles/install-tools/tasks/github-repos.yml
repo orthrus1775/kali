@@ -71,23 +71,23 @@
     - { repo: "https://github.com/jfmaes/LazySign.git", location: "/opt/lazysign"}   
     - { repo: "https://github.com/volatilityfoundation/volatility3.git", location: "/opt/volatility"}   
     - { repo: "https://github.com/JPCERTCC/Windows-Symbol-Tables.git", location: "/opt/winsymbols"}
-    - { repo: https://github.com/PowerShellMafia/PowerSploit/, location: "/opt/powershell/PowerSploit"}
-    - { repo: https://raw.githubusercontent.com/juliourena/plaintext/master/Powershell/Get-ConstrainedDelegation.ps1, location: "/opt/powershell/Get-ConstrainedDelegation.ps1"}
-    - { repo: https://github.com/SpecterOps/BloodHound-Legacy  , location: "/opt/bloodhound-legacy"}
-    - { repo: https://github.com/ShutdownRepo/targetedKerberoast, location: "/opt/targetedKerberoast"}
-    - { repo: https://github.com/juliourena/ActiveDirectoryScripts/blob/main/Python/addusertogroup.py, location: "/opt/addusertogroup"}
-    - { repo: https://github.com/n00py/LAPSDumper, location: "/opt/lapsdumper"}
-    - { repo: https://github.com/micahvandeusen/gMSADumper, location: "/opt/gMSADumper"}
-    - { repo: https://github.com/rvazarkar/GMSAPasswordReader, location: "/opt/GMSAPasswordReader"}
-    - { repo: https://github.com/eladshamir/Whisker, location: "/opt/whisker"}
-    - { repo: https://github.com/p0dalirius/pydsinternals, location: "/opt/pydsinternals"}
-    - { repo: https://github.com/the-useless-one/pywerview, location: "/opt/pywerview"}
-    - { repo: https://github.com/lkarlslund/Adalanche, location: "/opt/Adalanche"}
-    - { repo: https://github.com/techspence/ScriptSentry, location: "/opt/powershell/ScriptSentry"}
-    - { repo: https://github.com/Kevin-Robertson/Powermad/, location: "/opt/powershell/Powermad"}
-    - { repo: https://github.com/trustedsec/CS-Remote-OPs-BOF.git, location: "/opt/bofs/cs-remot-ops"}
-    - { repo: https://github.com/trustedsec/CS-Situational-Awareness-BOF.git, location: "/opt/bofs/cs-sa"}
-    - { repo: https://github.com/0xEr3bus/PoolPartyBof , location: "/opt/bofs/poolparty"}
+    - { repo: "https://github.com/PowerShellMafia/PowerSploit/", location: "/opt/powershell/PowerSploit"}
+    - { repo: "https://github.com/juliourena/plaintext.git", location: "/opt/powershell/plaintext"}
+    - { repo: "https://github.com/SpecterOps/BloodHound-Legacy"  , location: "/opt/bloodhound-legacy"}
+    - { repo: "https://github.com/ShutdownRepo/targetedKerberoast", location: "/opt/targetedKerberoast"}
+    - { repo: "https://github.com/juliourena/ActiveDirectoryScripts/blob/main/Python/addusertogroup.py", location: "/opt/addusertogroup"}
+    - { repo: "https://github.com/n00py/LAPSDumper", location: "/opt/lapsdumper"}
+    - { repo: "https://github.com/micahvandeusen/gMSADumper", location: "/opt/gMSADumper"}
+    - { repo: "https://github.com/rvazarkar/GMSAPasswordReader", location: "/opt/GMSAPasswordReader"}
+    - { repo: "https://github.com/eladshamir/Whisker", location: "/opt/whisker"}
+    - { repo: "https://github.com/p0dalirius/pydsinternals", location: "/opt/pydsinternals"}
+    - { repo: "https://github.com/the-useless-one/pywerview", location: "/opt/pywerview"}
+    - { repo: "https://github.com/lkarlslund/Adalanche", location: "/opt/Adalanche"}
+    - { repo: "https://github.com/techspence/ScriptSentry", location: "/opt/powershell/ScriptSentry"}
+    - { repo: "https://github.com/Kevin-Robertson/Powermad/", location: "/opt/powershell/Powermad"}
+    - { repo: "https://github.com/trustedsec/CS-Remote-OPs-BOF.git", location: "/opt/bofs/cs-remot-ops"}
+    - { repo: "https://github.com/trustedsec/CS-Situational-Awareness-BOF.git", location: "/opt/bofs/cs-sa"}
+    - { repo: "https://github.com/0xEr3bus/PoolPartyBof" , location: "/opt/bofs/poolparty"}
   become: true
   become_method: sudo
 
