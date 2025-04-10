@@ -88,6 +88,7 @@
     - { repo: "https://github.com/trustedsec/CS-Remote-OPs-BOF.git", location: "/opt/bofs/cs-remot-ops"}
     - { repo: "https://github.com/trustedsec/CS-Situational-Awareness-BOF.git", location: "/opt/bofs/cs-sa"}
     - { repo: "https://github.com/0xEr3bus/PoolPartyBof" , location: "/opt/bofs/poolparty"}
+    - { repo: "https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/tree/master", location: "/opt/Ghostpack"}
   become: true
   become_method: sudo
 

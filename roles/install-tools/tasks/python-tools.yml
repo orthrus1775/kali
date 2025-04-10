@@ -14,3 +14,4 @@
     - { name: 'wesng', url: 'git+https://github.com/bitsadmin/wesng.git' }  
     #- { name: 'NetExec', url: 'git+https://github.com/Pennyw0rth/NetExec' }
     - { name: 'bloodyAD', url: 'git+https://github.com/CravateRouge/bloodyAD.git' }
+  ignore_errors: true

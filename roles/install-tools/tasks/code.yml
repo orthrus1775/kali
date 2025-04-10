@@ -52,6 +52,7 @@
     - DEVSENSE.phptools-vscode
     - ms-dotnettools.csharp
     - ms-azuretools.vscode-docker
+  ignore_errors: true  
 
 
 # - name: Getting VSCode extenssions
