@@ -23,61 +23,69 @@
 #   apt:
 #     name: code
 #     state: present
-#   become: true
-#   become_method: sudo
 
-- name: Install dependencies
+
+- name: Install wget and gpg
+  ansible.builtin.command: apt-get install -y wget gpg
+  args:
+    warn: false
+  become: true
+  become_method: sudo
+
+# Download Microsoft GPG key
+- name: Download Microsoft GPG key
+  ansible.builtin.command: wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+  args:
+    creates: packages.microsoft.gpg
+  become: true
+  become_method: sudo  
+# Install GPG key
+- name: Install Microsoft GPG key
+  ansible.builtin.command: install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+  args:
+    creates: /etc/apt/keyrings/packages.microsoft.gpg
+  become: true
+  become_method: sudo
+
+# Add VS Code repository
+- name: Add VS Code repository
+  ansible.builtin.shell: echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | tee /etc/apt/sources.list.d/vscode.list > /dev/null
+  args:
+    creates: /etc/apt/sources.list.d/vscode.list
+  become: true
+  become_method: sudo
+
+# Remove temporary GPG file
+- name: Remove temporary GPG file
+  ansible.builtin.file:
+    path: packages.microsoft.gpg
+    state: absent
+  become: true
+  become_method: sudo    
+ 
+# Install apt-transport-https
+- name: Install apt-transport-https
   ansible.builtin.apt:
-    name:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg
-      - software-properties-common
+    name: apt-transport-https
     state: present
+  become: true
+  become_method: sudo
+
+# Update apt cache
+- name: Update apt cache
+  ansible.builtin.apt:
     update_cache: yes
   become: true
   become_method: sudo
 
-- name: Add Microsoft GPG key
-  ansible.builtin.apt_key:
-    url: https://packages.microsoft.com/keys/microsoft.asc
-    state: present
-  become: true
-  become_method: sudo
-
-- name: Add VS Code repository
-  ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-    state: present
-    filename: vscode
-  become: true
-  become_method: sudo
-
+# Install VS Code
 - name: Install VS Code
   ansible.builtin.apt:
-    name: "code{% if vscode_version == 'insiders' %}-insiders{% endif %}"
+    name: code
     state: present
-    update_cache: yes
   become: true
   become_method: sudo
 
-- name: Verify VS Code installation
-  ansible.builtin.command: "code{% if vscode_version == 'insiders' %}-insiders{% endif %} --version"
-  register: vscode_version_output
-  changed_when: false
-  ignore_errors: true
-  check_mode: no
-  become: true
-  become_method: sudo
-
-- name: Display VS Code version
-  ansible.builtin.debug:
-    msg: "{{ vscode_version_output.stdout }}"
-  when: vscode_version_output.rc == 0
-  become: true
-  become_method: sudo
-  
 - name: "Getting VSCode extensions"
   ansible.builtin.command:
     cmd: "code --install-extension {{ item }}"    
@@ -90,6 +98,7 @@
     - DEVSENSE.phptools-vscode
     - ms-dotnettools.csharp
     - ms-azuretools.vscode-docker
+    
 
 # - name: Getting VSCode extenssions
 #   ansible.builtin.command:
