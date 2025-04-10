@@ -108,6 +108,8 @@
       - sshuttle
       - autossh
       - sshpass
+      - wget 
+      - gpg
       - golang-github-binject-go-donut
       - python3-minikerberos
       - python3-mechanicalsoup

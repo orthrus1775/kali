@@ -24,14 +24,6 @@
 #     name: code
 #     state: present
 
-
-- name: Install wget and gpg
-  ansible.builtin.command: apt-get install -y wget gpg
-  args:
-    warn: false
-  become: true
-  become_method: sudo
-
 # Download Microsoft GPG key
 - name: Download Microsoft GPG key
   ansible.builtin.command: wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
@@ -98,7 +90,7 @@
     - DEVSENSE.phptools-vscode
     - ms-dotnettools.csharp
     - ms-azuretools.vscode-docker
-    
+
 
 # - name: Getting VSCode extenssions
 #   ansible.builtin.command:
