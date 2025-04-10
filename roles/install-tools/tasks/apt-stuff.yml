@@ -12,21 +12,22 @@
 - name: "Installing Packages"
   package:
     name:
-      - kali-linux-headless
-      - kali-linux-large
-      - kali-system-gui
-      - kali-system-cli
-      - kali-system-core
-      - kali-tools-exploitation
-      - kali-tools-fuzzing
-      - kali-tools-passwords
-      - kali-tools-post-exploitation
-      - kali-tools-reverse-engineering
-      - kali-tools-windows-resources
-      - kali-tools-vulnerability
-      - kali-tools-forensics
-      - kali-tools-web
-      - kali-tools-top10
+      - kali-linux-everything
+      #- kali-linux-headless
+      #- kali-linux-large
+      #- kali-system-gui
+      #- kali-system-cli
+      #- kali-system-core
+      #- kali-tools-exploitation
+      #- kali-tools-fuzzing
+      #- kali-tools-passwords
+      #- kali-tools-post-exploitation
+      #- kali-tools-reverse-engineering
+      #- kali-tools-windows-resources
+      #- kali-tools-vulnerability
+      #- kali-tools-forensics
+      #- kali-tools-web
+      #- kali-tools-top10
       - build-essential
       - apt-utils
       - cmake 
@@ -58,11 +59,11 @@
       - libboost-all-dev 
       - mingw-w64 
       - nasm
-      - kali-tools-crypto-stego
-      - kali-tools-fuzzing
-      - kali-tools-windows-resources
-      - kali-linux-large
-      - kali-wallpapers-all
+      #- kali-tools-crypto-stego
+      #- kali-tools-fuzzing
+      #- kali-tools-windows-resources
+      #- kali-linux-large
+      #- kali-wallpapers-all
       - peass
       - bc
       - xplico
@@ -106,6 +107,7 @@
       - osslsigncode
       - sshuttle
       - autossh
+      - sshpass
       - golang-github-binject-go-donut
       - python3-minikerberos
       - python3-mechanicalsoup
@@ -175,11 +177,11 @@
 #   become: true
 #   become_method: sudo
 
-# - name: Update APT package cache
-#   apt:
-#     update_cache: yes
-#   become: true
-#   become_method: sudo
+- name: Update APT package cache
+  apt:
+    update_cache: yes
+  become: true
+  become_method: sudo
 
 # - name: "Install Docker"
 #   apt:
@@ -192,18 +194,31 @@
 #   become_method: sudo
 
 
-# - name: "Starting and Enabling Services"
-#   ansible.builtin.service:
-#     name: "{{ item }}"
-#     state: started
-#     enabled: true
-#   loop:
-#      - ssh
-#      - rsyslog
-#      - ufw
-#      - docker
-#   become: true
-#   become_method: sudo
+- name: "Starting and Enabling Services"
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop:
+     - ssh
+    #  - rsyslog
+    #  - ufw
+    #  - docker
+  become: true
+  become_method: sudo
+
+- name: "Disabling Services"
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: false
+  loop:
+     - apache2
+    #  - rsyslog
+    #  - ufw
+    #  - docker
+  become: true
+  become_method: sudo  
 
 - name: pipx check
   command: pipx ensurepath

@@ -1,0 +1,6 @@
+- name: "Build Adalanche"  # Issues with running dotnet core 3.1
+  ansible.builtin.shell:
+    cmd: pwsh build.ps1
+    chdir: /opt/Adalanche
+  become: true
+  become_method: sudo
