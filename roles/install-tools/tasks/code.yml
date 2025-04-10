@@ -26,7 +26,7 @@
 
 # Download Microsoft GPG key
 - name: Download Microsoft GPG key
-  ansible.builtin.command: "wget -qO- https://packages.microsoft.com/keys/microsoft.asc > microsoft.asc"
+  ansible.builtin.command: "wget -O microsoft.asc -q https://packages.microsoft.com/keys/microsoft.asc"
   become: true
   become_method: sudo  
 
