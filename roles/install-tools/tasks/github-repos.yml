@@ -75,7 +75,7 @@
     - { repo: "https://github.com/juliourena/plaintext.git", location: "/opt/powershell/plaintext"}
     - { repo: "https://github.com/SpecterOps/BloodHound-Legacy"  , location: "/opt/bloodhound-legacy"}
     - { repo: "https://github.com/ShutdownRepo/targetedKerberoast", location: "/opt/targetedKerberoast"}
-    - { repo: "https://github.com/juliourena/ActiveDirectoryScripts/blob/main/Python/addusertogroup.py", location: "/opt/addusertogroup"}
+    - { repo: "https://github.com/juliourena/ActiveDirectoryScripts", location: "/opt/ActiveDirectoryScripts"}
     - { repo: "https://github.com/n00py/LAPSDumper", location: "/opt/lapsdumper"}
     - { repo: "https://github.com/micahvandeusen/gMSADumper", location: "/opt/gMSADumper"}
     - { repo: "https://github.com/rvazarkar/GMSAPasswordReader", location: "/opt/GMSAPasswordReader"}
