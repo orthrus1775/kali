@@ -1,10 +1,10 @@
 ---
 - import_tasks: buildprep.yml
-- import_tasks: apt-stuff.yml
-- import_tasks: github-repos.yml
-- import_tasks: python-tools.yml
-- import_tasks: go_packages.yml
-- import_tasks: gem-tools.yml
+#- import_tasks: apt-stuff.yml
+#- import_tasks: github-repos.yml
+#- import_tasks: python-tools.yml
+#- import_tasks: go_packages.yml
+#- import_tasks: gem-tools.yml
 - import_tasks: code.yml
 - import_tasks: nim-modules.yml
 - import_tasks: vmtools.yml
