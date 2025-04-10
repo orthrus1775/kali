@@ -2,6 +2,7 @@
 
 
 cd /opt/mythic/
+sudo ./install_docker_kali.sh
 sudo /opt/mythic/mythic-cli install github https://github.com/MythicC2Profiles/http
 sudo /opt/mythic/mythic-cli install github https://github.com/MythicC2Profiles/tcp
 sudo /opt/mythic/mythic-cli install github https://github.com/MythicC2Profiles/smb

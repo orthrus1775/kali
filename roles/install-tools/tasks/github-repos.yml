@@ -22,6 +22,7 @@
   git:
     repo: "{{ item.repo }}"
     dest: "{{ item.location }}"
+    version: "{{ item.version | default(omit) }}"
     force: true 
   loop:
     - { repo: "https://github.com/Flangvik/SharpCollection", location: "/opt/sharpcollection" }  
@@ -89,6 +90,7 @@
     - { repo: "https://github.com/trustedsec/CS-Situational-Awareness-BOF.git", location: "/opt/bofs/cs-sa"}
     - { repo: "https://github.com/0xEr3bus/PoolPartyBof" , location: "/opt/bofs/poolparty"}
     - { repo: "https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git", location: "/opt/Ghostpack"}
+    - { repo: "https://github.com/ShutdownRepo/impacket/", location: "/opt/tgssub", version: "tgssub" }
   become: true
   become_method: sudo
 
