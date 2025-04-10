@@ -58,7 +58,7 @@
   ansible.builtin.command: "code{% if vscode_version == 'insiders' %}-insiders{% endif %} --version"
   register: vscode_version_output
   changed_when: false
-  ignore_errors: yes
+  ignore_errors: true
   check_mode: no
 
 - name: Display VS Code version
