@@ -91,6 +91,7 @@
     - { repo: "https://github.com/0xEr3bus/PoolPartyBof" , location: "/opt/bofs/poolparty"}
     - { repo: "https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git", location: "/opt/Ghostpack"}
     - { repo: "https://github.com/ShutdownRepo/impacket/", location: "/opt/tgssub", version: "tgssub" }
+    - { repo: "https://github.com/lkarlslund/Adalanche.git", location: "/opt/adalanche", version: "7774681" }
   become: true
   become_method: sudo
 
