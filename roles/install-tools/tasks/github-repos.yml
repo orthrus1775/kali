@@ -92,6 +92,7 @@
     - { repo: "https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git", location: "/opt/Ghostpack"}
     - { repo: "https://github.com/ShutdownRepo/impacket/", location: "/opt/tgssub", version: "tgssub" }
     - { repo: "https://github.com/lkarlslund/Adalanche.git", location: "/opt/adalanche", version: "7774681" }
+    - { repo: "https://github.com/SpecterOps/BloodHound.git", location: "/opt/bloodhound"}
   become: true
   become_method: sudo
 
@@ -112,7 +113,7 @@
     - { repo: "jpillora/chisel",  regex: "_windows_amd64.gz", location: "/opt/chisel" }
     - { repo: "jpillora/chisel",  regex: "_darwin_amd64", location: "/opt/chisel", filename: "chisel_osx" }
     - { repo: "WithSecureLabs/chainsaw",  regex: "chainsaw_all_", location: "/opt/" }
-    - { repo: "BloodHoundAD/BloodHound", regex: "BloodHound-linux-x64.zip", location: "/opt/" }
+    #- { repo: "BloodHoundAD/BloodHound", regex: "BloodHound-linux-x64.zip", location: "/opt/" }
     # - { repo: "dnSpy/dnSpy", regex: "net-win32.zip", location: "/usr/share/dnSpy" }
     # - { repo: "dnSpy/dnSpy", regex: "net-win64.zip", location: "/usr/share/dnSpy" } 
     - { repo: "dnSpy/dnSpy", regex: "netframework.zip", location: "/usr/share/dnSpy" } 
