@@ -75,7 +75,7 @@
       - mingw-w64
       - jq
       - pipx
-      - ntpdate
+      - ntpsec-ntpdate
       - flameshot
       - curl
       - dnsrecon
