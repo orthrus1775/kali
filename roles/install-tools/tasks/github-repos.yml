@@ -4,20 +4,6 @@
     state: directory
   register: build_dir
 
-
-- name: "Copying merlin-install script to download install merlin"
-  copy:
-    src: "files/merlin-install.sh"
-    dest: "{{ build_dir.path }}/merlin-install.sh"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
-    mode: 0755
-
-- name: "Installing merlin"
-  shell: "{{ build_dir.path }}/merlin-install.sh"     
-  become: true
-  become_method: sudo
-
 - name: "Installing useful github repos"
   git:
     repo: "{{ item.repo }}"
