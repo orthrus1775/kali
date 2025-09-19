@@ -156,6 +156,9 @@
   loop:
     - { repo: "dnSpy/dnSpy", regex: "netframework.zip", location: "/usr/share/dnSpy" } 
     - { repo: "t94j0/satellite", regex: "_linux_amd64.deb", location: "/opt/redirector/satellite" } 
+    - { repo: "lkarlslund/Adalanche", regex: "adalanche-linux-x64-latestrelease", location: "/opt/Adalanche" }
+    - { repo: "lkarlslund/Adalanche", regex: "adalanche-linux-x64-latestrelease", location: "/opt/Adalanche" }
+    - { repo: "lkarlslund/Adalanche", regex: "adalanche-collector-windows-x64-latestrelease-", location: "/opt/Adalanche" }
   async: 45
   poll: 0
   become: true
