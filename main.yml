@@ -7,7 +7,7 @@
     - role: "roles/configure-tmux"
     - role: "roles/customize-terminal"
     - role: "roles/customize-browser"
-    - role: "roles/configure-logging"
+    # - role: "roles/configure-logging"
     # - role: "roles/customize-desktop"
     - role: "roles/build-tools"
     - role: "roles/cleanup"

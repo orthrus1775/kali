@@ -46,39 +46,11 @@
   loop:
     - ms-python.python
     - ms-python.vscode-pylance
-    - kosz78.nim
+    - ms-python.debugpy
+    - nimlang.nimlang
     - streetsidesoftware.code-spell-checker
     - ms-vscode.cpptools
-    - DEVSENSE.phptools-vscode
     - ms-dotnettools.csharp
-    - ms-azuretools.vscode-docker
+    - rust-lang.rust-analyzer
+    - redhat.vscode-yaml
   ignore_errors: true  
-
-
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension kosz78.nim
-
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension streetsidesoftware.code-spell-checker
-
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension ms-vscode.cpptools
-
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension DEVSENSE.phptools-vscode
-
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension ms-dotnettools.csharp
-
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension ms-azuretools.vscode-docker
-
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension ms-python.vscode-pylance

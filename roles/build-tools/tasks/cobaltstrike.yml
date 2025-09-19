@@ -1,0 +1,15 @@
+- name: "Create Cobaltstrike directory"
+  file:
+    path: /opt/cobaltstrike
+    state: directory
+    mode: '0755'
+  become: true
+  become_method: sudo
+
+- name: "Install OpenJDK 11"
+  apt:
+    name: openjdk-11-jdk
+    state: present
+    update_cache: yes
+  become: true
+  become_method: sudo

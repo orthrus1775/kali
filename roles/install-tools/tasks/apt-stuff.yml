@@ -12,23 +12,31 @@
 - name: "Installing Packages"
   package:
     name:
-      - kali-linux-everything
-      #- kali-linux-headless
-      #- kali-linux-large
-      #- kali-system-gui
-      #- kali-system-cli
-      #- kali-system-core
-      #- kali-tools-exploitation
-      #- kali-tools-fuzzing
-      #- kali-tools-passwords
-      #- kali-tools-post-exploitation
-      #- kali-tools-reverse-engineering
-      #- kali-tools-windows-resources
-      #- kali-tools-vulnerability
-      #- kali-tools-forensics
-      #- kali-tools-web
-      #- kali-tools-top10
+      - kali-linux-large
+      - kali-system-cli
+      - kali-system-core
+      - kali-tools-exploitation
+      - kali-tools-fuzzing
+      - kali-tools-passwords
+      - kali-tools-post-exploitation
+      - kali-tools-windows-resources
+      - kali-tools-vulnerability
+      - kali-tools-web
+      - kali-tools-top10
+      - kali-tools-windows-resources
+      - bloodhound
+      - impacket-scripts
+      - ldeep
+      - donut
+      - certipy-ad
+      - netexec
+      - autorecon
+      - rubeus
+      - sharphound
+      - bloodyad
+      - chisel-common-binaries
       - build-essential
+      - bloodhound-ce-python
       - apt-utils
       - cmake 
       - libfontconfig1
@@ -55,28 +63,20 @@
       - golang-go 
       - qtbase5-dev 
       - libqt5websockets5-dev 
+      - python3-pip
+      - python3-virtualenv
       - python3-dev 
       - libboost-all-dev 
       - mingw-w64 
       - nasm
-      #- kali-tools-crypto-stego
-      #- kali-tools-fuzzing
-      #- kali-tools-windows-resources
-      #- kali-linux-large
-      #- kali-wallpapers-all
       - peass
       - bc
-      - xplico
       - openssh-server
       - mingw-w64
       - jq
       - pipx
       - ntpdate
       - flameshot
-      - exiftool
-      - evilginx2
-      - evilginx2-dbgsym
-      - pure-ftpd
       - curl
       - dnsrecon
       - enum4linux
@@ -93,12 +93,7 @@
       - sipvicious
       - tnscmd10g
       - whatweb
-      #- wkhtmltopdf
-      - podman
-      - apache2
-      - postfix
-      - nginx
-      - nginx-extras
+      - wkhtmltopdf
       - whois
       - rsyslog
       - ufw
@@ -111,73 +106,9 @@
       - wget 
       - gpg
       - golang-github-binject-go-donut
-      - python3-minikerberos
-      - python3-mechanicalsoup
-      - python3-openpyxl
-      - faker
-      - python3-docx
-      - python3-pptx
-      - python3-requests
-      - python3-fabric
-      - python3-winrm
-      - python3-numpy
-      - python3-requests-ntlm
-      - python3-requests
-      - python3-selenium
-      - python3-pycryptodome
-      - python3-tldextract
-      - python3-arsenic
     state: latest
   become: true
   become_method: sudo
-
-# - name: "Installing python packages"
-#   ansible.builtin.pip:
-#     name: 
-#       - mechanicalsoup
-#       - openpyxl
-#       - Faker
-#       - python-docx
-#       - python-pptx
-#       - requests
-#       - fabric
-#       - wmi
-#       - requests-html
-#       - numpy
-#       - requests
-#       - selenium
-#       - webdriver-manager
-#       - tldextract
-#       - bs4
-#       - pycryptodome
-#       - minikerberos
-
-# - name: Remove autossh
-#   ansible.builtin.file:
-#     path: /usr/bin/docker
-#     state: absent
-#   become: true
-#   become_method: sudo
-  
-# - name: Adding Docker GPG key
-#   apt_key:
-#     url: https://download.docker.com/linux/debian/gpg
-#     state: present
-#   become: true
-#   become_method: sudo
-
-# - name: Add Docker repository
-#   apt_repository:
-#     repo: deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable
-#     state: present
-#   become: true
-#   become_method: sudo
-
-# - name: "Setting up Veil" 
-#   ansible.builtin.shell:
-#     cmd: "/usr/share/veil/config/setup.sh --force --silent"
-#   become: true
-#   become_method: sudo
 
 - name: Update APT package cache
   apt:
@@ -185,16 +116,26 @@
   become: true
   become_method: sudo
 
-# - name: "Install Docker"
-#   apt:
-#     name: 
-#        - docker-ce
-#        - docker-compose-plugin
-#     state: present
-#     install_recommends: false
-#   become: true
-#   become_method: sudo
+- name: "Download Docker installation script"
+  get_url:
+    url: https://raw.githubusercontent.com/its-a-feature/Mythic/refs/heads/master/install_docker_kali.sh
+    dest: /tmp/install_docker_kali.sh
+    mode: '0755'
+  become: true
+  become_method: sudo
 
+- name: "Install Docker using script"
+  shell: /tmp/install_docker_kali.sh
+  become: true
+  become_method: sudo
+  register: docker_install_result
+
+- name: "Clean up Docker installation script"
+  file:
+    path: /tmp/install_docker_kali.sh
+    state: absent
+  become: true
+  become_method: sudo
 
 - name: "Starting and Enabling Services"
   ansible.builtin.service:
@@ -203,9 +144,7 @@
     enabled: true
   loop:
      - ssh
-    #  - rsyslog
-    #  - ufw
-    #  - docker
+     - docker
   become: true
   become_method: sudo
 

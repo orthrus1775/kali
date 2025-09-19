@@ -44,7 +44,6 @@
     chdir: /opt/limelighter
   ignore_errors: true  
 
-
 - name: "Add Color"
   ansible.builtin.shell:
     cmd: go get github.com/fatih/color
