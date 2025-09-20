@@ -12,7 +12,7 @@
     force: true 
   loop:
     - { repo: "https://github.com/Flangvik/SharpCollection", location: "/opt/sharpcollection" }  
-    - { repo: "https://github.com/ropnop/windapsearch", location: "/opt/windapsearch" }
+    - { repo: " https://github.com/ropnop/go-windapsearch.git", location: "/opt/windapsearch" }
     - { repo: "https://github.com/mttaggart/rustyneedle.git", location: "/opt/rustyneedle" }
     - { repo: "https://github.com/m0nad/Diamorphine.git", location: "/opt/diamorphine"}
     - { repo: "https://github.com/0xZDH/redirect.rules.git", location: "/opt/redirector/redirect.rules" }

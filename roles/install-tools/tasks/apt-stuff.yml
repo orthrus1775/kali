@@ -104,6 +104,7 @@
       - sshpass
       - wget 
       - gpg
+      - mage
       - golang-github-binject-go-donut
     state: latest
   become: true

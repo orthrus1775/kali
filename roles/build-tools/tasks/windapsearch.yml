@@ -1,0 +1,26 @@
+---
+- name: Install mage dependency
+  shell: go get github.com/magefile/mage
+  args:
+    chdir: /opt/go-windapsearch
+  environment:
+    GOPATH: "{{ ansible_env.HOME }}/go"
+    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/go/bin"
+
+- name: Build windapsearch using mage
+  shell: mage build
+  args:
+    chdir: /opt/go-windapsearch
+  environment:
+    GOPATH: "{{ ansible_env.HOME }}/go"
+    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/go/bin"
+
+- name: Check windapsearch version
+  shell: ./windapsearch --version
+  args:
+    chdir: /opt/go-windapsearch
+  register: windapsearch_version
+  
+- name: Display windapsearch version
+  debug:
+    msg: "windapsearch version: {{ windapsearch_version.stdout }}"
