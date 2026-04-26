@@ -1,0 +1,47 @@
+---
+- name: "Install mono-devel for running nuget.exe"
+  package:
+    name: mono-devel
+    state: latest
+  become: true
+  become_method: sudo
+
+- name: "Download nuget.exe"
+  get_url:
+    url: https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+    dest: /usr/local/bin/nuget.exe
+    mode: '0755'
+  become: true
+  become_method: sudo
+
+- name: "Sync system CA certs into Mono's certificate store"
+  command: mozroots --import --sync
+  become: true
+  become_method: sudo
+
+- name: "Drop Directory.Build.props to supply .NET Framework reference assemblies"
+  copy:
+    dest: /opt/ADSearch/ADSearch/Directory.Build.props
+    content: |
+      <Project>
+        <ItemGroup>
+          <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+        </ItemGroup>
+      </Project>
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  become_method: sudo
+
+- name: "Restore ADSearch NuGet packages"
+  command: mono /usr/local/bin/nuget.exe restore /opt/ADSearch/ADSearch.sln
+  become: true
+  become_method: sudo
+
+- name: "Build ADSearch"
+  command: dotnet build --no-restore
+  args:
+    chdir: /opt/ADSearch/ADSearch
+  become: true
+  become_method: sudo
