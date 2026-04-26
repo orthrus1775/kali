@@ -15,23 +15,6 @@
     group: "{{ ansible_facts['user_id'] }}"
     mode: 0755  
 
-# - name: "Copying BloodhoundCE install"
-#   copy:
-#     src: "files/bloodhound-install.sh"
-#     dest: /opt/bloodhound/bloodhound-install.sh"
-#     owner: "{{ ansible_facts['user_id'] }}"
-#     group: "{{ ansible_facts['user_id'] }}"
-#     mode: 0755  
-
-# - name: Download Bloodhound-CE Docker Files
-#   ansible.builtin.get_url:
-#     url: "{{ item.file }}"
-#     dest: "{{ item.location }}"
-#     mode: '0755'
-#   loop:
-#     - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/docker-compose.yml", location: "/opt/bloodhound/docker-compose.yml" } 
-#     - { file: "https://raw.githubusercontent.com/SpecterOps/BloodHound/main/examples/docker-compose/.env.example", location: "/opt/bloodhound/.env" }
-
 - name: "Copy Compose File" 
   ansible.builtin.copy:
     src: /opt/bloodhound/examples/docker-compose/docker-compose.yml 
@@ -42,7 +25,7 @@
 - name: "Build Bloodhound-CE"
   ansible.builtin.shell:
     cmd: "docker compose up"
-    chdir: /opt/bloodhound/examples/docker-compose
+    chdir: /opt/bloodhound/
   become: true
   become_method: sudo
 
