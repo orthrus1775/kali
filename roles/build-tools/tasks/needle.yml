@@ -38,25 +38,3 @@
 - name: "Installing packages with Nimble"
   shell: "export PATH=$HOME/.nimble/bin:$PATH && nimble install winim nimcrypto docopt ptr_math strenc libp2p ws zippy iputils socks5 daemon tiny_sqlite dnsclient -y"
 
-- name: "Init Limeligher"
-  ansible.builtin.shell:
-    cmd: go mod init github.com/Tylous/Limelighter
-    chdir: /opt/limelighter
-  ignore_errors: true  
-
-- name: "Add Color"
-  ansible.builtin.shell:
-    cmd: go get github.com/fatih/color
-    chdir: /opt/limelighter
-
-- name: "Build Limeligher"
-  ansible.builtin.shell:
-    cmd: go build Limelighter.go
-    chdir: /opt/limelighter
-
-- name: Remove temporary build directory
-  ansible.builtin.file:
-    path: "{{ build_dir.path }}"
-    state: absent
-  when: build_dir.path is defined 
-

@@ -75,7 +75,6 @@
     - { repo: "https://github.com/juliourena/plaintext.git", location: "/opt/powershell/plaintext"}
     - { repo: "https://github.com/0xEr3bus/PoolPartyBof" , location: "/opt/bofs/poolparty"}
     - { repo: "https://github.com/praetorian-inc/PortBender" , location: "/opt/PortBender"}
-    - { repo: "https://github.com/praetorian-inc/PortBender.git", location: "/opt/PortBender" }
     - { repo: "https://github.com/Kevin-Robertson/Powermad/", location: "/opt/powershell/Powermad"}
     - { repo: "https://github.com/PowerShellMafia/PowerSploit/", location: "/opt/powershell/PowerSploit"}
     - { repo: "https://github.com/PowerShellMafia/PowerSploit.git", location: "/opt/PowerSploit" }
@@ -90,6 +89,7 @@
     - { repo: "https://github.com/k1ng0fn0th1ng/reflectra", location: "/opt/reflectra"}
     - { repo: "https://github.com/GhostPack/RestrictedAdmin.git", location: "/opt/RestrictedAdmin" }
     - { repo: "https://github.com/GhostPack/Rubeus.git", location: "/opt/Rubeus" }
+    - { repo: "https://github.com/g0h4n/RustHound-CE.git", location: "/opt/rusthound"}
     - { repo: "https://github.com/mttaggart/rustyneedle.git", location: "/opt/rustyneedle" }
     - { repo: "https://github.com/garrettfoster13/sccmhunter.git", location: "/opt/sccm/sccmhunter"}
     - { repo: "https://github.com/Mr-Un1k0d3r/SCShell.git", location: "/opt/bofs/scshell" }

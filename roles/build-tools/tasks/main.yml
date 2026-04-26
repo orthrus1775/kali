@@ -1,17 +1,20 @@
 ---
-#- import_tasks: scarecrow.yml
-#- import_tasks: havoc.yml
 - import_tasks: needle.yml
 - import_tasks: satellite.yml
 - import_tasks: adalanche.yml
 - import_tasks: buildbofs.yml
 - import_tasks: blookdhound
+- import_tasks: windapsearch.yml
+- import_tasks: titanis.yml
+- import_tasks: limelighter.yml
+- import_tasks: rusthound.yml
+- import_tasks: facedancer.yml
 #- import_tasks: covenant.yml
 #- import_tasks: mythic.yml
 #- import_tasks: ghostwriter.yml
 #- import_tasks: merlin.yml
 #- import_tasks: sliver.yml
-- import_tasks: windapsearch.yml
-- import_tasks: titanis.yml
 # - import_tasks: cobaltstrike.yml
+#- import_tasks: scarecrow.yml
+#- import_tasks: havoc.yml
 - import_tasks: finallinks.yml

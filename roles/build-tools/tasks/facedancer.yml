@@ -1,0 +1,12 @@
+---
+- name: "Build FaceDancer"
+  ansible.builtin.shell:
+    cmd: cargo build --release
+    chdir: /opt/FaceDancer
+  ignore_errors: true  
+
+- name: "Copy FaceDancer"
+  copy:
+    src: /opt/FaceDancer/target/release/FaceDancer
+    dest: /opt/FaceDancer/FaceDancer
+  ignore_errors: true  

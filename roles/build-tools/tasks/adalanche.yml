@@ -1,8 +1,8 @@
 ---
-- name: "Build Adalanche"
-  ansible.builtin.shell:
-    cmd: pwsh build.ps1
-    chdir: /opt/Adalanche
+# - name: "Build Adalanche"
+#   ansible.builtin.shell:
+#     cmd: pwsh build.ps1
+#     chdir: /opt/Adalanche
 #   become: true
 #   become_method: sudo
 

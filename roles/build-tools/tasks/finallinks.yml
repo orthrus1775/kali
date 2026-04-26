@@ -51,6 +51,8 @@
     - { src: "{{ ansible_env.HOME }}/go/bin/garble", dst: /usr/bin/garble }
     - { src: "{{ ansible_env.HOME }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }
     - { src: /root/.dotnet/dotnet, dst: /usr/bin/dotnet }
+    - { src: /opt/FaceDancer/FaceDancer, dst: /usr/bin/FaceDancer }
+    - { src: /opt/limelighter/Limelighter, dst: /usr/bin/Limelighter } 
   become: true
   become_method: sudo
   ignore_errors: true 
