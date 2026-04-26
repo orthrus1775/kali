@@ -87,6 +87,7 @@
     - { repo: "https://github.com/the-useless-one/pywerview", location: "/opt/pywerview"}
     - { repo: "https://github.com/0xZDH/redirect.rules.git", location: "/opt/redirector/redirect.rules" }
     - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.git", location: "/opt/redirector/redteam-infrastructure-automation" }
+    - { repo: "https://github.com/k1ng0fn0th1ng/reflectra", location: "/opt/reflectra"}
     - { repo: "https://github.com/GhostPack/RestrictedAdmin.git", location: "/opt/RestrictedAdmin" }
     - { repo: "https://github.com/GhostPack/Rubeus.git", location: "/opt/Rubeus" }
     - { repo: "https://github.com/mttaggart/rustyneedle.git", location: "/opt/rustyneedle" }
@@ -117,6 +118,7 @@
     - { repo: "https://github.com/zyn3rgy/smbtakeover.git", location: "/opt/sccm/smbtakeover"}
     - { repo: "https://github.com/skahwah/SQLRecon.git", location: "/opt/SQLRecon" }
     - { repo: "https://github.com/FuzzySecurity/StandIn.git", location: "/opt/StandIn" }
+    - { repo: "https://github.com/MaorSabag/Adaptix-StealthPalace", location: "/opt/adaptix_stealthpalace"}
     - { repo: "https://github.com/mgeeky/Stracciatella.git", location: "/opt/Stracciatella" }
     - { repo: "https://github.com/jellever/StreamDivert.git", location: "/opt/StreamDivert" }
     - { repo: "https://github.com/dobin/SuperMega.git", location: "/opt/SuperMega" }
@@ -124,6 +126,7 @@
     - { repo: "https://github.com/connormcgarr/tgtdelegation.git", location: "/opt/tgtdelegation" }
     - { repo: "https://github.com/rasta-mouse/ThreatCheck.git", location: "/opt/ThreatCheck" }
     - { repo: "https://github.com/iilegacyyii/ThreadlessInject-BOF.git", location: "/opt/bofs/threadlessinject-bof" }
+    - {repo: "https://github.com/trustedsec/Titanis.git", location: "/opt/titanis"}
     - { repo: "https://github.com/rsmudge/unhook-bof.git", location: "/opt/bofs/unhook-bof" }
     - { repo: "https://github.com/volatilityfoundation/volatility3.git", location: "/opt/volatility"}
     - { repo: "https://github.com/eladshamir/Whisker", location: "/opt/whisker"}

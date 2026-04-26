@@ -53,4 +53,36 @@
     - ms-dotnettools.csharp
     - rust-lang.rust-analyzer
     - redhat.vscode-yaml
-  ignore_errors: true  
+  ignore_errors: true
+
+- name: Download dotnet-install.sh
+  get_url:
+    url: https://dot.net/v1/dotnet-install.sh
+    dest: /tmp/dotnet-install.sh
+    mode: '0755'
+  become: true
+  become_method: sudo
+
+- name: Install .NET 8 SDK
+  command: /tmp/dotnet-install.sh --channel 8.0
+  args:
+    creates: /root/.dotnet/sdk
+  environment:
+    HOME: /root
+  become: true
+  become_method: sudo
+
+- name: Delete dotnet-install.sh after execution
+  file:
+    path: /tmp/dotnet-install.sh
+    state: absent
+  become: true
+  become_method: sudo
+
+- name: Add .NET to system PATH
+  lineinfile:
+    path: /etc/environment
+    line: 'PATH="/root/.dotnet:/root/.dotnet/tools:{{ ansible_env.PATH }}"'
+    state: present
+  become: true
+  become_method: sudo
