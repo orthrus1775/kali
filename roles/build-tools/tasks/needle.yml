@@ -8,8 +8,8 @@
   copy:
     src: "files/rust-install.sh"
     dest: "{{ build_dir.path }}/rust-install.sh"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
     mode: 0755
 
 - name: "Installing rust"
@@ -28,8 +28,8 @@
   copy:
     src: "files/nim-install.sh"
     dest: "{{ build_dir.path }}/nim-install.sh"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
     mode: 0755
 
 - name: "Installing Nim"

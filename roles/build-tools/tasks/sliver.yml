@@ -3,8 +3,8 @@
   ansible.builtin.file:
     path: /opt/sliver/bins
     state: directory
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
     mode: 0755
 
 - name: "Build Sliver"
@@ -16,16 +16,16 @@
   copy:
     src: "/opt/sliver/sliver-server"
     dest: "/opt/sliver/bins/sliver-server_linamd64"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
     mode: 0755 
 
 - name: "Copying Linux Sliver Client files to /bins"
   copy:
     src: "/opt/sliver/sliver-client"
     dest: "/opt/sliver/bins/sliver-client_linamd64"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
     mode: 0755 
 
 - name: "Building windows client"
@@ -37,8 +37,8 @@
   copy:
     src: "/opt/sliver/sliver-client.exe"
     dest: "/opt/sliver/bins/sliver-client.exe"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
     mode: 0755
 
 - name: "Copying Sliver Client files to /usr/bin/"

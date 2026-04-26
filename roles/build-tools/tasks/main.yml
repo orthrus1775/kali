@@ -11,5 +11,6 @@
 #- import_tasks: merlin.yml
 #- import_tasks: sliver.yml
 - import_tasks: windapsearch.yml
+- import_tasks: titanis.yml
 - import_tasks: cobaltstrike.yml
 - import_tasks: finallinks.yml

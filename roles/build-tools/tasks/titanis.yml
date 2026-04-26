@@ -1,0 +1,10 @@
+---
+- name: "Build Titanis"
+  ansible.builtin.shell:
+    cmd: /root/.dotnet/dotnet build
+    chdir: /opt/titanis/src
+  environment:
+    DOTNET_ROOT: /root/.dotnet
+    HOME: /root
+  become: true
+  become_method: sudo

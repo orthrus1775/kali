@@ -49,7 +49,8 @@
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustup", dst: /usr/bin/rustup }
     - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustup", dst: /usr/bin/rustup }
     - { src: "{{ ansible_env.HOME }}/go/bin/garble", dst: /usr/bin/garble }
-    - { src: "{{ ansible_env.HOME }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }        
+    - { src: "{{ ansible_env.HOME }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }
+    - { src: /root/.dotnet/dotnet, dst: /usr/bin/dotnet }
   become: true
   become_method: sudo
   ignore_errors: true 
@@ -57,7 +58,7 @@
   
 - name: "Recursively change ownership and permissions of /opt/"
   ansible.builtin.command:
-    cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} /opt/" 
+    cmd: "chown -R {{ ansible_facts['user_id'] }}:{{ ansible_facts['user_id'] }} /opt/" 
   become: true
   become_method: sudo
   

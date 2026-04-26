@@ -59,7 +59,7 @@
     - { repo: "https://github.com/Dec0ne/KrbRelayUp.git", location: "/opt/KrbRelayUp" }
     - { repo: "https://github.com/n00py/LAPSDumper", location: "/opt/lapsdumper"}
     - { repo: "https://github.com/jfmaes/LazySign.git", location: "/opt/lazysign"}
-    - { repo: "https://github.com/cube0x0/LdapSignCheck.git", location: "/opt/LdapSignCheck" }
+    - { repo: "https://github.com/cube0x0/LdapSignCheck.git", location: "/opt/bofs/ldapsigncheck" }
     - { repo: "https://github.com/nicocha30/ligolo-ng.git", location: "/opt/ligolo-ng"}
     - { repo: "https://github.com/Tylous/Limelighter.git", location: "/opt/limelighter"}
     - { repo: "https://github.com/icyguider/MoreImpacketExamples.git", location: "/opt/moreimpacketexamples" }
@@ -92,10 +92,10 @@
     - { repo: "https://github.com/GhostPack/Rubeus.git", location: "/opt/Rubeus" }
     - { repo: "https://github.com/mttaggart/rustyneedle.git", location: "/opt/rustyneedle" }
     - { repo: "https://github.com/garrettfoster13/sccmhunter.git", location: "/opt/sccm/sccmhunter"}
-    - { repo: "https://github.com/Mr-Un1k0d3r/SCShell.git", location: "/opt/SCShell" }
+    - { repo: "https://github.com/Mr-Un1k0d3r/SCShell.git", location: "/opt/bofs/scshell" }
     - { repo: "https://github.com/techspence/ScriptSentry", location: "/opt/powershell/ScriptSentry"}
     - { repo: "https://github.com/GhostPack/Seatbelt.git", location: "/opt/Seatbelt" }
-    - { repo: "https://github.com/apokryptein/secinject", location: "/opt/secinject" }
+    - { repo: "https://github.com/apokryptein/secinject", location: "/opt/bofs/secinject" }
     - { repo: "https://github.com/netero1010/ServiceMove-BOF.git", location: "/opt/bofs/servicemove-bof" }
     - { repo: "https://github.com/mandiant/SharPersist.git", location: "/opt/SharPersist" }
     - { repo: "https://github.com/checkymander/Sharp-SMBExec.git", location: "/opt/Sharp-SMBExec" }
@@ -115,7 +115,7 @@
     - { repo: "https://github.com/tevora-threat/SharpView.git", location: "/opt/SharpView" }
     - { repo: "https://github.com/GhostPack/SharpWMI.git", location: "/opt/SharpWMI" }
     - { repo: "https://github.com/secretsquirrel/SigThief.git", location: "/opt/sigthief"}
-    - { repo: "https://github.com/zyn3rgy/smbtakeover.git", location: "/opt/sccm/smbtakeover"}
+    - { repo: "https://github.com/zyn3rgy/smbtakeover.git", location: "/opt/bofs/smbtakeover"}
     - { repo: "https://github.com/skahwah/SQLRecon.git", location: "/opt/SQLRecon" }
     - { repo: "https://github.com/FuzzySecurity/StandIn.git", location: "/opt/StandIn" }
     - { repo: "https://github.com/MaorSabag/Adaptix-StealthPalace", location: "/opt/adaptix_stealthpalace"}
@@ -167,6 +167,6 @@
 
 - name: "Recursively change ownership and permissions of /opt/"
   ansible.builtin.command:
-    cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} /opt/"
+    cmd: "chown -R {{ ansible_facts['user_id'] }}:{{ ansible_facts['user_id'] }} /opt/"
   become: true
   become_method: sudo
