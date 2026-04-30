@@ -7,3 +7,7 @@
 * ansible-playbook main.yml -K (-K will prompt for passowrd)
 
 
+## Edit based on individual requirments  
+[Kali Meta Packages](./roles/install-tools/tasks/apt-stuff.yml)  
+
+[C2 Frameworks & Other tools](./roles/build-tools/tasks/main.yml)  

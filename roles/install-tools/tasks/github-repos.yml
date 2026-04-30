@@ -13,7 +13,7 @@
   loop:
     - { repo: "https://github.com/juliourena/ActiveDirectoryScripts", location: "/opt/ActiveDirectoryScripts"}
     - { repo: "https://github.com/lkarlslund/Adalanche", location: "/opt/Adalanche"}
-    - { repo: "https://github.com/Adaptix-Framework/AdaptixC2.git", location: "/opt/AdaptixC2" }
+    - { repo: "https://github.com/MaorSabag/AdaptixC2", location: "/opt/AdaptixC2" } #Original https://github.com/Adaptix-Framework/AdaptixC2.git
     - { repo: "https://github.com/tomcarver16/ADSearch.git", location: "/opt/ADSearch" }
     - { repo: "https://github.com/SpecterOps/BloodHound.git", location: "/opt/bloodhound"}
     - { repo: "https://github.com/crypt0p3g/bof-collection.git", location: "/opt/bofs/bof-collection" }

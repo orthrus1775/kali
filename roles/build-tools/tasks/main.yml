@@ -1,4 +1,5 @@
 ---
+# Comment/Uncomment based on requirments
 - import_tasks: needle.yml
 - import_tasks: satellite.yml
 - import_tasks: adalanche.yml
@@ -8,8 +9,9 @@
 - import_tasks: limelighter.yml
 - import_tasks: rusthound.yml
 - import_tasks: facedancer.yml
-- import_tasks: maketools.yml
 - import_tasks: titanis.yml
+- import_tasks: adaptix.yml
+- import_tasks: maketools.yml
 #- import_tasks: covenant.yml
 #- import_tasks: mythic.yml
 #- import_tasks: ghostwriter.yml

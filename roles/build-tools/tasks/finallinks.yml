@@ -50,14 +50,10 @@
     - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rustup", dst: /usr/bin/rustup }
     - { src: "{{ ansible_facts['env']['HOME'] }}/go/bin/garble", dst: /usr/bin/garble }
     - { src: "{{ ansible_facts['env']['HOME'] }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }
-    - { src: /root/.dotnet/dotnet, dst: /usr/bin/dotnet }
-    - { src: /opt/FaceDancer/FaceDancer, dst: /usr/bin/FaceDancer }
-    - { src: /opt/limelighter/Limelighter, dst: /usr/bin/Limelighter } 
   become: true
   become_method: sudo
   ignore_errors: true 
 
-  
 - name: "Recursively change ownership and permissions of /opt/"
   ansible.builtin.command:
     cmd: "chown -R {{ ansible_facts['user_id'] }}:{{ ansible_facts['user_id'] }} /opt/" 

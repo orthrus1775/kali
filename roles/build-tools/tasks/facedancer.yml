@@ -10,3 +10,14 @@
     src: /opt/FaceDancer/target/release/FaceDancer
     dest: /opt/FaceDancer/FaceDancer
   ignore_errors: true  
+
+- name: "Creating symlinks"
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    path: "{{ item.dst }}"
+    state: link
+  loop:
+    - { src: /opt/FaceDancer/FaceDancer, dst: /usr/bin/FaceDancer }
+  become: true
+  become_method: sudo
+  ignore_errors: true 

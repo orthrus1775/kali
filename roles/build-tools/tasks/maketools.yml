@@ -13,7 +13,8 @@
   ansible.builtin.shell:
     cmd: |
       make dep
-      make all
+      make linux
+      make windows
     chdir: /opt/chisel
     executable: /bin/bash
   become: true
