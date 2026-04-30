@@ -1,10 +1,77 @@
 ---
-- name: "Build Titanis"
-  ansible.builtin.shell:
-    cmd: /root/.dotnet/dotnet build
-    chdir: /opt/titanis/src
-  environment:
-    DOTNET_ROOT: /root/.dotnet
-    HOME: /root
+- name: "Create Titanis directories"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - /opt/titanis/doc
+    - /opt/titanis/linux
+    - /opt/titanis/windows
   become: true
   become_method: sudo
+
+- name: "Create temporary build directory"
+  ansible.builtin.tempfile:
+    state: directory
+  register: titanis_build_dir
+
+- name: "Copy githubdownload.py script"
+  copy:
+    src: "{{ role_path }}/../install-tools/files/githubdownload.py"
+    dest: "{{ titanis_build_dir.path }}/githubdownload.py"
+    owner: root
+    group: root
+    mode: 0755
+  become: true
+  become_method: sudo
+
+- name: "Download Titanis releases"
+  shell: "{{ titanis_build_dir.path }}/githubdownload.py {{ item.repo }} {{ item.regex }} {{ item.location }}"
+  loop:
+    - { repo: "trustedsec/Titanis", regex: "Titanis-doc.zip", location: "/opt/titanis" }
+    - { repo: "trustedsec/Titanis", regex: "Titanis-tools-linux-x64-net8.zip", location: "/opt/titanis" }
+    - { repo: "trustedsec/Titanis", regex: "Titanis-tools-win-x64-net8.zip", location: "/opt/titanis" }
+  become: true
+  become_method: sudo
+
+- name: "Extract Titanis documentation"
+  ansible.builtin.unarchive:
+    src: /opt/titanis/Titanis-doc.zip
+    dest: /opt/titanis/doc
+    remote_src: yes
+  become: true
+  become_method: sudo
+
+- name: "Extract Titanis Linux binaries"
+  ansible.builtin.unarchive:
+    src: /opt/titanis/Titanis-tools-linux-x64-net8.zip
+    dest: /opt/titanis/linux
+    remote_src: yes
+  become: true
+  become_method: sudo
+
+- name: "Extract Titanis Windows binaries"
+  ansible.builtin.unarchive:
+    src: /opt/titanis/Titanis-tools-win-x64-net8.zip
+    dest: /opt/titanis/windows
+    remote_src: yes
+  become: true
+  become_method: sudo
+
+- name: "Remove Titanis zip files"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /opt/titanis/Titanis-doc.zip
+    - /opt/titanis/Titanis-tools-linux-x64-net8.zip
+    - /opt/titanis/Titanis-tools-win-x64-net8.zip
+  become: true
+  become_method: sudo
+
+- name: "Remove temporary build directory"
+  ansible.builtin.file:
+    path: "{{ titanis_build_dir.path }}"
+    state: absent
+  when: titanis_build_dir.path is defined

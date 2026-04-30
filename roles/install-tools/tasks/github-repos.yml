@@ -125,7 +125,7 @@
     - { repo: "https://github.com/connormcgarr/tgtdelegation.git", location: "/opt/tgtdelegation" }
     - { repo: "https://github.com/rasta-mouse/ThreatCheck.git", location: "/opt/ThreatCheck" }
     - { repo: "https://github.com/iilegacyyii/ThreadlessInject-BOF.git", location: "/opt/bofs/threadlessinject-bof" }
-    - {repo: "https://github.com/trustedsec/Titanis.git", location: "/opt/titanis"}
+    # - {repo: "https://github.com/trustedsec/Titanis.git", location: "/opt/titanis"}
     - { repo: "https://github.com/rsmudge/unhook-bof.git", location: "/opt/bofs/unhook-bof" }
     - { repo: "https://github.com/volatilityfoundation/volatility3.git", location: "/opt/volatility"}
     - { repo: "https://github.com/eladshamir/Whisker", location: "/opt/whisker"}
