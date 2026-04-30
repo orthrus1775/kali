@@ -3,7 +3,7 @@
 - import_tasks: satellite.yml
 - import_tasks: adalanche.yml
 - import_tasks: buildbofs.yml
-- import_tasks: blookdhound
+- import_tasks: blookdhound.yml
 - import_tasks: windapsearch.yml
 - import_tasks: titanis.yml
 - import_tasks: limelighter.yml
