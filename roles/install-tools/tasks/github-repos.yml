@@ -100,7 +100,6 @@
     - { repo: "https://github.com/mandiant/SharPersist.git", location: "/opt/SharPersist" }
     - { repo: "https://github.com/checkymander/Sharp-SMBExec.git", location: "/opt/Sharp-SMBExec" }
     - { repo: "https://github.com/Flangvik/SharpCollection.git", location: "/opt/sharpcollection" }
-    - { repo: "https://github.com/Flangvik/SharpCollection.git", location: "/opt/SharpCollection" }
     - { repo: "https://github.com/GhostPack/SharpDPAPI.git", location: "/opt/SharpDPAPI" }
     - { repo: "https://github.com/GhostPack/SharpDump.git", location: "/opt/SharpDump" }
     - { repo: "https://github.com/anthemtotheego/SharpExec.git", location: "/opt/SharpExec" }
