@@ -82,7 +82,7 @@
 - name: Add .NET to system PATH
   lineinfile:
     path: /etc/environment
-    line: 'PATH="/root/.dotnet:/root/.dotnet/tools:{{ ansible_env.PATH }}"'
+    line: "PATH=\"/root/.dotnet:/root/.dotnet/tools:{{ ansible_facts['env']['PATH'] }}\""
     state: present
   become: true
   become_method: sudo

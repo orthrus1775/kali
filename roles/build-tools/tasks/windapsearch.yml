@@ -4,16 +4,16 @@
   args:
     chdir: /opt/go-windapsearch
   environment:
-    GOPATH: "{{ ansible_env.HOME }}/go"
-    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/go/bin"
+    GOPATH: "{{ ansible_facts['env']['HOME'] }}/go"
+    PATH: "{{ ansible_facts['env']['PATH'] }}:{{ ansible_facts['env']['HOME'] }}/go/bin"
 
 - name: Build windapsearch using mage
   shell: mage build
   args:
     chdir: /opt/go-windapsearch
   environment:
-    GOPATH: "{{ ansible_env.HOME }}/go"
-    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/go/bin"
+    GOPATH: "{{ ansible_facts['env']['HOME'] }}/go"
+    PATH: "{{ ansible_facts['env']['PATH'] }}:{{ ansible_facts['env']['HOME'] }}/go/bin"
 
 - name: Check windapsearch version
   shell: ./windapsearch --version

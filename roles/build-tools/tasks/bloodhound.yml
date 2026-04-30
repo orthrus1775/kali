@@ -18,13 +18,13 @@
 - name: "Copy Compose File" 
   ansible.builtin.copy:
     src: /opt/bloodhound/examples/docker-compose/docker-compose.yml 
-    dst: /opt/bloodhound/docker-compose.yml 
+    dest: /opt/bloodhound/docker-compose.yml 
   become: true
   become_method: sudo   
 
 - name: "Build Bloodhound-CE"
   ansible.builtin.shell:
-    cmd: "docker compose up"
+    cmd: "docker compose up -d"
     chdir: /opt/bloodhound/
   become: true
   become_method: sudo
