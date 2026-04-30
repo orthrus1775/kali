@@ -23,28 +23,28 @@
   become: true
   become_method: sudo
 
-- name: "Extract Titanis zips"
-  ansible.builtin.unarchive:
-    src: "/opt/titanis/{{ item }}"
-    dest: /opt/titanis/
-    remote_src: yes
-  loop:
-    - Titanis-doc.zip
-    - Titanis-tools-linux-x64-net8.zip
-    - Titanis-tools-win-x64-net8.zip
-  become: true
-  become_method: sudo
+# - name: "Extract Titanis zips"
+#   ansible.builtin.unarchive:
+#     src: "/opt/titanis/{{ item }}"
+#     dest: /opt/titanis/
+#     remote_src: yes
+#   loop:
+#     - Titanis-doc.zip
+#     - Titanis-tools-linux-x64-net8.zip
+#     - Titanis-tools-win-x64-net8.zip
+#   become: true
+#   become_method: sudo
 
-- name: "Remove Titanis zip files"
-  ansible.builtin.file:
-    path: "/opt/titanis/{{ item }}"
-    state: absent
-  loop:
-    - Titanis-doc.zip
-    - Titanis-tools-linux-x64-net8.zip
-    - Titanis-tools-win-x64-net8.zip
-  become: true
-  become_method: sudo
+# - name: "Remove Titanis zip files"
+#   ansible.builtin.file:
+#     path: "/opt/titanis/{{ item }}"
+#     state: absent
+#   loop:
+#     - Titanis-doc.zip
+#     - Titanis-tools-linux-x64-net8.zip
+#     - Titanis-tools-win-x64-net8.zip
+#   become: true
+#   become_method: sudo
 
 - name: "Remove temporary build directory"
   ansible.builtin.file:
