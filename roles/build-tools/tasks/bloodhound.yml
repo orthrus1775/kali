@@ -29,9 +29,9 @@
   become: true
   become_method: sudo
 
-- name: "Build Bloodhound-CE"
+- name: "Down Bloodhound-CE"
   ansible.builtin.shell:
-    cmd: "docker-compose down -v"
+    cmd: "docker compose down -v"
     chdir: /opt/bloodhound
   become: true
   become_method: sudo  
