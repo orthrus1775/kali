@@ -20,11 +20,9 @@
     path: "{{ item.dst }}"
     state: link
   loop:
-    - { src: /opt/windapsearch/windapsearch.py, dst: /usr/bin/windapsearch }
-    - { src: "{{ ansible_facts['env']['HOME'] }}/.local/share/pipx/venvs/adidnsdump/bin/adidnsdump", dst: /usr/bin/adidnsdump }
-    - { src: "{{ ansible_facts['env']['HOME'] }}/.local/share/pipx/venvs/bloodyad/bin/bloodyAD", dst: /usr/bin/bloodyAD }
-    - { src: /opt/wesng/wes.py, dst: /usr/bin/wesng }
-    - { src: /opt/wesng/wes.py, dst: /usr/bin/wes }  
+    # - { src: "{{ ansible_facts['env']['HOME'] }}/.local/share/pipx/venvs/adidnsdump/bin/adidnsdump", dst: /usr/bin/adidnsdump }
+    # - { src: "{{ ansible_facts['env']['HOME'] }}/.local/share/pipx/venvs/bloodyad/bin/bloodyAD", dst: /usr/bin/bloodyAD }
+    # - { src: "{{ ansible_facts['env']['HOME'] }}/.local/share/pipx/venvs/wesng/bin/wes", dst: /usr/bin/wes } 
     - { src: "{{ ansible_facts['env']['HOME'] }}/.nimble/bin/choosenim", dst: /usr/bin/choosenim }
     - { src: "{{ ansible_facts['env']['HOME'] }}/.nimble/bin/nim", dst: /usr/bin/nim }
     - { src: "{{ ansible_facts['env']['HOME'] }}/.nimble/bin/nim-gdb", dst: /usr/bin/nim-gdb }  

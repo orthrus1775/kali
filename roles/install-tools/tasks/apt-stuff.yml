@@ -56,7 +56,6 @@
       - autorecon
       - autossh
       - bc
-      - bloodyad
       - build-essential
       - certipy-ad
       - chisel-common-binaries

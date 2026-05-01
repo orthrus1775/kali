@@ -24,3 +24,20 @@
 - name: Display windapsearch version
   debug:
     msg: "windapsearch version: {{ windapsearch_version.stdout }}"
+
+- name: "Creating symlinks"
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    path: "{{ item.dst }}"
+    state: link
+  loop:
+    - { src: /opt/windapsearch/windapsearch, dst: /usr/bin/windapsearch }
+  become: true
+  become_method: sudo
+  ignore_errors: true 
+
+- name: "Recursively change ownership and permissions of /opt/"
+  ansible.builtin.command:
+    cmd: "chown -R {{ ansible_facts['user_id'] }}:{{ ansible_facts['user_id'] }} /opt/" 
+  become: true
+  become_method: sudo    
