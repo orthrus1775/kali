@@ -54,7 +54,7 @@
     - { repo: "https://github.com/boku7/injectEtwBypass.git", location: "/opt/injectEtwBypass" }
     - { repo: "https://github.com/Kevin-Robertson/InveighZero" , location: "/opt/InveighZero"}
     - { repo: "https://github.com/RalfHacker/Kerbeus-BOF.git", location: "/opt/bofs/kerbeus-bof" }
-    - { repo: "https://github.com/ropnop/kerbrute.git", location: "/opt/kerbrute" }
+    # - { repo: "https://github.com/ropnop/kerbrute.git", location: "/opt/kerbrute" }
     - { repo: "https://github.com/dirkjanm/krbrelayx.git", location: "/opt/krbrelayx"}
     - { repo: "https://github.com/Dec0ne/KrbRelayUp.git", location: "/opt/KrbRelayUp" }
     - { repo: "https://github.com/n00py/LAPSDumper", location: "/opt/lapsdumper"}
@@ -77,7 +77,6 @@
     - { repo: "https://github.com/praetorian-inc/PortBender" , location: "/opt/PortBender"}
     - { repo: "https://github.com/Kevin-Robertson/Powermad/", location: "/opt/powershell/Powermad"}
     - { repo: "https://github.com/PowerShellMafia/PowerSploit/", location: "/opt/powershell/PowerSploit"}
-    - { repo: "https://github.com/PowerShellMafia/PowerSploit.git", location: "/opt/PowerSploit" }
     - { repo: "https://github.com/jakobfriedl/precompiled-binaries.git", location: "/opt/ADbinaries"}
     - { repo: "https://github.com/GhostPack/PSPKIAudit.git", location: "/opt/PSPKIAudit" }
     - { repo: "https://github.com/csandker/pxethiefy.git", location: "/opt/sccm/pxethiefy"}
@@ -129,7 +128,6 @@
     - { repo: "https://github.com/rsmudge/unhook-bof.git", location: "/opt/bofs/unhook-bof" }
     - { repo: "https://github.com/volatilityfoundation/volatility3.git", location: "/opt/volatility"}
     - { repo: "https://github.com/eladshamir/Whisker", location: "/opt/whisker"}
-    - { repo: "https://github.com/eladshamir/Whisker.git", location: "/opt/Whisker" }
     - { repo: "https://github.com/JPCERTCC/Windows-Symbol-Tables.git", location: "/opt/winsymbols"}
     - { repo: "https://github.com/XiaoliChan/wmiexec-Pro.git", location: "/opt/sccm/wmiexec-pro"}
     - { repo: "https://github.com/SavSanta/YoinkLighter.git", location: "/opt/YoinkLighter" }
