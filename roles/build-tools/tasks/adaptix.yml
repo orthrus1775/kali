@@ -59,7 +59,7 @@
       -out server.rsa.crt
       -days 365
       -subj "/C=US/ST=State/L=City/O=Organization/OU=Unit/CN=localhost"
-    chdir: /opt/AdaptixC2/AdaptixServer/server-dist
+    chdir: /opt/AdaptixC2/dist/
   become: true
   become_method: sudo
 
@@ -75,16 +75,16 @@
 - name: "Clone original AdaptixC2 to home directory"
   ansible.builtin.git:
     repo: "https://github.com/Adaptix-Framework/AdaptixC2.git"
-    dest: "{{ /home/{{ ansible_facts['user_id'] }} }}/OGAdaptix"
+    dest: "/home/{{ ansible_facts['user_id'] }}/OGAdaptix"
     force: true
 
 - name: "Build original AdaptixC2 client"
   ansible.builtin.shell:
     cmd: make client
-    chdir: "{{ /home/{{ ansible_facts['user_id'] }} }}/OGAdaptix"
+    chdir: "/home/{{ ansible_facts['user_id'] }}/OGAdaptix"
 
 - name: "Copy AdaptixClient to Desktop"
   ansible.builtin.copy:
-    src: "{{ /home/{{ ansible_facts['user_id'] }} }}/OGAdaptix/dist/AdaptixClient"
-    dest: "{{ /home/{{ ansible_facts['user_id'] }} }}/Desktop/"
+    src: "/home/{{ ansible_facts['user_id'] }}/OGAdaptix/dist/AdaptixClient"
+    dest: "/home/{{ ansible_facts['user_id'] }}/Desktop/"
     remote_src: yes
