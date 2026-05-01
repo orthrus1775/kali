@@ -18,7 +18,7 @@
 
 - name: "Build Extension-Kit"
   ansible.builtin.shell:
-    cmd: make docker-build-client
+    cmd: make all
     chdir: /opt/extension-kit
   become: true
   become_method: sudo
@@ -88,15 +88,3 @@
     src: "{{ /home/{{ ansible_facts['user_id'] }} }}/OGAdaptix/dist/AdaptixClient"
     dest: "{{ /home/{{ ansible_facts['user_id'] }} }}/Desktop/"
     remote_src: yes
-
-# - name: "Creating symlinks"
-#   ansible.builtin.file:
-#     src: "{{ item.src }}"
-#     path: "{{ item.dst }}"
-#     state: link
-#   loop:
-#     - { src: /opt/AdaptixC2/AdaptixServer/server-dist/adaptixserver, dst: /usr/bin/adaptixserver }
-#     - { src: /opt/AdaptixC2/AdaptixClient/client-dist/AdaptixClient-x86_64.AppImage, dst: /usr/bin/adaptixclient }
-#   become: true
-#   become_method: sudo
-#   ignore_errors: true 
