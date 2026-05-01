@@ -25,21 +25,21 @@
 
 - name: "Making setup script for Adaptix executable"
   ansible.builtin.shell:
-    cmd: chmod +x pre_install_linux_all.sh
+    cmd: chmod +x ./pre_install_linux_all.sh
     chdir: /opt/AdaptixC2
   become: true
   become_method: sudo 
 
 - name: "Executing setup script for Adaptix Server"
   ansible.builtin.shell:
-    cmd: pre_install_linux_all.sh server
+    cmd: ./pre_install_linux_all.sh server
     chdir: /opt/AdaptixC2
   become: true
   become_method: sudo 
 
 - name: "Executing setup script for Adaptix Client"
   ansible.builtin.shell:
-    cmd: pre_install_linux_all.sh client
+    cmd: ./pre_install_linux_all.sh client
     chdir: /opt/AdaptixC2
   become: true
   become_method: sudo 
