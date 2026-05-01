@@ -1,5 +1,5 @@
 ---
-- name: "Install pipx tools"
+- name: "Install pipx tools from Github"
   community.general.pipx:
     name: "{{ item.name }}"
     source: "{{ item.url }}"
@@ -10,3 +10,14 @@
     - { name: 'wesng', url: 'git+https://github.com/bitsadmin/wesng.git' }  
     - { name: 'bloodyAD', url: 'git+https://github.com/CravateRouge/bloodyAD.git'}
   ignore_errors: true
+
+- name: "Install pipx tools from package"
+  vars:
+    pipx_packages:
+      - updog
+  community.general.pipx:
+    name: "{{ item }}"
+    state: latest
+    system_site_packages: true
+  with_items: "{{ pipx_packages }}"
+  ignore_errors: true  

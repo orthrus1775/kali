@@ -4,7 +4,20 @@
     cmd: |
       python3 -m venv certipy-venv
       source certipy-venv/bin/activate
+      deactivate
     chdir: /opt/Certipy
+    executable: /bin/bash
+  become: true
+  become_method: sudo
+
+- name: "Setup Certipy virtual environment"
+  ansible.builtin.shell:
+    cmd: |
+      python3 -m venv .beatrice-venv
+      source .beatrice-venv/bin/activate
+      pip install -r requirements.txt
+      deactivate
+    chdir: /opt/beatrice
     executable: /bin/bash
   become: true
   become_method: sudo

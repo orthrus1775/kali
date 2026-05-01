@@ -13,8 +13,9 @@
   loop:
     - { repo: "https://github.com/juliourena/ActiveDirectoryScripts", location: "/opt/ActiveDirectoryScripts"}
     - { repo: "https://github.com/lkarlslund/Adalanche", location: "/opt/Adalanche"}
-    - { repo: "https://github.com/MaorSabag/AdaptixC2", location: "/opt/AdaptixC2" } #Original https://github.com/Adaptix-Framework/AdaptixC2.git
+    - { repo: "https://github.com/MaorSabag/AdaptixC2", location: "/opt/AdaptixC2", version: "Compatible-with-StealthPalace" } #Original https://github.com/Adaptix-Framework/AdaptixC2.git
     - { repo: "https://github.com/tomcarver16/ADSearch.git", location: "/opt/ADSearch" }
+    - { repo: "https://github.com/raskolnikov90/Beatrice.py.git", location: "/opt/beatrice" }
     - { repo: "https://github.com/SpecterOps/BloodHound.git", location: "/opt/bloodhound"}
     - { repo: "https://github.com/crypt0p3g/bof-collection.git", location: "/opt/bofs/bof-collection" }
     - { repo: "https://github.com/coffeegist/bofhound.git", location: "/opt/bofs/bofhound" }
@@ -36,6 +37,7 @@
     - { repo: "https://github.com/outflanknl/Dumpert.git", location: "/opt/Dumpert" }
     - { repo: "https://github.com/netero1010/EDRSilencer.git", location: "/opt/EDRSilencer" }
     - { repo: "https://github.com/outflanknl/EvilClippy.git", location: "/opt/EvilClippy" }
+    - { repo: "https://github.com/Adaptix-Framework/Extension-Kit" , location: "/opt/extension-kit" }
     - { repo: "https://github.com/Tylous/FaceDancer.git", location: "/opt/FaceDancer" }
     - { repo: "https://github.com/GhostPack/ForgeCert.git", location: "/opt/ForgeCert" }
     - { repo: "https://github.com/Tylous/Freeze.rs.git", location: "/opt/freeze"}
