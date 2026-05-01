@@ -1,28 +1,42 @@
 ---
-- name: Add Microsoft GPG key
-  apt_key:
-    url: https://packages.microsoft.com/keys/microsoft.asc
-    state: present
+- name: Check if dos2unix is installed
+  command: which dos2unix
+  register: dos2unix_check
+  ignore_errors: true
+  changed_when: false
   become: true
   become_method: sudo
 
-- name: Add VSCode repository
-  apt_repository:
-    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+- name: Install dos2unix if not present
+  package:
+    name: dos2unix
     state: present
+  when: dos2unix_check.rc != 0
   become: true
-  become_method: sudo
-
-- name: Update APT package cache
-  apt:
-    update_cache: yes
+  become_method: sudo  
+  
+- name: Copy the VSCode installation script
+  copy:
+    src: "{{ role_path }}/files/code/install_vscode.sh"  # Update with the local path to your script
+    dest: /tmp/install_vscode.sh
+    mode: '0755'  # Make the script executable
   become: true
-  become_method: sudo
-
-- name: "Install Visual Studio Code"
-  apt:
-    name: code
-    state: present
+  become_method: sudo    
+  
+- name: Run dos2unix on the script
+  command: dos2unix /tmp/install_vscode.sh
+  become: true
+  become_method: sudo  
+  
+- name: Execute the VSCode installation script
+  command: /tmp/install_vscode.sh
+  become: true
+  become_method: sudo  
+  
+- name: Delete the script after execution
+  file:
+    path: /tmp/install_vscode.sh
+    state: absent
   become: true
   become_method: sudo
 
@@ -32,37 +46,43 @@
   loop:
     - ms-python.python
     - ms-python.vscode-pylance
-    - kosz78.nim
+    - ms-python.debugpy
+    - nimlang.nimlang
     - streetsidesoftware.code-spell-checker
     - ms-vscode.cpptools
-    - DEVSENSE.phptools-vscode
     - ms-dotnettools.csharp
-    - ms-azuretools.vscode-docker
+    - rust-lang.rust-analyzer
+    - redhat.vscode-yaml
+  ignore_errors: true
 
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension kosz78.nim
+- name: Download dotnet-install.sh
+  get_url:
+    url: https://dot.net/v1/dotnet-install.sh
+    dest: /tmp/dotnet-install.sh
+    mode: '0755'
+  become: true
+  become_method: sudo
 
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension streetsidesoftware.code-spell-checker
+- name: Install .NET 8 SDK
+  command: /tmp/dotnet-install.sh --channel 8.0
+  args:
+    creates: /root/.dotnet/sdk
+  environment:
+    HOME: /root
+  become: true
+  become_method: sudo
 
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension ms-vscode.cpptools
+- name: Delete dotnet-install.sh after execution
+  file:
+    path: /tmp/dotnet-install.sh
+    state: absent
+  become: true
+  become_method: sudo
 
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension DEVSENSE.phptools-vscode
-
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension ms-dotnettools.csharp
-
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension ms-azuretools.vscode-docker
-
-# - name: Getting VSCode extenssions
-#   ansible.builtin.command:
-#     cmd: code --install-extension ms-python.vscode-pylance
+- name: Add .NET to system PATH
+  lineinfile:
+    path: /etc/environment
+    line: "PATH=\"/root/.dotnet:/root/.dotnet/tools:{{ ansible_facts['env']['PATH'] }}\""
+    state: present
+  become: true
+  become_method: sudo

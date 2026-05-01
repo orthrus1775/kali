@@ -1,0 +1,31 @@
+---
+- name: Find Makefiles in /opt/bofs (excluding cs-remote-ops and cs-sa)
+  find:
+    paths: /opt/bofs
+    patterns: "Makefile"
+    recurse: yes
+    excludes: []
+  register: bof_makefiles
+
+- name: Filter out cs-remote-ops and cs-sa Makefiles
+  set_fact:
+    filtered_makefiles: "{{ bof_makefiles.files | map(attribute='path') | reject('match', '.*(cs-remote-ops|cs-sa).*') | list }}"
+
+- name: Build BOFs via Makefile
+  ansible.builtin.shell:
+    cmd: make
+    chdir: "{{ item | dirname }}"
+  loop: "{{ filtered_makefiles }}"
+  loop_control:
+    label: "{{ item | dirname }}"
+  ignore_errors: true
+
+- name: Run make_all.sh for cs-remote-ops
+  ansible.builtin.shell:
+    cmd: bash make_all.sh
+    chdir: /opt/bofs/cs-remote-ops
+
+- name: Run make_all.sh for cs-sa
+  ansible.builtin.shell:
+    cmd: bash make_all.sh
+    chdir: /opt/bofs/cs-sa

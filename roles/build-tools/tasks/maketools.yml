@@ -1,0 +1,21 @@
+---
+- name: "Setup Certipy virtual environment"
+  ansible.builtin.shell:
+    cmd: |
+      python3 -m venv certipy-venv
+      source certipy-venv/bin/activate
+    chdir: /opt/Certipy
+    executable: /bin/bash
+  become: true
+  become_method: sudo
+
+- name: "Compile Chisel"
+  ansible.builtin.shell:
+    cmd: |
+      make dep
+      make linux
+      make windows
+    chdir: /opt/chisel
+    executable: /bin/bash
+  become: true
+  become_method: sudo

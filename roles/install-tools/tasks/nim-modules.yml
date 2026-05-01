@@ -13,3 +13,5 @@
     - { repo: "https://github.com/Sn1r/Nim-Reverse-Shell.git", location: "/opt/nimmods/nim-rev-shell" }  
     - { repo: "https://github.com/byt3bl33d3r/OffensiveNim.git", location: "/opt/nimmods/offensivenim" }
     - { repo: "https://github.com/icyguider/Nimcrypt2.git", location: "/opt/nimmods/nimcrypt2" }
+    - { repo: "https://github.com/miere43/nim-registry.git", location: "/opt/nimmods/nim-registry"}
+    

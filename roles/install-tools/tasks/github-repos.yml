@@ -4,70 +4,133 @@
     state: directory
   register: build_dir
 
-
-- name: "Copying merlin-install script to download install merlin"
-  copy:
-    src: "files/merlin-install.sh"
-    dest: "{{ build_dir.path }}/merlin-install.sh"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
-    mode: 0755
-
-- name: "Installing merlin"
-  shell: "{{ build_dir.path }}/merlin-install.sh"     
-  become: true
-  become_method: sudo
-
 - name: "Installing useful github repos"
   git:
     repo: "{{ item.repo }}"
     dest: "{{ item.location }}"
-    force: true 
+    version: "{{ item.version | default(omit) }}"
+    force: true
   loop:
-    - { repo: "https://github.com/Flangvik/SharpCollection", location: "/opt/sharpcollection" }  
-    - { repo: "https://github.com/ropnop/windapsearch", location: "/opt/windapsearch" }
-    - { repo: "https://github.com/mttaggart/rustyneedle.git", location: "/opt/rustyneedle" }
+    - { repo: "https://github.com/juliourena/ActiveDirectoryScripts", location: "/opt/ActiveDirectoryScripts"}
+    - { repo: "https://github.com/lkarlslund/Adalanche", location: "/opt/Adalanche"}
+    - { repo: "https://github.com/MaorSabag/AdaptixC2", location: "/opt/AdaptixC2" } #Original https://github.com/Adaptix-Framework/AdaptixC2.git
+    - { repo: "https://github.com/tomcarver16/ADSearch.git", location: "/opt/ADSearch" }
+    - { repo: "https://github.com/SpecterOps/BloodHound.git", location: "/opt/bloodhound"}
+    - { repo: "https://github.com/crypt0p3g/bof-collection.git", location: "/opt/bofs/bof-collection" }
+    - { repo: "https://github.com/coffeegist/bofhound.git", location: "/opt/bofs/bofhound" }
+    - { repo: "https://github.com/ScriptIdiot/BOF-patchit.git", location: "/opt/bofs/patchit-bof" }
+    - { repo: "https://github.com/cube0x0/BofRoast.git", location: "/opt/bofs/bofroast" }
+    - { repo: "https://github.com/outflanknl/C2-Tool-Collection.git", location: "/opt/bofs/c2-tool-collection" } 
+    - { repo: "https://github.com/GhostPack/Certify.git", location: "/opt/Certify" }
+    - { repo: "https://github.com/ly4k/Certipy.git", location: "/opt/Certipy"}
+    - { repo: "https://github.com/jpillora/chisel.git", location: "/opt/chisel" }
+    - { repo: "https://github.com/trustedsec/COFFLoader.git", location: "/opt/COFFLoader" }
+    - { repo: "https://github.com/jsecu/CredManBOF.git", location: "/opt/bofs/credmanbof" }
+    - { repo: "https://github.com/rasta-mouse/Crystal-Loaders.git", location: "/opt/Crystal-Loaders" }
+    - { repo: "https://github.com/Gality369/CS-Loader.git", location: "/opt/CS-Loader" }
+    - { repo: "https://github.com/trustedsec/CS-Remote-OPs-BOF.git", location: "/opt/bofs/cs-remote-ops"}
+    - { repo: "https://github.com/trustedsec/CS-Situational-Awareness-BOF.git", location: "/opt/bofs/cs-sa"}
+    - { repo: "https://github.com/threatexpress/cs2modrewrite.git", location: "/opt/redirector/cs2modrewrite" }
+    - { repo: "https://github.com/Crypt0s/DelegationBOF.git", location: "/opt/bofs/delegationbof" }
     - { repo: "https://github.com/m0nad/Diamorphine.git", location: "/opt/diamorphine"}
-    - { repo: "https://github.com/its-a-feature/Mythic.git", location: "/opt/mythic" } 
-    - { repo: "https://github.com/Tylous/ScareCrow", location: "/opt/scarecrow" } 
-    - { repo: "https://github.com/t3l3machus/hoaxshell", location: "/opt/hoaxshell" } 
-    - { repo: "https://github.com/HavocFramework/Havoc", location: "/opt/Havoc" } # Included in kali 2023.4
+    - { repo: "https://github.com/outflanknl/Dumpert.git", location: "/opt/Dumpert" }
+    - { repo: "https://github.com/netero1010/EDRSilencer.git", location: "/opt/EDRSilencer" }
+    - { repo: "https://github.com/outflanknl/EvilClippy.git", location: "/opt/EvilClippy" }
+    - { repo: "https://github.com/Tylous/FaceDancer.git", location: "/opt/FaceDancer" }
+    - { repo: "https://github.com/GhostPack/ForgeCert.git", location: "/opt/ForgeCert" }
+    - { repo: "https://github.com/Tylous/Freeze.rs.git", location: "/opt/freeze"}
+    - { repo: "https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git", location: "/opt/Ghostpack"}
+    - { repo: "https://github.com/micahvandeusen/gMSADumper", location: "/opt/gMSADumper"}
+    - { repo: "https://github.com/rvazarkar/GMSAPasswordReader", location: "/opt/GMSAPasswordReader"}
+    - { repo: "https://github.com/c2biz/go-cookie-monster.git", location: "/opt/go-cookie-monster" }
+    - { repo: "https://github.com/ropnop/go-windapsearch.git", location: "/opt/windapsearch" }
+    - { repo: "https://github.com/EspressoCake/HandleKatz_BOF.git", location: "/opt/bofs/handlekatzbof" }
+    - { repo: "https://github.com/boku7/HOLLOW.git", location: "/opt/HOLLOW" }
+    - { repo: "https://github.com/assume-breach/Home-Grown-Red-Team.git", location: "/opt/hgrt"}
+    - { repo: "https://github.com/D3Ext/Hooka.git", location: "/opt/Hooka" }
+    - { repo: "https://github.com/0x09AL/IIS-Raid.git", location: "/opt/IIS-Raid" }
+    - { repo: "https://github.com/ShutdownRepo/impacket/", location: "/opt/tgssub", version: "tgssub" }
+    - { repo: "https://github.com/sliverarmory/injectAmsiBypass.git", location: "/opt/injectAmsiBypass" }
+    - { repo: "https://github.com/boku7/injectEtwBypass.git", location: "/opt/injectEtwBypass" }
+    - { repo: "https://github.com/Kevin-Robertson/InveighZero" , location: "/opt/InveighZero"}
+    - { repo: "https://github.com/RalfHacker/Kerbeus-BOF.git", location: "/opt/bofs/kerbeus-bof" }
+    # - { repo: "https://github.com/ropnop/kerbrute.git", location: "/opt/kerbrute" }
+    - { repo: "https://github.com/dirkjanm/krbrelayx.git", location: "/opt/krbrelayx"}
+    - { repo: "https://github.com/Dec0ne/KrbRelayUp.git", location: "/opt/KrbRelayUp" }
+    - { repo: "https://github.com/n00py/LAPSDumper", location: "/opt/lapsdumper"}
+    - { repo: "https://github.com/jfmaes/LazySign.git", location: "/opt/lazysign"}
+    - { repo: "https://github.com/cube0x0/LdapSignCheck.git", location: "/opt/bofs/ldapsigncheck" }
+    - { repo: "https://github.com/nicocha30/ligolo-ng.git", location: "/opt/ligolo-ng"}
+    - { repo: "https://github.com/Tylous/Limelighter.git", location: "/opt/limelighter"}
+    - { repo: "https://github.com/icyguider/MoreImpacketExamples.git", location: "/opt/moreimpacketexamples" }
+    - { repo: "https://github.com/fortra/nanodump.git", location: "/opt/nanodump" }
+    - { repo: "https://github.com/wavvs/nanorobeus.git", location: "/opt/nanorobeus" }
+    - { repo: "https://github.com/fortra/No-Consolation.git", location: "/opt/No-Consolation" }
+    - { repo: "https://github.com/Ridter/noPac" , location: "/opt/noPac/linux"}
+    - { repo: "https://github.com/bitsadmin/nopowershell.git", location: "/opt/nopowershell" }
+    - { repo: "https://github.com/REDMED-X/OperatorsKit.git", location: "/opt/OperatorsKit" }
+    - { repo: "https://github.com/VoldeSec/PatchlessInlineExecute-Assembly.git", location: "/opt/PatchlessInlineExecute-Assembly" }
+    - { repo: "https://github.com/ly4k/PetitPotam" , location: "/opt/PetitPotam"}
+    - { repo: "https://github.com/dirkjanm/PKINITtools", location: "/opt/PKINITtools"}
+    - { repo: "https://github.com/juliourena/plaintext.git", location: "/opt/powershell/plaintext"}
+    - { repo: "https://github.com/0xEr3bus/PoolPartyBof" , location: "/opt/bofs/poolparty"}
+    - { repo: "https://github.com/praetorian-inc/PortBender" , location: "/opt/PortBender"}
+    - { repo: "https://github.com/Kevin-Robertson/Powermad/", location: "/opt/powershell/Powermad"}
+    - { repo: "https://github.com/PowerShellMafia/PowerSploit/", location: "/opt/powershell/PowerSploit"}
+    - { repo: "https://github.com/jakobfriedl/precompiled-binaries.git", location: "/opt/ADbinaries"}
+    - { repo: "https://github.com/GhostPack/PSPKIAudit.git", location: "/opt/PSPKIAudit" }
+    - { repo: "https://github.com/csandker/pxethiefy.git", location: "/opt/sccm/pxethiefy"}
+    - { repo: "https://github.com/p0dalirius/pydsinternals", location: "/opt/pydsinternals"}
+    - { repo: "https://github.com/ShutdownRepo/pywhisker.git" , location: "/opt/pywhisker"}
+    - { repo: "https://github.com/the-useless-one/pywerview", location: "/opt/pywerview"}
     - { repo: "https://github.com/0xZDH/redirect.rules.git", location: "/opt/redirector/redirect.rules" }
     - { repo: "https://github.com/mantvydasb/Red-Team-Infrastructure-Automation.git", location: "/opt/redirector/redteam-infrastructure-automation" }
-    - { repo: "https://github.com/threatexpress/cs2modrewrite.git", location: "/opt/redirector/cs2modrewrite" }
-    - { repo: "https://github.com/t94j0/satellite.git", location: "/opt/redirector/satellite" }
-    - { repo: "https://github.com/threatexpress/mythic2modrewrite.git", location: "/opt/redirector/mythic2modrewrite" }
-    - { repo: "https://github.com/GhostManager/Ghostwriter.git", location: "/opt/ghostwriter" } 
-    - { repo: "https://github.com/icyguider/MoreImpacketExamples.git", location: "/opt/moreimpacketexamples" } 
-    # - { repo: "https://github.com/danielmiessler/SecLists", location: "/opt/SecLists" } # Included in kali
-    # - { repo: "https://github.com/BishopFox/sliver", location: "/opt/sliver" } # Included in kali
-    - { repo: "https://github.com/Ne0nd0g/merlin", location: "/opt/merlin/merlin-server" }  #Compile issues with the version of go, quic-go
-    - { repo: "https://github.com/Ne0nd0g/merlin-docker", location: "/opt/merlin/merlin-docker" }  #compile using docker container
-    - { repo: "https://github.com/Ne0nd0g/merlin-agent", location: "/opt/merlin/merlin-agent" } #Compile issues with the version of go, quic-go
-    - { repo: "https://github.com/Ne0nd0g/merlin-cli.git", location: "/opt/merlin/merlin-cli"}
-    - { repo: "https://github.com/bitsadmin/wesng.git", location: "/opt/wesng" }
-    - { repo: "https://github.com/cobbr/Covenant", location: "/opt/covenant" }
-    - { repo: "https://github.com/icyguider/Shhhloader.git", location: "/opt/Shhhloader"}   
-    - { repo: "https://github.com/jakobfriedl/precompiled-binaries.git", location: "/opt/ADbinaries"}
-    - { repo: "https://github.com/Tylous/Freeze.rs.git", location: "/opt/freeze"} 
-    - { repo: "https://github.com/assume-breach/Home-Grown-Red-Team.git", location: "/opt/hgrt"} 
-    - { repo: "https://github.com/matro7sh/myph.git", location: "/opt/myph"} 
-    - { repo: "https://github.com/CMEPW/221b.git", location: "/opt/221b"}
-    - { repo: "https://github.com/dirkjanm/krbrelayx.git", location: "/opt/krbrelayx"}  
-    - { repo: "https://github.com/dirkjanm/PKINITtools", location: "/opt/PKINITtools"}
-    - { repo: "https://github.com/CCob/SweetPotato" , location: "/opt/sweetpotato" }   
-    - { repo: "https://github.com/ShutdownRepo/pywhisker.git" , location: "/opt/pywhisker"}
-    - { repo: "https://github.com/Ridter/noPac" , location: "/opt/noPac"}
-    - { repo: "https://github.com/ly4k/PetitPotam" , location: "/opt/PetitPotam"} 
-    - { repo: "https://github.com/Kevin-Robertson/InveighZero" , location: "/opt/InveighZero"} 
-    - { repo: "https://github.com/praetorian-inc/PortBender" , location: "/opt/PortBender"}
-    - { repo: "https://github.com/csandker/pxethiefy.git", location: "/opt/sccm/pxethiefy"}
+    - { repo: "https://github.com/k1ng0fn0th1ng/reflectra", location: "/opt/reflectra"}
+    - { repo: "https://github.com/GhostPack/RestrictedAdmin.git", location: "/opt/RestrictedAdmin" }
+    - { repo: "https://github.com/GhostPack/Rubeus.git", location: "/opt/Rubeus" }
+    - { repo: "https://github.com/g0h4n/RustHound-CE.git", location: "/opt/rusthound"}
+    - { repo: "https://github.com/mttaggart/rustyneedle.git", location: "/opt/rustyneedle" }
     - { repo: "https://github.com/garrettfoster13/sccmhunter.git", location: "/opt/sccm/sccmhunter"}
-    - { repo: "https://github.com/zyn3rgy/smbtakeover.git", location: "/opt/sccm/smbtakeover"}
+    - { repo: "https://github.com/Mr-Un1k0d3r/SCShell.git", location: "/opt/bofs/scshell" }
+    - { repo: "https://github.com/techspence/ScriptSentry", location: "/opt/powershell/ScriptSentry"}
+    - { repo: "https://github.com/GhostPack/Seatbelt.git", location: "/opt/Seatbelt" }
+    - { repo: "https://github.com/apokryptein/secinject", location: "/opt/bofs/secinject" }
+    - { repo: "https://github.com/netero1010/ServiceMove-BOF.git", location: "/opt/bofs/servicemove-bof" }
+    - { repo: "https://github.com/mandiant/SharPersist.git", location: "/opt/SharPersist" }
+    - { repo: "https://github.com/checkymander/Sharp-SMBExec.git", location: "/opt/Sharp-SMBExec" }
+    - { repo: "https://github.com/Flangvik/SharpCollection.git", location: "/opt/sharpcollection" }
+    - { repo: "https://github.com/GhostPack/SharpDPAPI.git", location: "/opt/SharpDPAPI" }
+    - { repo: "https://github.com/GhostPack/SharpDump.git", location: "/opt/SharpDump" }
+    - { repo: "https://github.com/anthemtotheego/SharpExec.git", location: "/opt/SharpExec" }
+    - { repo: "https://github.com/FSecureLABS/SharpGPOAbuse.git", location: "/opt/SharpGPOAbuse" }
+    - { repo: "https://github.com/swisskyrepo/SharpLAPS.git", location: "/opt/SharpLAPS" }
+    - { repo: "https://github.com/cube0x0/SharpMapExec.git", location: "/opt/SharpMapExec" }
+    - { repo: "https://github.com/0xthirteen/SharpRDP.git", location: "/opt/SharpRDP" }
+    - { repo: "https://github.com/Mayyhem/SharpSCCM.git", location: "/opt/SharpSCCM" }
+    - { repo: "https://github.com/G0ldenGunSec/SharpSecDump.git", location: "/opt/SharpSecDump" }
+    - { repo: "https://github.com/thelikes/sharpsh.git", location: "/opt/sharpsh" }
+    - { repo: "https://github.com/GhostPack/SharpUp.git", location: "/opt/SharpUp" }
+    - { repo: "https://github.com/tevora-threat/SharpView.git", location: "/opt/SharpView" }
+    - { repo: "https://github.com/GhostPack/SharpWMI.git", location: "/opt/SharpWMI" }
+    - { repo: "https://github.com/secretsquirrel/SigThief.git", location: "/opt/sigthief"}
+    - { repo: "https://github.com/zyn3rgy/smbtakeover.git", location: "/opt/bofs/smbtakeover"}
+    - { repo: "https://github.com/skahwah/SQLRecon.git", location: "/opt/SQLRecon" }
+    - { repo: "https://github.com/FuzzySecurity/StandIn.git", location: "/opt/StandIn" }
+    - { repo: "https://github.com/MaorSabag/Adaptix-StealthPalace", location: "/opt/adaptix_stealthpalace"}
+    - { repo: "https://github.com/mgeeky/Stracciatella.git", location: "/opt/Stracciatella" }
+    - { repo: "https://github.com/jellever/StreamDivert.git", location: "/opt/StreamDivert" }
+    - { repo: "https://github.com/dobin/SuperMega.git", location: "/opt/SuperMega" }
+    - { repo: "https://github.com/ShutdownRepo/targetedKerberoast", location: "/opt/targetedKerberoast"}
+    - { repo: "https://github.com/connormcgarr/tgtdelegation.git", location: "/opt/tgtdelegation" }
+    - { repo: "https://github.com/rasta-mouse/ThreatCheck.git", location: "/opt/ThreatCheck" }
+    - { repo: "https://github.com/iilegacyyii/ThreadlessInject-BOF.git", location: "/opt/bofs/threadlessinject-bof" }
+    # - {repo: "https://github.com/trustedsec/Titanis.git", location: "/opt/titanis"}
+    - { repo: "https://github.com/rsmudge/unhook-bof.git", location: "/opt/bofs/unhook-bof" }
+    - { repo: "https://github.com/volatilityfoundation/volatility3.git", location: "/opt/volatility"}
+    - { repo: "https://github.com/eladshamir/Whisker", location: "/opt/whisker"}
+    - { repo: "https://github.com/JPCERTCC/Windows-Symbol-Tables.git", location: "/opt/winsymbols"}
     - { repo: "https://github.com/XiaoliChan/wmiexec-Pro.git", location: "/opt/sccm/wmiexec-pro"}
-    - { repo: "https://github.com/secretsquirrel/SigThief.git", location: "/opt/sigthief"}   
-    - { repo: "https://github.com/Tylous/Limelighter.git", location: "/opt/limelighter"}  
-    - { repo: "https://github.com/jfmaes/LazySign.git", location: "/opt/lazysign"}       
+    - { repo: "https://github.com/SavSanta/YoinkLighter.git", location: "/opt/YoinkLighter" }
   become: true
   become_method: sudo
 
@@ -84,40 +147,14 @@
 - name: "Downloading github releases"
   shell: "{{ build_dir.path }}/githubdownload.py {{ item.repo }} {{ item.regex }} {{ item.location }} {% if item.filename is defined %}{{ item.filename }}{% endif %}"
   loop:
-    - { repo: "jpillora/chisel",  regex: "_linux_amd64.gz", location: "/opt/chisel" }
-    - { repo: "jpillora/chisel",  regex: "_windows_amd64.gz", location: "/opt/chisel" }
-    - { repo: "jpillora/chisel",  regex: "_darwin_amd64", location: "/opt/chisel", filename: "chisel_osx" }
-    - { repo: "WithSecureLabs/chainsaw",  regex: "chainsaw_all_", location: "/opt/" }
-    - { repo: "BloodHoundAD/BloodHound", regex: "BloodHound-linux-x64.zip", location: "/opt/" }
-    - { repo: "dnSpy/dnSpy", regex: "net-win32.zip", location: "/usr/share/dnSpy" }
-    - { repo: "dnSpy/dnSpy", regex: "net-win64.zip", location: "/usr/share/dnSpy" } 
-    - { repo: "dnSpy/dnSpy", regex: "netframework.zip", location: "/usr/share/dnSpy" } 
-    - { repo: "DominicBreuker/pspy", regex: "pspy32", location: "/usr/share/pspy" }
-    - { repo: "DominicBreuker/pspy", regex: "pspy32s", location: "/usr/share/pspy" }
-    - { repo: "DominicBreuker/pspy", regex: "pspy64", location: "/usr/share/pspy" }
-    - { repo: "DominicBreuker/pspy", regex: "pspy64s", location: "/usr/share/pspy" } 
-    - { repo: nicocha30/ligolo-ng", regex: "ligolo-ng_agent_0.4.4_linux_amd64.tar.gz", location: "/usr/share/ligolo-ng" }
-    - { repo: "nicocha30/ligolo-ng", regex: "ligolo-ng_agent_0.4.4_windows_amd64.zip", location: "/usr/share/ligolo-ng" } 
-    - { repo: nicocha30/ligolo-ng", regex: "ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz", location: "/usr/share/ligolo-ng" }
-    - { repo: "nicocha30/ligolo-ng", regex: "ligolo-ng_proxy_0.4.4_windows_amd64.zip", location: "/usr/share/ligolo-ng" } 
-    - { repo: "t94j0/satellite", regex: "_linux_amd64.deb", location: "/opt/redirector/satellite" } 
+    - { repo: "dnSpy/dnSpy", regex: "netframework.zip", location: "/usr/share/dnSpy" }
+    - { repo: "t94j0/satellite", regex: "_linux_amd64.deb", location: "/opt/redirector/satellite" }
+    - { repo: "lkarlslund/Adalanche", regex: "adalanche-linux-x64-latestrelease", location: "/opt/Adalanche" }
+    - { repo: "lkarlslund/Adalanche", regex: "adalanche-collector-windows-x64-latestrelease-", location: "/opt/Adalanche" }
   async: 45
   poll: 0
   become: true
   become_method: sudo
-
-# - name: "Copying sliver-install script to download install sliver"
-#   copy:
-#     src: "files/sliver-install.sh"
-#     dest: "{{ build_dir.path }}/sliver-install.sh"
-#     owner: "{{ ansible_user_id }}"
-#     group: "{{ ansible_user_id }}"
-#     mode: 0755  
-
-# - name: "Installing sliver"
-#   shell: "{{ build_dir.path }}/sliver-install.sh" 
-#   become: true
-#   become_method: sudo
 
 - name: Remove temporary build directory
   ansible.builtin.file:
@@ -127,6 +164,6 @@
 
 - name: "Recursively change ownership and permissions of /opt/"
   ansible.builtin.command:
-    cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} /opt/" 
+    cmd: "chown -R {{ ansible_facts['user_id'] }}:{{ ansible_facts['user_id'] }} /opt/"
   become: true
-  become_method: sudo    
+  become_method: sudo

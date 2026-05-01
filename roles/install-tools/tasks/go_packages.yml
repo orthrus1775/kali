@@ -9,44 +9,4 @@
     cmd: go install mvdan.cc/garble@latest
   ignore_errors: true  
 
-- name: "go install color"
-  ansible.builtin.shell:
-    cmd: go get github.com/fatih/color
-    chdir: /opt/scarecrow
 
-- name: "go install zipr"
-  ansible.builtin.shell:
-    cmd: go get github.com/yeka/zip
-    chdir: /opt/scarecrow
-
-- name: "go install version_info"
-  ansible.builtin.shell:
-    cmd: go get github.com/josephspurrier/goversioninfo
-    chdir: /opt/scarecrow
-  
-- name: "go install pe debug"
-  ansible.builtin.shell:
-    cmd: go get github.com/Binject/debug/pe
-    chdir: /opt/scarecrow
-
-- name: "go install rawreader"
-  ansible.builtin.shell:
-    cmd: go get github.com/awgh/rawreader
-    chdir: /opt/scarecrow
-
-- name: "go install go-isattyr"
-  ansible.builtin.shell:
-    cmd: go get github.com/mattn/go-isatty@v0.0.20
-    chdir: /opt/scarecrow
-
-# - name: "Creating symlinks"
-#   ansible.builtin.file:
-#     src: "{{ item.src }}"
-#     path: "{{ item.dst }}"
-#     state: link
-#     loop:
-#     - { src: "{{ ansible_env.HOME }}/go/bin/garble", dst: /usr/bin/garble }
-#     - { src: "{{ ansible_env.HOME }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }        
-#   become: true
-#   become_method: sudo 
-     

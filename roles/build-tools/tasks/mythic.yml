@@ -1,4 +1,17 @@
 ---
+- name: "Disabling Services"
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: false
+  loop:
+     - apache2
+    #  - rsyslog
+    #  - ufw
+    #  - docker
+  become: true
+  become_method: sudo  
+  
 - name: "Build mythic-cli"
   ansible.builtin.shell:
     cmd: make 
@@ -23,8 +36,8 @@
   copy:
     src: "files/mythic-install.sh"
     dest: "{{ build_dir.path }}/mythic-install.sh"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
     mode: 0755
 
 - name: "Installing Mythic"

@@ -1,0 +1,53 @@
+---
+- name: "Create temporary build directory"
+  ansible.builtin.tempfile:
+    state: directory
+  register: titanis_build_dir
+
+- name: "Copy githubdownload.py script"
+  copy:
+    src: "{{ role_path }}/../install-tools/files/githubdownload.py"
+    dest: "{{ titanis_build_dir.path }}/githubdownload.py"
+    owner: root
+    group: root
+    mode: 0755
+  become: true
+  become_method: sudo
+
+- name: "Download Titanis releases"
+  shell: "{{ titanis_build_dir.path }}/githubdownload.py {{ item.repo }} {{ item.regex }} {{ item.location }}"
+  loop:
+    - { repo: "trustedsec/Titanis", regex: "Titanis-doc.zip", location: "/opt/titanis" }
+    - { repo: "trustedsec/Titanis", regex: "Titanis-tools-linux-x64-net8.zip", location: "/opt/titanis" }
+    - { repo: "trustedsec/Titanis", regex: "Titanis-tools-win-x64-net8.zip", location: "/opt/titanis" }
+  become: true
+  become_method: sudo
+
+# - name: "Extract Titanis zips"
+#   ansible.builtin.unarchive:
+#     src: "/opt/titanis/{{ item }}"
+#     dest: /opt/titanis/
+#     remote_src: yes
+#   loop:
+#     - Titanis-doc.zip
+#     - Titanis-tools-linux-x64-net8.zip
+#     - Titanis-tools-win-x64-net8.zip
+#   become: true
+#   become_method: sudo
+
+# - name: "Remove Titanis zip files"
+#   ansible.builtin.file:
+#     path: "/opt/titanis/{{ item }}"
+#     state: absent
+#   loop:
+#     - Titanis-doc.zip
+#     - Titanis-tools-linux-x64-net8.zip
+#     - Titanis-tools-win-x64-net8.zip
+#   become: true
+#   become_method: sudo
+
+- name: "Remove temporary build directory"
+  ansible.builtin.file:
+    path: "{{ titanis_build_dir.path }}"
+    state: absent
+  when: titanis_build_dir.path is defined

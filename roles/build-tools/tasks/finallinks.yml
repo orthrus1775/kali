@@ -11,7 +11,7 @@
 
 # - name: "Creating a adidnsdump symlink"
 #   ansible.builtin.shell:
-#     cmd: ln -s "{{ ansible_env.HOME }}/.local/pipx/venvs/adidnsdump/bin/adidnsdump" /usr/bin/adidnsdump
+#     cmd: ln -s "{{ ansible_facts['env']['HOME'] }}/.local/pipx/venvs/adidnsdump/bin/adidnsdump" /usr/bin/adidnsdump
 #   become_method: sudo  
 
 - name: "Creating symlinks"
@@ -20,50 +20,41 @@
     path: "{{ item.dst }}"
     state: link
   loop:
-    - { src: /opt/windapsearch/windapsearch.py, dst: /usr/bin/windapsearch }
-    - { src: /opt/hoaxshell/hoaxshell.py, dst: /usr/bin/hoaxshell } 
-    - { src: "{{ ansible_env.HOME }}/.local/share/pipx/venvs/adidnsdump/bin/adidnsdump", dst: /usr/bin/adidnsdump }
-    - { src: "{{ ansible_env.HOME }}/.local/share/pipx/venvs/bloodyad/bin/bloodyAD", dst: /usr/bin/bloodyAD }
-    - { src: "{{ ansible_env.HOME }}/.local/share/pipx/venvs/netexec/bin/nxc", dst: /usr/bin/nxc }
-    - { src: "/usr/bin/nxc", dst: /usr/bin/netexec }
-    - { src: /usr/bin/crackmapexec, dst: /usr/bin/cme }
-    - { src: /opt/wesng/wes.py, dst: /usr/bin/wesng }
-    - { src: /opt/wesng/wes.py, dst: /usr/bin/wes }  
-    - { src: /opt/scarecrow/ScareCrow, dst: /usr/bin/scarecrow }
-    - { src: /opt/mythic/mythic-cli, dst: /usr/bin/mythic-cli }
-    - { src: "{{ ansible_env.HOME }}/.nimble/bin/choosenim", dst: /usr/bin/choosenim }
-    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nim", dst: /usr/bin/nim }
-    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nim-gdb", dst: /usr/bin/nim-gdb }  
-    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nimble", dst: /usr/bin/nimble }  
-    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nimgrep", dst: /usr/bin/nimgrep }  
-    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nimpretty", dst: /usr/bin/nimpretty }  
-    - { src: "{{ ansible_env.HOME }}/.nimble/bin/nimsuggest", dst: /usr/bin/nimsuggest }  
-    - { src: "{{ ansible_env.HOME }}/.nimble/bin/testament", dst: /usr/bin/testament }
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo", dst: /usr/bin/cargo }  
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo-clippy", dst: /usr/bin/cargo-clippy }
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo-fmt", dst: /usr/bin/cargo-fmt }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/cargo-miri", dst: /usr/bin/cargo-miri }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/clippy-driver", dst: /usr/bin/clippy-driver }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rls", dst: /usr/bin/rls }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rust-analyzer", dst: /usr/bin/rust-analyzer }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rust-gdb", dst: /usr/bin/rust-gdb }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rust-gdbgui", dst: /usr/bin/rust-gdbgui }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rust-lldb", dst: /usr/bin/rust-lldb }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustc", dst: /usr/bin/rustc }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustdoc", dst: /usr/bin/rustdoc }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustfmt", dst: /usr/bin/rustfmt }     
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustup", dst: /usr/bin/rustup }
-    - { src: "{{ ansible_env.HOME }}/.cargo/bin/rustup", dst: /usr/bin/rustup }
-    - { src: "{{ ansible_env.HOME }}/go/bin/garble", dst: /usr/bin/garble }
-    - { src: "{{ ansible_env.HOME }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }        
+    # - { src: "{{ ansible_facts['env']['HOME'] }}/.local/share/pipx/venvs/adidnsdump/bin/adidnsdump", dst: /usr/bin/adidnsdump }
+    # - { src: "{{ ansible_facts['env']['HOME'] }}/.local/share/pipx/venvs/bloodyad/bin/bloodyAD", dst: /usr/bin/bloodyAD }
+    # - { src: "{{ ansible_facts['env']['HOME'] }}/.local/share/pipx/venvs/wesng/bin/wes", dst: /usr/bin/wes } 
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.nimble/bin/choosenim", dst: /usr/bin/choosenim }
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.nimble/bin/nim", dst: /usr/bin/nim }
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.nimble/bin/nim-gdb", dst: /usr/bin/nim-gdb }  
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.nimble/bin/nimble", dst: /usr/bin/nimble }  
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.nimble/bin/nimgrep", dst: /usr/bin/nimgrep }  
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.nimble/bin/nimpretty", dst: /usr/bin/nimpretty }  
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.nimble/bin/nimsuggest", dst: /usr/bin/nimsuggest }  
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.nimble/bin/testament", dst: /usr/bin/testament }
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/cargo", dst: /usr/bin/cargo }  
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/cargo-clippy", dst: /usr/bin/cargo-clippy }
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/cargo-fmt", dst: /usr/bin/cargo-fmt }     
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/cargo-miri", dst: /usr/bin/cargo-miri }     
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/clippy-driver", dst: /usr/bin/clippy-driver }     
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rls", dst: /usr/bin/rls }     
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rust-analyzer", dst: /usr/bin/rust-analyzer }     
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rust-gdb", dst: /usr/bin/rust-gdb }     
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rust-gdbgui", dst: /usr/bin/rust-gdbgui }     
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rust-lldb", dst: /usr/bin/rust-lldb }     
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rustc", dst: /usr/bin/rustc }     
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rustdoc", dst: /usr/bin/rustdoc }     
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rustfmt", dst: /usr/bin/rustfmt }     
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rustup", dst: /usr/bin/rustup }
+    - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rustup", dst: /usr/bin/rustup }
+    - { src: "{{ ansible_facts['env']['HOME'] }}/go/bin/garble", dst: /usr/bin/garble }
+    - { src: "{{ ansible_facts['env']['HOME'] }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }
   become: true
   become_method: sudo
   ignore_errors: true 
 
-  
 - name: "Recursively change ownership and permissions of /opt/"
   ansible.builtin.command:
-    cmd: "chown -R {{ ansible_user_id }}:{{ ansible_user_id }} /opt/" 
+    cmd: "chown -R {{ ansible_facts['user_id'] }}:{{ ansible_facts['user_id'] }} /opt/" 
   become: true
   become_method: sudo
   

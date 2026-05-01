@@ -8,157 +8,166 @@
   apt: upgrade=yes force_apt_get=yes
   become: true
   become_method: sudo
-  
-- name: "Installing Packages"
+
+# Commment/Uncomment as needed https://www.kali.org/tools/kali-meta/
+- name: "Installing Kali Packages"
   package:
     name:
-      - kali-linux-everything
-      - build-essential
-      - apt-utils
-      - cmake 
-      - libfontconfig1
-      - libkrb5-dev 
-      - libglu1-mesa-dev 
-      - libgtest-dev 
-      - libspdlog-dev 
-      - libboost-all-dev 
-      - libncurses5-dev 
-      - libgdbm-dev 
-      - libssl-dev 
-      - libreadline-dev 
-      - libffi-dev 
-      - libsqlite3-dev 
-      - libbz2-dev 
-      - mesa-common-dev 
-      - qtbase5-dev 
-      - qtchooser 
-      - qt5-qmake 
-      - qtbase5-dev-tools 
-      - libqt5websockets5 
-      - libqt5websockets5-dev 
-      - qtdeclarative5-dev 
-      - golang-go 
-      - qtbase5-dev 
-      - libqt5websockets5-dev 
-      - python3-dev 
-      - libboost-all-dev 
-      - mingw-w64 
-      - nasm
-      - kali-tools-crypto-stego
-      - kali-tools-fuzzing
+      # - kali-linux-everything
+      # - kali-linux-labs
+      # - kali-linux-large
+      # - kali-system-cli
+      # - kali-system-core
+      # - kali-tools-802-11
+      # - kali-tools-bluetooth
+      # - kali-tools-crypto-stego
+      # - kali-tools-database
+      # - kali-tools-exploitation
+      # - kali-tools-forensics
+      # - kali-tools-fuzzing
+      # - kali-tools-fuzzing
+      # - kali-tools-gpu
+      # - kali-tools-hardware
+      # - kali-tools-information-gathering
+      - kali-tools-passwords
+      # - kali-tools-post-exploitation
+      # - kali-tools-reporting
+      # - kali-tools-reverse-engineering
+      # - kali-tools-rfid
+      # - kali-tools-sdr
+      # - kali-tools-sniffing-spoofing
+      # - kali-tools-social-engineering
+      - kali-tools-top10
+      # - kali-tools-voip
+      # - kali-tools-vulnerability
+      # - kali-tools-web
       - kali-tools-windows-resources
-      - kali-linux-large
-      - kali-wallpapers-all
-      - peass
-      - bc
-      - xplico
-      - openssh-server
-      - mingw-w64
-      - jq
-      - pipx
-      - ntpdate
-      - flameshot
-      - exiftool
-      - evilginx2
-      - evilginx2-dbgsym
-      - pure-ftpd
-      - curl
-      - dnsrecon
-      - enum4linux
-      - feroxbuster
-      - nbtscan
-      - nikto
-      - onesixtyone
-      - oscanner
-      - redis-tools
-      - smbclient
-      - smbmap
-      - snmp
-      - sslscan
-      - sipvicious
-      - tnscmd10g
-      - whatweb
-      - wkhtmltopdf
-      - podman
-      - apache2
-      - postfix
-      - nginx
-      - nginx-extras
-      - whois
-      - rsyslog
-      - ufw
-      - rlwrap
-      - openssl
-      - osslsigncode
-      - sshuttle
-      - docker-compose
+      # - kali-tools-wireless
+      # - kali-wallpapers-all
     state: latest
   become: true
   become_method: sudo
 
-- name: "Installing python packages"
-  ansible.builtin.pip:
-    name: 
-      - mechanicalsoup
-      - openpyxl
-      - Faker
-      - python-docx
-      - python-pptx
-      - requests
-      - fabric
-      - wmi
-      - requests-html
-      - numpy
-      - selenium
-      - webdriver-manager
-      - tldextract
-      - bs4
-      - pycryptodome
-      - minikerberos
+# All kali tools at https://www.kali.org/tools/all-tools/  
+- name: "Installing Packages"
+  package:
+    name:
+      - apt-utils
+      - autorecon
+      - autossh
+      - bc
+      - build-essential
+      - certipy-ad
+      - chisel-common-binaries
+      - cmake
+      - curl
+      - dnsrecon
+      - donut
+      - enum4linux
+      - feroxbuster
+      - flameshot
+      - ghidra
+      - golang-github-binject-go-donut
+      - golang-go
+      - gpg
+      - impacket-scripts
+      - jq
+      - ldeep
+      - libbz2-dev
+      - libboost-all-dev
+      - libboost-all-dev
+      - libffi-dev
+      - libfontconfig1
+      - libgdbm-dev
+      - libglu1-mesa-dev
+      - libgtest-dev
+      - libkrb5-dev
+      - libncurses5-dev
+      - libqt5websockets5
+      - libqt5websockets5-dev
+      - libqt5websockets5-dev
+      - libreadline-dev
+      - libspdlog-dev
+      - libsqlite3-dev
+      - libssl-dev
+      - mage
+      - mesa-common-dev
+      - mingw-w64
+      - mingw-w64
+      - mono-devel
+      - nasm
+      - nbtscan
+      - netexec
+      - nikto
+      - nishang
+      - ntpsec-ntpdate
+      - onesixtyone
+      - openssh-server
+      - openssl
+      - oscanner
+      - osslsigncode
+      - peass
+      - pipx
+      - powercat
+      - powershell
+      - powersploit
+      - python3-dev
+      - python3-pip
+      - python3-virtualenv
+      - qt5-qmake
+      - qtbase5-dev
+      - qtbase5-dev
+      - qtbase5-dev-tools
+      - qtchooser
+      - qtdeclarative5-dev
+      - redis-tools
+      - rlwrap
+      - rsyslog
+      - rubeus
+      - sharphound
+      - sipvicious
+      - smbclient
+      - smbmap
+      - snmp
+      - sshpass
+      - sshuttle
+      - sslscan
+      - tmux
+      - tnscmd10g
+      - ufw
+      - whatweb
+      - wget
+      - whois
+    state: latest
+  become: true
+  become_method: sudo
 
-# - name: Remove Docker
-#   ansible.builtin.file:
-#     path: /usr/bin/docker
-#     state: absent
-#   become: true
-#   become_method: sudo
-  
-# - name: Adding Docker GPG key
-#   apt_key:
-#     url: https://download.docker.com/linux/debian/gpg
-#     state: present
-#   become: true
-#   become_method: sudo
+- name: Update APT package cache
+  apt:
+    update_cache: yes
+  become: true
+  become_method: sudo
 
-# - name: Add Docker repository
-#   apt_repository:
-#     repo: deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable
-#     state: present
-#   become: true
-#   become_method: sudo
+- name: "Download Docker installation script"
+  get_url:
+    url: https://raw.githubusercontent.com/its-a-feature/Mythic/refs/heads/master/install_docker_kali.sh
+    dest: /tmp/install_docker_kali.sh
+    mode: '0755'
+  become: true
+  become_method: sudo
 
-# - name: "Setting up Veil" 
-#   ansible.builtin.shell:
-#     cmd: "/usr/share/veil/config/setup.sh --force --silent"
-#   become: true
-#   become_method: sudo
+- name: "Install Docker using script"
+  shell: /tmp/install_docker_kali.sh
+  become: true
+  become_method: sudo
+  register: docker_install_result
 
-# - name: Update APT package cache
-#   apt:
-#     update_cache: yes
-#   become: true
-#   become_method: sudo
-
-# - name: "Install Docker"
-#   apt:
-#     name: 
-#        - docker-ce
-#        - docker-compose-plugin
-#     state: present
-#     install_recommends: false
-#   become: true
-#   become_method: sudo
-
+- name: "Clean up Docker installation script"
+  file:
+    path: /tmp/install_docker_kali.sh
+    state: absent
+  become: true
+  become_method: sudo
 
 - name: "Starting and Enabling Services"
   ansible.builtin.service:
@@ -167,8 +176,6 @@
     enabled: true
   loop:
      - ssh
-     - rsyslog
-     - ufw
      - docker
   become: true
   become_method: sudo

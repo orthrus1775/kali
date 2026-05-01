@@ -8,8 +8,8 @@
   copy:
     src: "files/rust-install.sh"
     dest: "{{ build_dir.path }}/rust-install.sh"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
     mode: 0755
 
 - name: "Installing rust"
@@ -22,40 +22,19 @@
   shell: "export PATH=$HOME/.cargo/bin:$PATH && cd /opt/rustyneedle && rustup target add x86_64-pc-windows-gnu && cargo build --manifest-path=/opt/rustyneedle/Cargo.toml --target x86_64-pc-windows-gnu --release" 
 
 - name: "Build freeze"
-  shell: "export PATH=$HOME/.cargo/bin:$PATH && && cd /opt/freeze && rustup target add x86_64-pc-windows-gnu && cargo build --manifest-path=/opt/freeze/Cargo.toml --target x86_64-pc-windows-gnu --release"
+  shell: "export PATH=$HOME/.cargo/bin:$PATH && cd /opt/freeze && rustup target add x86_64-pc-windows-gnu && cargo build --manifest-path=/opt/freeze/Cargo.toml --target x86_64-pc-windows-gnu --release"
 
 - name: "Copying nim-install script to download install nim"
   copy:
     src: "files/nim-install.sh"
     dest: "{{ build_dir.path }}/nim-install.sh"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
     mode: 0755
 
 - name: "Installing Nim"
   shell: "{{ build_dir.path }}/nim-install.sh"    
 
 - name: "Installing packages with Nimble"
-  shell: "export PATH=$HOME/.nimble/bin:$PATH && nimble install winim nimcrypto docopt ptr_math strenc -y"
-
-- name: "Init Limeligher"
-  ansible.builtin.shell:
-    cmd: go mod init github.com/Tylous/Limelighter
-    chdir: /opt/limelighter
-
-- name: "Add Color"
-  ansible.builtin.shell:
-    cmd: go get github.com/fatih/color
-    chdir: /opt/limelighter
-
-- name: "Build Limeligher"
-  ansible.builtin.shell:
-    cmd: go build Limelighter.go
-    chdir: /opt/limelighter
-
-- name: Remove temporary build directory
-  ansible.builtin.file:
-    path: "{{ build_dir.path }}"
-    state: absent
-  when: build_dir.path is defined 
+  shell: "export PATH=$HOME/.nimble/bin:$PATH && nimble install winim nimcrypto docopt ptr_math strenc libp2p ws zippy iputils socks5 daemon tiny_sqlite dnsclient -y"
 

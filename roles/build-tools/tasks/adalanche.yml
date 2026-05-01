@@ -1,0 +1,55 @@
+---
+# - name: "Build Adalanche"
+#   ansible.builtin.shell:
+#     cmd: pwsh build.ps1
+#     chdir: /opt/Adalanche
+#   become: true
+#   become_method: sudo
+
+- name: "Find Adalanche Linux binary"
+  find:
+    paths: /opt/Adalanche
+    patterns: "adalanche-linux-x64-latestrelease*"
+  register: adalanche_linux_files
+
+- name: "Move Adalanche Linux binary and make executable"
+  copy:
+    src: "{{ adalanche_linux_files.files[0].path }}"
+    dest: /opt/Adalanche/adalanche_linx64
+    mode: '0755'
+    remote_src: yes
+  when: adalanche_linux_files.files | length > 0
+  become: true
+  become_method: sudo
+
+- name: "Remove original Adalanche Linux file"
+  file:
+    path: "{{ adalanche_linux_files.files[0].path }}"
+    state: absent
+  when: adalanche_linux_files.files | length > 0
+  become: true
+  become_method: sudo
+
+- name: "Find Adalanche Windows collector binary"
+  find:
+    paths: /opt/Adalanche
+    patterns: "adalanche-collector-windows-x64-latestrelease-*"
+  register: adalanche_collector_files
+
+- name: "Move Adalanche Windows collector binary"
+  copy:
+    src: "{{ adalanche_collector_files.files[0].path }}"
+    dest: /opt/Adalanche/adalanche-win-collector.exe
+    mode: '0644'
+    remote_src: yes
+  when: adalanche_collector_files.files | length > 0
+  become: true
+  become_method: sudo
+
+- name: "Remove original Adalanche collector file"
+  file:
+    path: "{{ adalanche_collector_files.files[0].path }}"
+    state: absent
+  when: adalanche_collector_files.files | length > 0
+  become: true
+  become_method: sudo

@@ -1,0 +1,55 @@
+---
+- name: "Build AdaptixC2 -- THIS TAKES A MIN GO GET COFFEE!!!!!"
+  ansible.builtin.shell:
+    cmd: make docker-build-all
+    chdir: /opt/AdaptixC2
+  become: true
+  become_method: sudo
+
+- name: "Build AdaptixC2 client"
+  ansible.builtin.shell:
+    cmd: make docker-build-client
+    chdir: /opt/AdaptixC2
+  become: true
+  become_method: sudo
+
+- name: "Create Adaptix Certificates"
+  ansible.builtin.shell:
+    cmd: >
+      openssl req -x509 -nodes -newkey rsa:2048
+      -keyout server.rsa.key
+      -out server.rsa.crt
+      -days 365
+      -subj "/C=US/ST=State/L=City/O=Organization/OU=Unit/CN=localhost"
+    chdir: /opt/AdaptixC2/AdaptixServer/server-dist
+  become: true
+  become_method: sudo
+
+- name: "Clean AdaptixC2 Docker images"
+  ansible.builtin.shell:
+    cmd: make docker-clean
+    chdir: /opt/AdaptixC2
+  become: true
+  become_method: sudo
+
+- name: "Build Stealth Palace for Adaptix"
+  ansible.builtin.shell:
+    cmd: |
+      chmod +x install.sh
+      ./install.sh --ax /opt/AdaptixC2/AdaptixServer/server-dist/
+    chdir: /opt/adaptix_stealthpalace
+  become: true
+  become_method: sudo
+
+- name: "Creating symlinks"
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    path: "{{ item.dst }}"
+    state: link
+  loop:
+    - { src: /opt/AdaptixC2/AdaptixServer/server-dist/adaptixserver, dst: /usr/bin/adaptixserver }
+    - { src: /opt/AdaptixC2/AdaptixClient/client-dist/AdaptixClient-x86_64.AppImage, dst: /usr/bin/adaptixclient }
+  become: true
+  become_method: sudo
+  ignore_errors: true 
+   

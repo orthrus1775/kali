@@ -1,0 +1,62 @@
+---
+- name: Create sliver bin directory 
+  ansible.builtin.file:
+    path: /opt/sliver/bins
+    state: directory
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    mode: 0755
+
+- name: "Build Sliver"
+  ansible.builtin.shell:
+    cmd: make 
+    chdir: /opt/sliver
+
+- name: "Copying Linux Sliver Server files to /bins"
+  copy:
+    src: "/opt/sliver/sliver-server"
+    dest: "/opt/sliver/bins/sliver-server_linamd64"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    mode: 0755 
+
+- name: "Copying Linux Sliver Client files to /bins"
+  copy:
+    src: "/opt/sliver/sliver-client"
+    dest: "/opt/sliver/bins/sliver-client_linamd64"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    mode: 0755 
+
+- name: "Building windows client"
+  ansible.builtin.shell:
+    cmd: make windows-amd64
+    chdir: /opt/sliver
+
+- name: "Copying Windows Sliver Client files to /bins"
+  copy:
+    src: "/opt/sliver/sliver-client.exe"
+    dest: "/opt/sliver/bins/sliver-client.exe"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    mode: 0755
+
+- name: "Copying Sliver Client files to /usr/bin/"
+  copy:
+    src: "/opt/sliver/bins/sliver-client_linamd64"
+    dest: "/usr/bin/sliver-client"
+    owner: root
+    group: root
+    mode: 0755
+  become: true
+  become_method: sudo
+
+- name: "Copying Sliver Server files to /usr/bin/"
+  copy:
+    src: "/opt/sliver/bins/sliver-server_linamd64"
+    dest: /usr/bin/sliver-server
+    owner: root
+    group: root
+    mode: 0755      
+  become: true
+  become_method: sudo

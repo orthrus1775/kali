@@ -1,0 +1,38 @@
+---
+- name: Create temporary build directory
+  ansible.builtin.tempfile:
+    state: directory
+  register: build_dir
+
+- name: "Init Limeligher"
+  ansible.builtin.shell:
+    cmd: go mod init github.com/Tylous/Limelighter
+    chdir: /opt/limelighter
+  ignore_errors: true  
+
+- name: "Add Color"
+  ansible.builtin.shell:
+    cmd: go get github.com/fatih/color
+    chdir: /opt/limelighter
+
+- name: "Build Limeligher"
+  ansible.builtin.shell:
+    cmd: go build Limelighter.go
+    chdir: /opt/limelighter
+
+- name: Remove temporary build directory
+  ansible.builtin.file:
+    path: "{{ build_dir.path }}"
+    state: absent
+  when: build_dir.path is defined 
+
+- name: "Creating symlinks"
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    path: "{{ item.dst }}"
+    state: link
+  loop:
+    - { src: /opt/limelighter/Limelighter, dst: /usr/bin/Limelighter } 
+  become: true
+  become_method: sudo
+  ignore_errors: true 

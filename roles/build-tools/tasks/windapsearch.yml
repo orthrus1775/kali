@@ -1,0 +1,43 @@
+---
+- name: Install mage dependency
+  shell: go get github.com/magefile/mage
+  args:
+    chdir: /opt/windapsearch
+  environment:
+    GOPATH: "{{ ansible_facts['env']['HOME'] }}/go"
+    PATH: "{{ ansible_facts['env']['PATH'] }}:{{ ansible_facts['env']['HOME'] }}/go/bin"
+
+- name: Build windapsearch using mage
+  shell: mage build
+  args:
+    chdir: /opt/windapsearch
+  environment:
+    GOPATH: "{{ ansible_facts['env']['HOME'] }}/go"
+    PATH: "{{ ansible_facts['env']['PATH'] }}:{{ ansible_facts['env']['HOME'] }}/go/bin"
+
+- name: Check windapsearch version
+  shell: ./windapsearch --version
+  args:
+    chdir: /opt/windapsearch
+  register: windapsearch_version
+  
+- name: Display windapsearch version
+  debug:
+    msg: "windapsearch version: {{ windapsearch_version.stdout }}"
+
+- name: "Creating symlinks"
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    path: "{{ item.dst }}"
+    state: link
+  loop:
+    - { src: /opt/windapsearch/windapsearch, dst: /usr/bin/windapsearch }
+  become: true
+  become_method: sudo
+  ignore_errors: true 
+
+- name: "Recursively change ownership and permissions of /opt/"
+  ansible.builtin.command:
+    cmd: "chown -R {{ ansible_facts['user_id'] }}:{{ ansible_facts['user_id'] }} /opt/" 
+  become: true
+  become_method: sudo    

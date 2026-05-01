@@ -6,7 +6,7 @@
 
 - name: "go install mod ugorji/go"
   ansible.builtin.shell:
-    cmd: go mod download github.com/ugorji/go
+    cmd: go mod download github.com/ugorji/go@latest
     chdir: /opt/Havoc/teamserver
 
 - name: "Build havoc team server"
@@ -48,6 +48,14 @@
     - { file: "https://gist.githubusercontent.com/p4p1/e24bca8407d69c8ea28d4bc9d423f85b/raw/5f219faae462b6dffe0a1dcfcc537550a178e0e3/auto_suite.py", location: "/opt/Havoc/data/extensions/auto_suite.py" } 
     - { file: "https://gist.githubusercontent.com/jakobfriedl/f55bd4f870348e68e0eb27ad6a2fa48b/raw/7403a6035f1f34147529c46d526815cf43c3fb72/ADOE.py", location: "/opt/Havoc/data/extensions/ADOE.py" }
     - { file: "https://gist.githubusercontent.com/jakobfriedl/0887eb75b31b96568526521282e63681/raw/32fb455de219d9bc65731da2e98868f5bbd39618/Shhhavoc.py", location: "/opt/Havoc/data/extensions/Shhhavoc.py" } 
+
+- name: "Fix LatLoader Build Issues" 
+  ansible.builtin.shell:
+    cmd: "sed -i 's/return 0;/return;/' src/writefileBOF.c"
+    chdir: /opt/Havoc/client/Modules/LatLoader
+  become: true
+  become_method: sudo
+  ignore_errors: true
 
 - name: "Build LatLoader Module"
   ansible.builtin.shell:
