@@ -85,3 +85,12 @@
     chdir: /opt/AdaptixC2/dist/
   become: true
   become_method: sudo   
+
+- name: "Build Reflectra for Adaptix"
+  ansible.builtin.shell:
+    cmd: |
+      chmod +x install.sh
+      ./install.sh
+    chdir: /opt/reflectra
+  become: true
+  become_method: sudo
