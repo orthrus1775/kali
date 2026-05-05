@@ -131,8 +131,8 @@
     - { repo: "https://github.com/JPCERTCC/Windows-Symbol-Tables.git", location: "/opt/winsymbols"}
     - { repo: "https://github.com/XiaoliChan/wmiexec-Pro.git", location: "/opt/sccm/wmiexec-pro"}
     - { repo: "https://github.com/SavSanta/YoinkLighter.git", location: "/opt/YoinkLighter" }
-    - { repo: "https://github.com/entropy-z/Kharon.git", location "/opt/Kharon" }
-    - { repo: "https://github.com/entropy-z/PostEx-Arsenal.git", location "/opt/PostEx-Arsenal" }
+    - { repo: "https://github.com/entropy-z/Kharon.git", location: "/opt/Kharon" }
+    - { repo: "https://github.com/entropy-z/PostEx-Arsenal.git", location: "/opt/PostEx-Arsenal" }
   become: true
   become_method: sudo
 
