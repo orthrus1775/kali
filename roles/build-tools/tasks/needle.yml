@@ -23,18 +23,3 @@
 
 - name: "Build freeze"
   shell: "export PATH=$HOME/.cargo/bin:$PATH && cd /opt/freeze && rustup target add x86_64-pc-windows-gnu && cargo build --manifest-path=/opt/freeze/Cargo.toml --target x86_64-pc-windows-gnu --release"
-
-- name: "Copying nim-install script to download install nim"
-  copy:
-    src: "files/nim-install.sh"
-    dest: "{{ build_dir.path }}/nim-install.sh"
-    owner: "{{ ansible_facts['user_id'] }}"
-    group: "{{ ansible_facts['user_id'] }}"
-    mode: 0755
-
-- name: "Installing Nim"
-  shell: "{{ build_dir.path }}/nim-install.sh"    
-
-- name: "Installing packages with Nimble"
-  shell: "export PATH=$HOME/.nimble/bin:$PATH && nimble install winim nimcrypto docopt psutil ptr_math strenc libp2p ws zippy iputils socks5 daemon tiny_sqlite dnsclient -y"
-
