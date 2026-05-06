@@ -69,6 +69,11 @@
     dest: "/home/{{ ansible_facts['user_id'] }}/Desktop/"
     remote_src: yes
 
+- name: "Make AdaptixClient executable"
+  ansible.builtin.file:
+    path: "/home/{{ ansible_facts['user_id'] }}/Desktop/AdaptixClient"
+    mode: '0755'
+
 - name: "Build Kharon for Adaptix"
   ansible.builtin.shell:
     cmd: |
