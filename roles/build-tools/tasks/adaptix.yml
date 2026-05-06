@@ -73,7 +73,7 @@
   ansible.builtin.shell:
     cmd: |
       chmod +x setup_kharon.sh
-      ./install.sh --ax /opt/AdaptixC2/ --action all
+      ./setup_kharon.sh --ax /opt/AdaptixC2/ --action all
     chdir: /opt/Kharon
   become: true
   become_method: sudo
