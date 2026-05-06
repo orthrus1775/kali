@@ -94,3 +94,17 @@
     chdir: /opt/reflectra
   become: true
   become_method: sudo
+
+
+# Look into building workflow??
+# https://github.com/k1ng0fn0th1ng/CrystalForge.git
+# 
+- name: "Clone CrystalForge into Adaptix extenders"
+  ansible.builtin.git:
+    repo: "https://github.com/k1ng0fn0th1ng/CrystalForge.git"
+    dest: /opt/AdaptixC2/dist/extenders/CrystalForge
+    force: true
+  become: true
+  become_method: sudo
+
+
