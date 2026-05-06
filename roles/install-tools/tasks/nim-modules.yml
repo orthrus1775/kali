@@ -15,4 +15,4 @@
     - { repo: "https://github.com/icyguider/Nimcrypt2.git", location: "/opt/nimmods/nimcrypt2" }
     - { repo: "https://github.com/miere43/nim-registry.git", location: "/opt/nimmods/nim-registry"}
     - { repo: "https://github.com/D3Ext/Nimbus.git", location: "/opt/nimmods/nimbus" }
-    
+    - { repo: "https://github.com/itaymigdal/PartyLoader.git", location: "/opt/nimmods/partyloader" }
