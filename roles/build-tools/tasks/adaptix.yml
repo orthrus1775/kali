@@ -44,25 +44,6 @@
   become: true
   become_method: sudo 
 
-- name: "Build AdaptixC2"
-  ansible.builtin.shell:
-    cmd: make all
-    chdir: /opt/AdaptixC2
-  become: true
-  become_method: sudo 
-
-- name: "Create Adaptix Certificates"
-  ansible.builtin.shell:
-    cmd: >
-      openssl req -x509 -nodes -newkey rsa:2048
-      -keyout server.rsa.key
-      -out server.rsa.crt
-      -days 365
-      -subj "/C=US/ST=State/L=City/O=Organization/OU=Unit/CN=localhost"
-    chdir: /opt/AdaptixC2/dist/
-  become: true
-  become_method: sudo
-
 - name: "Copy AdaptixClient to Desktop"
   ansible.builtin.copy:
     src: /opt/AdaptixC2/dist/AdaptixClient
@@ -73,6 +54,42 @@
   ansible.builtin.file:
     path: "/home/{{ ansible_facts['user_id'] }}/Desktop/AdaptixClient"
     mode: '0755'
+
+- name: "Build Reflectra for Adaptix"
+  ansible.builtin.shell:
+    cmd: |
+      chmod +x install.sh
+      ./install.sh
+    chdir: /opt/reflectra
+  become: true
+  become_method: sudo
+
+# Look into building workflow??
+# https://github.com/k1ng0fn0th1ng/CrystalForge.git
+# 
+- name: "Clone CrystalForge into Adaptix extenders"
+  ansible.builtin.git:
+    repo: "https://github.com/k1ng0fn0th1ng/CrystalForge.git"
+    dest: /opt/AdaptixC2/AdaptixServer/extenders/CrystalForge
+    force: true
+  become: true
+  become_method: sudo
+
+- name: "Add CrystalForge to Adaptix"
+  ansible.builtin.shell:
+    cmd: |
+      go work use extenders/CrystalForge
+      go work sync
+    chdir: /opt/AdaptixC2/AdaptixServer
+  become: true
+  become_method: sudo
+
+- name: "Build AdaptixC2"
+  ansible.builtin.shell:
+    cmd: make all
+    chdir: /opt/AdaptixC2
+  become: true
+  become_method: sudo   
 
 - name: "Build Kharon for Adaptix"
   ansible.builtin.shell:
@@ -86,30 +103,19 @@
 - name: "Update Adaptix profile.yaml" 
   ansible.builtin.shell:
     cmd: |
-      sed -i 's|    - "extenders/gopher_agent/config.yaml"|    - "extenders/gopher_agent/config.yaml"\n    - "extenders/agent_kharon/config.yaml"\n    - "extenders/listener_kharon_http/config.yaml"|' profile.yaml
+      sed -i 's|    - "extenders/gopher_agent/config.yaml"|    - "extenders/gopher_agent/config.yaml"\n    - "extenders/agent_kharon/config.yaml"\n    - "extenders/listener_kharon_http/config.yaml"\n    - "extenders/CrystalForge/config.yaml|' profile.yaml
     chdir: /opt/AdaptixC2/dist/
   become: true
   become_method: sudo   
 
-- name: "Build Reflectra for Adaptix"
+- name: "Create Adaptix Certificates"
   ansible.builtin.shell:
-    cmd: |
-      chmod +x install.sh
-      ./install.sh
-    chdir: /opt/reflectra
+    cmd: >
+      openssl req -x509 -nodes -newkey rsa:2048
+      -keyout server.rsa.key
+      -out server.rsa.crt
+      -days 365
+      -subj "/C=US/ST=State/L=City/O=Organization/OU=Unit/CN=localhost"
+    chdir: /opt/AdaptixC2/dist/
   become: true
   become_method: sudo
-
-
-# Look into building workflow??
-# https://github.com/k1ng0fn0th1ng/CrystalForge.git
-# 
-- name: "Clone CrystalForge into Adaptix extenders"
-  ansible.builtin.git:
-    repo: "https://github.com/k1ng0fn0th1ng/CrystalForge.git"
-    dest: /opt/AdaptixC2/dist/extenders/CrystalForge
-    force: true
-  become: true
-  become_method: sudo
-
-
