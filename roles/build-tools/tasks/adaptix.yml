@@ -94,6 +94,14 @@
   become: true
   become_method: sudo  
 
+- name: "Register CrystalForge in Extension-Kit"
+  ansible.builtin.shell:
+    cmd: |     
+      ./add_agent.sh CrystalForge
+    chdir: /opt/extension-kit
+  become: true
+  become_method: sudo
+
 - name: "Copy AdaptixClient to Desktop"
   ansible.builtin.copy:
     src: /opt/AdaptixC2/dist/AdaptixClient
