@@ -1,13 +1,13 @@
 ---
 - name: "Make Rusthound Linux"
   ansible.builtin.shell:
-    cmd: make release
+    cmd: "export PATH=$HOME/.cargo/bin:$PATH && make release"
     chdir: /opt/rusthound
   ignore_errors: true  
 
 - name: "Make Rusthound Windows"
   ansible.builtin.shell:
-    cmd: make windows
+    cmd: "export PATH=$HOME/.cargo/bin:$PATH && make windows"
     chdir: /opt/rusthound
   ignore_errors: true  
 

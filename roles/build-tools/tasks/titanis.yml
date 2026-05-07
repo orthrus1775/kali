@@ -18,8 +18,8 @@
   shell: "{{ titanis_build_dir.path }}/githubdownload.py {{ item.repo }} {{ item.regex }} {{ item.location }}"
   loop:
     - { repo: "trustedsec/Titanis", regex: "Titanis-doc.zip", location: "/opt/titanis" }
-    - { repo: "trustedsec/Titanis", regex: "Titanis-tools-linux-x64-net8.zip", location: "/opt/titanis" }
-    - { repo: "trustedsec/Titanis", regex: "Titanis-tools-win-x64-net8.zip", location: "/opt/titanis" }
+    - { repo: "trustedsec/Titanis", regex: "Titanis-tools-linux-x64-sc.zip", location: "/opt/titanis" }
+    - { repo: "trustedsec/Titanis", regex: "Titanis-tools-win-x64-sc.zip", location: "/opt/titanis" }
   become: true
   become_method: sudo
 

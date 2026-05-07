@@ -13,7 +13,7 @@
   loop:
     - { repo: "https://github.com/juliourena/ActiveDirectoryScripts", location: "/opt/ActiveDirectoryScripts"}
     - { repo: "https://github.com/lkarlslund/Adalanche", location: "/opt/Adalanche"}
-    - { repo: "https://github.com/MaorSabag/AdaptixC2", location: "/opt/AdaptixC2", version: "Compatible-with-StealthPalace" } #Original https://github.com/Adaptix-Framework/AdaptixC2.git
+    - { repo: "https://github.com/Adaptix-Framework/AdaptixC2.git", location: "/opt/AdaptixC2"} 
     - { repo: "https://github.com/tomcarver16/ADSearch.git", location: "/opt/ADSearch" }
     - { repo: "https://github.com/raskolnikov90/Beatrice.py.git", location: "/opt/beatrice" }
     - { repo: "https://github.com/SpecterOps/BloodHound.git", location: "/opt/bloodhound"}
@@ -56,7 +56,6 @@
     - { repo: "https://github.com/boku7/injectEtwBypass.git", location: "/opt/injectEtwBypass" }
     - { repo: "https://github.com/Kevin-Robertson/InveighZero" , location: "/opt/InveighZero"}
     - { repo: "https://github.com/RalfHacker/Kerbeus-BOF.git", location: "/opt/bofs/kerbeus-bof" }
-    # - { repo: "https://github.com/ropnop/kerbrute.git", location: "/opt/kerbrute" }
     - { repo: "https://github.com/dirkjanm/krbrelayx.git", location: "/opt/krbrelayx"}
     - { repo: "https://github.com/Dec0ne/KrbRelayUp.git", location: "/opt/KrbRelayUp" }
     - { repo: "https://github.com/n00py/LAPSDumper", location: "/opt/lapsdumper"}
@@ -126,13 +125,15 @@
     - { repo: "https://github.com/connormcgarr/tgtdelegation.git", location: "/opt/tgtdelegation" }
     - { repo: "https://github.com/rasta-mouse/ThreatCheck.git", location: "/opt/ThreatCheck" }
     - { repo: "https://github.com/iilegacyyii/ThreadlessInject-BOF.git", location: "/opt/bofs/threadlessinject-bof" }
-    # - {repo: "https://github.com/trustedsec/Titanis.git", location: "/opt/titanis"}
     - { repo: "https://github.com/rsmudge/unhook-bof.git", location: "/opt/bofs/unhook-bof" }
     - { repo: "https://github.com/volatilityfoundation/volatility3.git", location: "/opt/volatility"}
     - { repo: "https://github.com/eladshamir/Whisker", location: "/opt/whisker"}
     - { repo: "https://github.com/JPCERTCC/Windows-Symbol-Tables.git", location: "/opt/winsymbols"}
     - { repo: "https://github.com/XiaoliChan/wmiexec-Pro.git", location: "/opt/sccm/wmiexec-pro"}
     - { repo: "https://github.com/SavSanta/YoinkLighter.git", location: "/opt/YoinkLighter" }
+    - { repo: "https://github.com/entropy-z/Kharon.git", location: "/opt/Kharon" }
+    - { repo: "https://github.com/entropy-z/PostEx-Arsenal.git", location: "/opt/PostEx-Arsenal" }
+    - { repo: "https://github.com/vari-sh/RedTeamGrimoire.git", location: "/opt/RedTeamGrimoire" }
   become: true
   become_method: sudo
 

@@ -93,12 +93,13 @@
       - mage
       - mesa-common-dev
       - mingw-w64
-      - mingw-w64
       - mono-devel
       - nasm
       - nbtscan
       - netexec
       - nikto
+      - nim
+      - nim-doc
       - nishang
       - ntpsec-ntpdate
       - onesixtyone
@@ -124,6 +125,7 @@
       - rlwrap
       - rsyslog
       - rubeus
+      - rustup
       - sharphound
       - sipvicious
       - smbclient

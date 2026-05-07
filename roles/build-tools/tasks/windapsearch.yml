@@ -35,9 +35,3 @@
   become: true
   become_method: sudo
   ignore_errors: true 
-
-- name: "Recursively change ownership and permissions of /opt/"
-  ansible.builtin.command:
-    cmd: "chown -R {{ ansible_facts['user_id'] }}:{{ ansible_facts['user_id'] }} /opt/" 
-  become: true
-  become_method: sudo    

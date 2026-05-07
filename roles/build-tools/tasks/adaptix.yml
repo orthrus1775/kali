@@ -44,12 +44,66 @@
   become: true
   become_method: sudo 
 
-- name: "Build AdaptixC2 -- THIS TAKES A MIN GO GET COFFEE!!!!!"
+- name: "Build Reflectra for Adaptix"
   ansible.builtin.shell:
-    cmd: make server-ext
+    cmd: |
+      chmod +x install.sh
+      ./install.sh
+    chdir: /opt/reflectra
+  become: true
+  become_method: sudo
+
+- name: "Clone CrystalForge into Adaptix extenders"
+  ansible.builtin.git:
+    repo: "https://github.com/k1ng0fn0th1ng/CrystalForge.git"
+    dest: /opt/AdaptixC2/AdaptixServer/extenders/CrystalForge
+    force: true
+  become: true
+  become_method: sudo
+
+- name: "Add CrystalForge to Adaptix"
+  ansible.builtin.shell:
+    cmd: |
+      go work use extenders/CrystalForge
+      go work sync
+    chdir: /opt/AdaptixC2/AdaptixServer
+  become: true
+  become_method: sudo
+
+- name: "Build AdaptixC2"
+  ansible.builtin.shell:
+    cmd: make all
     chdir: /opt/AdaptixC2
   become: true
-  become_method: sudo 
+  become_method: sudo   
+
+- name: "Build Kharon for Adaptix"
+  ansible.builtin.shell:
+    cmd: |
+      chmod +x setup_kharon.sh
+      ./setup_kharon.sh --ax /opt/AdaptixC2/ --action all
+    chdir: /opt/Kharon
+  become: true
+  become_method: sudo
+
+- name: "Update Adaptix profile.yaml" 
+  ansible.builtin.shell:
+    cmd: |
+      sed -i 's|    - "extenders/gopher_agent/config.yaml"|    - "extenders/gopher_agent/config.yaml"\n    - "extenders/agent_kharon/config.yaml"\n    - "extenders/listener_kharon_http/config.yaml"\n    - "extenders/CrystalForge/config.yaml|' profile.yaml
+    chdir: /opt/AdaptixC2/dist/
+  become: true
+  become_method: sudo  
+
+- name: "Copy AdaptixClient to Desktop"
+  ansible.builtin.copy:
+    src: /opt/AdaptixC2/dist/AdaptixClient
+    dest: "/home/{{ ansible_facts['user_id'] }}/Desktop/"
+    remote_src: yes
+
+- name: "Make AdaptixClient executable"
+  ansible.builtin.file:
+    path: "/home/{{ ansible_facts['user_id'] }}/Desktop/AdaptixClient"
+    mode: '0755'
 
 - name: "Create Adaptix Certificates"
   ansible.builtin.shell:
@@ -62,29 +116,3 @@
     chdir: /opt/AdaptixC2/dist/
   become: true
   become_method: sudo
-
-- name: "Build Stealth Palace for Adaptix"
-  ansible.builtin.shell:
-    cmd: |
-      chmod +x install.sh
-      ./install.sh --ax /opt/AdaptixC2/dist/
-    chdir: /opt/adaptix_stealthpalace
-  become: true
-  become_method: sudo
-
-- name: "Clone original AdaptixC2 to home directory"
-  ansible.builtin.git:
-    repo: "https://github.com/Adaptix-Framework/AdaptixC2.git"
-    dest: "/home/{{ ansible_facts['user_id'] }}/OGAdaptix"
-    force: true
-
-- name: "Build original AdaptixC2 client"
-  ansible.builtin.shell:
-    cmd: make client
-    chdir: "/home/{{ ansible_facts['user_id'] }}/OGAdaptix"
-
-- name: "Copy AdaptixClient to Desktop"
-  ansible.builtin.copy:
-    src: "/home/{{ ansible_facts['user_id'] }}/OGAdaptix/dist/AdaptixClient"
-    dest: "/home/{{ ansible_facts['user_id'] }}/Desktop/"
-    remote_src: yes
