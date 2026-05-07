@@ -20,21 +20,13 @@
 
 - name: "Build rustyneedle"
   ansible.builtin.shell:
-    cmd: |
-      rustup target add x86_64-pc-windows-gnu
-      cargo build --target x86_64-pc-windows-gnu --release
+    cmd: cargo build --target x86_64-pc-windows-gnu --release
     chdir: /opt/rustyneedle
-  become: true
-  become_method: sudo
 
 - name: "Build freeze"
   ansible.builtin.shell:
-    cmd: |
-      rustup target add x86_64-pc-windows-gnu
-      cargo build --release
+    cmd: cargo build --release
     chdir: /opt/freeze
-  become: true
-  become_method: sudo
                 
 
 
