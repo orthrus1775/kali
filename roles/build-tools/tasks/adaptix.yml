@@ -89,7 +89,7 @@
 - name: "Update Adaptix profile.yaml" 
   ansible.builtin.shell:
     cmd: |
-      sed -i 's|    - "extenders/gopher_agent/config.yaml"|    - "extenders/gopher_agent/config.yaml"\n    - "extenders/agent_kharon/config.yaml"\n    - "extenders/listener_kharon_http/config.yaml"\n    - "extenders/CrystalForge/config.yaml|' profile.yaml
+      sed -i 's|    - "extenders/gopher_agent/config.yaml"|    - "extenders/gopher_agent/config.yaml"\n    - "extenders/agent_kharon/config.yaml"\n    - "extenders/listener_kharon_http/config.yaml"\n    - "extenders/CrystalForge/config.yaml"|' profile.yaml
     chdir: /opt/AdaptixC2/dist/
   become: true
   become_method: sudo  
