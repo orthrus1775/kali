@@ -98,8 +98,6 @@
       - nbtscan
       - netexec
       - nikto
-      - nim
-      - nim-doc
       - nishang
       - ntpsec-ntpdate
       - onesixtyone
@@ -125,7 +123,6 @@
       - rlwrap
       - rsyslog
       - rubeus
-      - rustup
       - sharphound
       - sipvicious
       - smbclient
