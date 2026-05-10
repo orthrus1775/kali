@@ -10,7 +10,7 @@
   become: true
   become_method: sudo
 
-- name: "Setup Certipy virtual environment"
+- name: "Setup Beatrice virtual environment"
   ansible.builtin.shell:
     cmd: |
       python3 -m venv .beatrice-venv
