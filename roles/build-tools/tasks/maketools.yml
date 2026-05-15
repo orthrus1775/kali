@@ -2,8 +2,8 @@
 - name: "Setup Certipy virtual environment"
   ansible.builtin.shell:
     cmd: |
-      python3 -m venv certipy-venv
-      source certipy-venv/bin/activate
+      python3 -m venv .certipy-venv
+      source .certipy-venv/bin/activate
       deactivate
     chdir: /opt/Certipy
     executable: /bin/bash
@@ -13,8 +13,8 @@
 - name: "Setup Beatrice virtual environment"
   ansible.builtin.shell:
     cmd: |
-      python3 -m venv .beatrice-venv
-      source .beatrice-venv/bin/activate
+      python3 -m venv .venv
+      source .venv/bin/activate
       pip install -r requirements.txt
       deactivate
     chdir: /opt/beatrice

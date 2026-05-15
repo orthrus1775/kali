@@ -13,7 +13,7 @@ cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
     let taskName = parsed_json["task_name"];
     let command  = parsed_json["command"];
 
-    let bof_path = ax.script_dir() + "_bin/persistask." + ax.arch(id) + ".o";
+    let bof_path = ax.script_dir() + "persistask." + ax.arch(id) + ".o";
     let args     = ax.bof_pack("cstr,cstr,cstr", [action, taskName, command]);
 
     ax.execute_alias(id, cmdline, `execute bof ${bof_path} ${args}`, "Running persistask.");
