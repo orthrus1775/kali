@@ -159,7 +159,8 @@
     - { repo: "t94j0/satellite", regex: "_linux_amd64.deb", location: "/opt/redirector/satellite" }
     - { repo: "lkarlslund/Adalanche", regex: "adalanche-linux-x64-latestrelease", location: "/opt/Adalanche" }
     - { repo: "lkarlslund/Adalanche", regex: "adalanche-collector-windows-x64-latestrelease-", location: "/opt/Adalanche" }
-    - { repo: "praetorian-inc/swarmer", regex: "swarmer.exe", location "/opt/swarmer"}
+    - { repo: "praetorian-inc/swarmer", regex: "swarmer.exe", location: "/opt/swarmer"}
+    - { repo: "stormshield/HiveSwarming", regex: "HiveSwarming.exe", location: "/opt/HiveSwarming"}
   async: 45
   poll: 0
   become: true
