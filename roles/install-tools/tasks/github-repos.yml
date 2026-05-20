@@ -125,7 +125,6 @@
     - { repo: "https://github.com/connormcgarr/tgtdelegation.git", location: "/opt/tgtdelegation" }
     - { repo: "https://github.com/rasta-mouse/ThreatCheck.git", location: "/opt/ThreatCheck" }
     - { repo: "https://github.com/iilegacyyii/ThreadlessInject-BOF.git", location: "/opt/BOFs/threadlessinject-bof" }
-    - { repo: "https://github.com/nickzer0/PersisTask-BOF.git", location: "/opt/BOFs/persistask-bof"}
     - { repo: "https://github.com/rsmudge/unhook-bof.git", location: "/opt/BOFs/unhook-bof" }
     - { repo: "https://github.com/volatilityfoundation/volatility3.git", location: "/opt/volatility"}
     - { repo: "https://github.com/eladshamir/Whisker", location: "/opt/whisker"}

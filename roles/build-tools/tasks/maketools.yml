@@ -4,6 +4,7 @@
     cmd: |
       python3 -m venv .certipy-venv
       source .certipy-venv/bin/activate
+      pip install .
       deactivate
     chdir: /opt/Certipy
     executable: /bin/bash

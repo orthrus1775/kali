@@ -48,3 +48,16 @@
   ansible.builtin.shell:
     cmd: bash make_all.sh
     chdir: /opt/BOFs/cs-sa
+
+- name: Check if reg_export is built
+  ansible.builtin.stat:
+    path: /opt/BOFs/cs-remote-ops/Remote/reg_export
+  register: reg_export_built
+
+- name: Build reg_export BOF
+  ansible.builtin.shell:
+    cmd: make
+    chdir: /opt/BOFs/cs-remote-ops/src/Remote/reg_export
+  when: not reg_export_built.stat.exists
+  become: true
+  become_method: sudo
