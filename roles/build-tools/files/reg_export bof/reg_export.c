@@ -17,6 +17,8 @@
 #include "anticrash.c"
 #include "stack.c"
 
+DECLSPEC_IMPORT WINADVAPI LONG WINAPI ADVAPI32$RegEnumValueW(HKEY, DWORD, LPWSTR, LPDWORD, LPDWORD, LPDWORD, LPBYTE, LPDWORD);
+
 // ── UTF-16 LE write helpers ───────────────────────────────────────────────────
 
 static void fw_raw(HANDLE hf, const void* buf, DWORD n)
