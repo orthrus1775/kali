@@ -1,5 +1,6 @@
 // reg_export BOF
-// Exports a registry hive or subkey to a .reg text file using KEY_READ.
+// Exports a registry hive or subkey to a UTF-16 LE .reg file (with BOM),
+// compatible with reg.exe import on all modern Windows versions.
 // No SeBackupPrivilege required — equivalent to `reg export HIVE <outfile>`.
 //
 // Args (BOF pack order): subkey (cstr), outfile (cstr), hive_offset (int)
@@ -16,48 +17,73 @@
 #include "anticrash.c"
 #include "stack.c"
 
-// ── File write helpers ────────────────────────────────────────────────────────
+// ── UTF-16 LE write helpers ───────────────────────────────────────────────────
 
-static void fw(HANDLE hf, const char* s, DWORD n)
+static void fw_raw(HANDLE hf, const void* buf, DWORD n)
 {
     DWORD written;
-    if (!n) n = (DWORD)MSVCRT$strlen(s);
-    KERNEL32$WriteFile(hf, s, n, &written, NULL);
+    KERNEL32$WriteFile(hf, buf, n, &written, NULL);
 }
 
-static void fw_escaped_sz(HANDLE hf, const BYTE* data, DWORD len)
+static void fw_bom(HANDLE hf)
 {
-    char c[2];
+    BYTE bom[2] = {0xFF, 0xFE};
+    fw_raw(hf, bom, 2);
+}
+
+// Write n ASCII bytes as UTF-16 LE (each byte → byte + 0x00)
+static void fw_a2w(HANDLE hf, const char* s, DWORD n)
+{
     DWORD i;
-    c[1] = '\0';
-    for (i = 0; i < len && data[i] != '\0'; i++) {
+    BYTE pair[2];
+    pair[1] = 0;
+    if (!n) n = (DWORD)MSVCRT$strlen(s);
+    for (i = 0; i < n; i++) {
+        pair[0] = (BYTE)s[i];
+        fw_raw(hf, pair, 2);
+    }
+}
+
+// Write nchars WCHARs as UTF-16 LE
+static void fw_wchars(HANDLE hf, const WCHAR* ws, DWORD nchars)
+{
+    fw_raw(hf, ws, nchars * sizeof(WCHAR));
+}
+
+// Write escaped wide string content (for REG_SZ value data and value names)
+static void fw_escaped_wstr(HANDLE hf, const WCHAR* data, DWORD nchars)
+{
+    DWORD i;
+    for (i = 0; i < nchars; i++) {
+        if (data[i] == L'\0') break;
         switch (data[i]) {
-            case '\\': fw(hf, "\\\\", 2); break;
-            case '"':  fw(hf, "\\\"", 2); break;
-            case '\n': fw(hf, "\\n",  2); break;
-            case '\r': fw(hf, "\\r",  2); break;
-            default:   c[0] = (char)data[i]; fw(hf, c, 1); break;
+            case L'\\': fw_wchars(hf, L"\\\\", 2); break;
+            case L'"':  fw_wchars(hf, L"\\\"", 2); break;
+            case L'\n': fw_wchars(hf, L"\\n",  2); break;
+            case L'\r': fw_wchars(hf, L"\\r",  2); break;
+            default:    fw_raw(hf, &data[i], 2);   break;
         }
     }
 }
 
+// Write hex line as UTF-16 LE
 static void fw_hex(HANDLE hf, const char* prefix, const BYTE* data, DWORD len)
 {
     char buf[8];
     DWORD i;
-    fw(hf, prefix, 0);
+    fw_a2w(hf, prefix, 0);
     for (i = 0; i < len; i++) {
         if (i > 0) {
-            if (i % 25 == 0) fw(hf, ",\\\r\n  ", 6);
-            else              fw(hf, ",", 1);
+            if (i % 25 == 0) fw_a2w(hf, ",\\\r\n  ", 6);
+            else              fw_a2w(hf, ",", 1);
         }
         MSVCRT$sprintf(buf, "%02x", (unsigned int)(unsigned char)data[i]);
-        fw(hf, buf, 2);
+        fw_a2w(hf, buf, 2);
     }
-    fw(hf, "\r\n", 2);
+    fw_a2w(hf, "\r\n", 2);
 }
 
-// ── Key traversal structures (reg_query style) ────────────────────────────────
+// ── Key traversal structures ──────────────────────────────────────────────────
 
 typedef struct _regkeyval {
     char*  keypath;
@@ -87,10 +113,12 @@ static void free_regkey(pregkeyval val)
 }
 
 // ── Value export ──────────────────────────────────────────────────────────────
+// Uses RegEnumValueW so REG_SZ data is already UTF-16 LE and can be written
+// directly; other types are raw bytes and go through fw_hex unchanged.
 
 static void export_values(HANDLE hf, HKEY hKey, DWORD cValues, DWORD cchMaxValue, DWORD cchMaxData)
 {
-    char*  name = NULL;
+    WCHAR* name = NULL;
     BYTE*  data = NULL;
     DWORD  nlen, dlen, type;
     DWORD  i;
@@ -98,32 +126,33 @@ static void export_values(HANDLE hf, HKEY hKey, DWORD cValues, DWORD cchMaxValue
 
     if (cValues == 0) return;
 
-    name = (char*)intAlloc(cchMaxValue + 2);
+    name = (WCHAR*)intAlloc((cchMaxValue + 2) * sizeof(WCHAR));
     data = (BYTE*)intAlloc(cchMaxData + 4);
     if (!name || !data) goto done;
 
     for (i = 0; i < cValues; i++) {
         nlen = cchMaxValue + 2;
         dlen = cchMaxData + 4;
-        MSVCRT$memset(name, 0, cchMaxValue + 2);
+        MSVCRT$memset(name, 0, (cchMaxValue + 2) * sizeof(WCHAR));
         MSVCRT$memset(data, 0, cchMaxData + 4);
 
-        if (ADVAPI32$RegEnumValueA(hKey, i, name, &nlen, NULL, &type, data, &dlen) != ERROR_SUCCESS)
+        if (ADVAPI32$RegEnumValueW(hKey, i, name, &nlen, NULL, &type, data, &dlen) != ERROR_SUCCESS)
             continue;
 
         if (nlen == 0) {
-            fw(hf, "@=", 2);
+            fw_a2w(hf, "@=", 2);
         } else {
-            fw(hf, "\"", 1);
-            fw_escaped_sz(hf, (BYTE*)name, nlen);
-            fw(hf, "\"=", 2);
+            fw_a2w(hf, "\"", 1);
+            fw_escaped_wstr(hf, name, nlen);
+            fw_a2w(hf, "\"=", 2);
         }
 
         switch (type) {
             case REG_SZ:
-                fw(hf, "\"", 1);
-                if (dlen > 1) fw_escaped_sz(hf, data, dlen);
-                fw(hf, "\"\r\n", 3);
+                fw_a2w(hf, "\"", 1);
+                if (dlen > sizeof(WCHAR))
+                    fw_escaped_wstr(hf, (WCHAR*)data, dlen / sizeof(WCHAR));
+                fw_a2w(hf, "\"\r\n", 3);
                 break;
             case REG_EXPAND_SZ:
                 fw_hex(hf, "hex(2):", data, dlen);
@@ -137,7 +166,7 @@ static void export_values(HANDLE hf, HKEY hKey, DWORD cValues, DWORD cchMaxValue
             case REG_DWORD:
                 if (dlen >= 4) {
                     MSVCRT$sprintf(num, "dword:%08x\r\n", (unsigned int)(*(DWORD*)data));
-                    fw(hf, num, 0);
+                    fw_a2w(hf, num, 0);
                 }
                 break;
             case REG_QWORD:
@@ -219,7 +248,6 @@ VOID go(IN PCHAR Buffer, IN ULONG Length)
         MSVCRT$memcpy(rootpath + hslen + 1, subkey, sublen);
     }
 
-    // Always open a proper closeable handle; NULL lpSubKey opens the hive root
     dwresult = ADVAPI32$RegOpenKeyExA(hive, sublen > 0 ? subkey : NULL, 0, KEY_READ, &rootkey);
     if (dwresult != ERROR_SUCCESS) {
         internal_printf("RegOpenKeyExA failed: %lu\n", dwresult);
@@ -233,16 +261,17 @@ VOID go(IN PCHAR Buffer, IN ULONG Length)
         goto go_end;
     }
 
-    fw(hf, "Windows Registry Editor Version 5.00\r\n", 0);
+    fw_bom(hf);
+    fw_a2w(hf, "Windows Registry Editor Version 5.00\r\n", 0);
 
     keyStack = stackInit();
     keyStack->push(keyStack, init_regkey(rootpath, plen, NULL, 0, rootkey));
-    rootkey = NULL; // stack owns it now
+    rootkey = NULL;
 
     while ((curitem = keyStack->pop(keyStack)) != NULL) {
-        fw(hf, "\r\n[", 3);
-        fw(hf, curitem->keypath, curitem->dwkeypathsz);
-        fw(hf, "]\r\n", 3);
+        fw_a2w(hf, "\r\n[", 3);
+        fw_a2w(hf, curitem->keypath, curitem->dwkeypathsz);
+        fw_a2w(hf, "]\r\n", 3);
 
         dwresult = ADVAPI32$RegQueryInfoKeyA(
             curitem->hreg, NULL, NULL, NULL,

@@ -138,6 +138,7 @@
     - { repo: "https://github.com/0xGunrunner/svcmodprivesc-BOF.git", location: "/opt/BOFs/svcmodprivesc" }
     - { repo: "https://github.com/praetorian-inc/swarmer.git", location: "/opt/swarmer"}  
     - { repo: "https://github.com/nickzer0/PersisTask-BOF.git", location: "/opt/BOFs/persistask"}
+    - { repo: "https://github.com/PatchRequest/DLLProxyFramework.git", location: "/opt/DLLProxyFramework"}  
   become: true
   become_method: sudo
 
