@@ -145,17 +145,17 @@
   become: true
   become_method: sudo
 
-- name: "Update profile.yaml with AXS extension paths"
-  ansible.builtin.shell:
-    cmd: |
-      sed -i '/#    - "Extension-Kit\/extension-kit\.axs"/c\
-          - "/opt/extension-kit/extension-kit.axs"\
-          - "/opt/Kharon/listener_kharon_http/dist/ax_config.axs"\
-          - "/opt/Kharon/agent_kharon/dist/ax_config.axs"\
-          - "/opt/BOFs/cs-sa/SA/TrustedSec-SA-BOFs.axs"\
-          - "/opt/BOFs/svcmodprivesc/svcmodprivesc.axs"\
-          - "/opt/BOFs/cs-remote-ops/Injection/TrustedSec-Remote-Injection.axs"\
-          - "/opt/BOFs/cs-remote-ops/Remote/TrustedSec-Remote-Ops.axs"\
-          - "/opt/PostEx-Arsenal/kh_modules.axs"' /opt/AdaptixC2/dist/profile.yaml
-  become: true
-  become_method: sudo
+# - name: "Update profile.yaml with AXS extension paths"
+#   ansible.builtin.shell:
+#     cmd: |
+#       sed -i '/#    - "Extension-Kit\/extension-kit\.axs"/c\
+#           - "/opt/extension-kit/extension-kit.axs"\
+#           - "/opt/Kharon/listener_kharon_http/dist/ax_config.axs"\
+#           - "/opt/Kharon/agent_kharon/dist/ax_config.axs"\
+#           - "/opt/BOFs/cs-sa/SA/TrustedSec-SA-BOFs.axs"\
+#           - "/opt/BOFs/svcmodprivesc/svcmodprivesc.axs"\
+#           - "/opt/BOFs/cs-remote-ops/Injection/TrustedSec-Remote-Injection.axs"\
+#           - "/opt/BOFs/cs-remote-ops/Remote/TrustedSec-Remote-Ops.axs"\
+#           - "/opt/PostEx-Arsenal/kh_modules.axs"' /opt/AdaptixC2/dist/profile.yaml
+#   become: true
+#   become_method: sudo

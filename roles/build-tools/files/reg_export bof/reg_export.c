@@ -256,6 +256,18 @@ VOID go(IN PCHAR Buffer, IN ULONG Length)
         goto go_end;
     }
 
+    {
+        char* slash = MSVCRT$strrchr(outfile, '\\');
+        if (slash && slash != outfile) {
+            char* dir = (char*)intAlloc((DWORD)(slash - outfile) + 1);
+            if (dir) {
+                MSVCRT$memcpy(dir, outfile, (DWORD)(slash - outfile));
+                KERNEL32$CreateDirectoryA(dir, NULL);
+                intFree(dir);
+            }
+        }
+    }
+
     hf = KERNEL32$CreateFileA(outfile, GENERIC_WRITE, 0, NULL,
                                CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hf == INVALID_HANDLE_VALUE) {
