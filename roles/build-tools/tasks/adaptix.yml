@@ -142,6 +142,7 @@
     - { src: "files/AXS Scripts/TrustedSec-Remote-Injection.axs", dest: "/opt/BOFs/cs-remote-ops/Injection/TrustedSec-Remote-Injection.axs" }
     - { src: "files/AXS Scripts/TrustedSec-SA-BOFs.axs",         dest: "/opt/BOFs/cs-sa/SA/TrustedSec-SA-BOFs.axs" }
     - { src: "files/AXS Scripts/persistask.axs",                  dest: "/opt/BOFs/persistask/persistask.axs" }
+    - { src: "files/AXS Scripts/timestomp.axs",                   dest: "/opt/BOFs/TimeStomp/dist/timestomp.axs" }
   become: true
   become_method: sudo
 
