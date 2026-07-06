@@ -885,4 +885,4 @@ let group = ax.create_commands_group("TrustedSec-SA-BOFs", [
     ldapsecuritycheck_cmd, sha256_cmd, md5_cmd, sha1_cmd
 ]);
 
-ax.register_commands_group(group, ["beacon"], ["windows"], []);
+ax.register_commands_group(group, ["beacon", "gopher", "kharon", "CrystalForge"], ["windows"], []);

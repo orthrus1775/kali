@@ -741,4 +741,4 @@ let group = ax.create_commands_group("TrustedSec-Remote-Ops", [
     suspend_cmd, resume_cmd, get_priv_cmd, global_unprotect_cmd, shutdown_cmd
 ]);
 
-ax.register_commands_group(group, ["beacon"], ["windows"], []);
+ax.register_commands_group(group, ["beacon", "gopher", "kharon", "CrystalForge"], ["windows"], []);

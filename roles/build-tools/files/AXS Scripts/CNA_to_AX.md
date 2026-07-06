@@ -19,7 +19,7 @@ beacon_command_register(
 ```javascript
 let cmd = ax.create_command("cmd", "Description", "cmd <arg1> <arg2>");
 let group = ax.create_commands_group("cmd", [cmd]);
-ax.register_commands_group(group, ["beacon"], ["windows"], []);
+ax.register_commands_group(group, ["beacon", "gopher", "kharon", "CrystalForge"], ["windows"], []);
 ```
 
 Registration filters: `agents` (beacon, gopher), `os` (windows, linux, macos), `listeners` (BeaconHTTP, BeaconSMB). Empty array = all.

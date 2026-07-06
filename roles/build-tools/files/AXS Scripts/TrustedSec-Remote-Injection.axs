@@ -210,4 +210,4 @@ let group = ax.create_commands_group("TrustedSec-Remote-Injection", [
     ctray_cmd, dde_cmd, svcctrl_cmd
 ]);
 
-ax.register_commands_group(group, ["beacon"], ["windows"], []);
+ax.register_commands_group(group, ["beacon", "gopher", "kharon", "CrystalForge"], ["windows"], []);

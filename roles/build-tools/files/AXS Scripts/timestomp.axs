@@ -18,4 +18,4 @@ cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
 });
 
 let group = ax.create_commands_group("timestomp", [cmd]);
-ax.register_commands_group(group, ["beacon"], ["windows"], []);
+ax.register_commands_group(group, ["beacon", "gopher", "kharon", "CrystalForge"], ["windows"], []);

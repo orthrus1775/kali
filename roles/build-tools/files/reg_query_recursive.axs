@@ -25,4 +25,4 @@ reg_query_recursive_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lin
 });
 
 let group = ax.create_commands_group("reg_query_recursive", [reg_query_recursive_cmd]);
-ax.register_commands_group(group, ["beacon"], ["windows"], []);
+ax.register_commands_group(group, ["beacon", "gopher", "kharon", "CrystalForge"], ["windows"], []);
