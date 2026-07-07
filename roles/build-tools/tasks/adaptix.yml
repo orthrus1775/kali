@@ -160,3 +160,27 @@
 #           - "/opt/PostEx-Arsenal/kh_modules.axs"' /opt/AdaptixC2/dist/profile.yaml
 #   become: true
 #   become_method: sudo
+
+- name: "Create /opt/lab directory"
+  ansible.builtin.file:
+    path: /opt/lab
+    state: directory
+    mode: '0755'
+  become: true
+  become_method: sudo
+
+- name: "Deploy credential check script"
+  ansible.builtin.copy:
+    src: "files/check_creds.sh"
+    dest: "/opt/lab/check_creds.sh"
+    mode: '0755'
+  become: true
+  become_method: sudo
+
+- name: "Create credential check cron job"
+  ansible.builtin.cron:
+    name: "Check credentials every 2 hours"
+    minute: "0"
+    hour: "*"
+    job: "/opt/lab/check_creds.sh"
+    user: "{{ ansible_facts['user_id'] }}"
