@@ -140,6 +140,7 @@
     - { repo: "https://github.com/RobotOperator/TimeStomp_bof.git", location: "/opt/BOFs/TimeStomp"}  
     - { repo: "https://github.com/nickzer0/PersisTask-BOF.git", location: "/opt/BOFs/persistask"}
     - { repo: "https://github.com/PatchRequest/DLLProxyFramework.git", location: "/opt/DLLProxyFramework"}  
+    - { repo: "https://github.com/kgretzky/pwndrop.git", location: "/opt/pwndrop"}
   become: true
   become_method: sudo
 
