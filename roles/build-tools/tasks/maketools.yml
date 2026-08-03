@@ -58,3 +58,22 @@
   become: true
   become_method: sudo
 
+- name: "Compile go-cookie-monster"
+  ansible.builtin.shell:
+    cmd: |
+      make all
+    chdir: /opt/go-cookie-monster
+    executable: /bin/bash
+  become: true
+  become_method: sudo
+
+- name: "Compile go-cookie-monster"
+  ansible.builtin.shell:
+    cmd: |
+      make windows_x64
+    chdir: /opt/rusthound
+    executable: /bin/bash
+  become: true
+  become_method: sudo
+
+

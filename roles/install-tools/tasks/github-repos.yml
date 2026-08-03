@@ -69,11 +69,12 @@
     - { repo: "https://github.com/fortra/No-Consolation.git", location: "/opt/BOFs/No-Consolation" }
     - { repo: "https://github.com/Ridter/noPac" , location: "/opt/noPac/linux"}
     - { repo: "https://github.com/bitsadmin/nopowershell.git", location: "/opt/nopowershell" }
-    - { repo: "https://github.com/REDMED-X/OperatorsKit.git", location: "/opt/OperatorsKit" }
+    - { repo: "https://github.com/REDMED-X/OperatorsKit.git", location: "/opt/BOFs/OperatorsKit" }
     - { repo: "https://github.com/VoldeSec/PatchlessInlineExecute-Assembly.git", location: "/opt/BOFs/PatchlessInlineExecute-Assembly" }
     - { repo: "https://github.com/ly4k/PetitPotam" , location: "/opt/PetitPotam"}
     - { repo: "https://github.com/dirkjanm/PKINITtools", location: "/opt/PKINITtools"}
     - { repo: "https://github.com/juliourena/plaintext.git", location: "/opt/powershell/plaintext"}
+    - { repo: "https://github.com/Friends-Security/ShadowHound.git" , location: "/opt/powershell/ShadowHound"}
     - { repo: "https://github.com/0xEr3bus/PoolPartyBof" , location: "/opt/BOFs/poolparty"}
     - { repo: "https://github.com/praetorian-inc/PortBender" , location: "/opt/PortBender"}
     - { repo: "https://github.com/Kevin-Robertson/Powermad/", location: "/opt/powershell/Powermad"}
@@ -97,22 +98,22 @@
     - { repo: "https://github.com/GhostPack/Seatbelt.git", location: "/opt/Seatbelt" }
     - { repo: "https://github.com/apokryptein/secinject", location: "/opt/BOFs/secinject" }
     - { repo: "https://github.com/netero1010/ServiceMove-BOF.git", location: "/opt/BOFs/servicemove-bof" }
-    - { repo: "https://github.com/mandiant/SharPersist.git", location: "/opt/SharPersist" }
-    - { repo: "https://github.com/checkymander/Sharp-SMBExec.git", location: "/opt/Sharp-SMBExec" }
-    - { repo: "https://github.com/Flangvik/SharpCollection.git", location: "/opt/sharpcollection" }
-    - { repo: "https://github.com/GhostPack/SharpDPAPI.git", location: "/opt/SharpDPAPI" }
-    - { repo: "https://github.com/GhostPack/SharpDump.git", location: "/opt/SharpDump" }
-    - { repo: "https://github.com/anthemtotheego/SharpExec.git", location: "/opt/SharpExec" }
-    - { repo: "https://github.com/FSecureLABS/SharpGPOAbuse.git", location: "/opt/SharpGPOAbuse" }
-    - { repo: "https://github.com/swisskyrepo/SharpLAPS.git", location: "/opt/SharpLAPS" }
-    - { repo: "https://github.com/cube0x0/SharpMapExec.git", location: "/opt/SharpMapExec" }
-    - { repo: "https://github.com/0xthirteen/SharpRDP.git", location: "/opt/SharpRDP" }
-    - { repo: "https://github.com/Mayyhem/SharpSCCM.git", location: "/opt/SharpSCCM" }
-    - { repo: "https://github.com/G0ldenGunSec/SharpSecDump.git", location: "/opt/SharpSecDump" }
-    - { repo: "https://github.com/thelikes/sharpsh.git", location: "/opt/sharpsh" }
-    - { repo: "https://github.com/GhostPack/SharpUp.git", location: "/opt/SharpUp" }
-    - { repo: "https://github.com/tevora-threat/SharpView.git", location: "/opt/SharpView" }
-    - { repo: "https://github.com/GhostPack/SharpWMI.git", location: "/opt/SharpWMI" }
+    - { repo: "https://github.com/mandiant/SharPersist.git", location: "/opt/SharpTools/SharPersist" }
+    - { repo: "https://github.com/checkymander/Sharp-SMBExec.git", location: "/opt/SharpTools/Sharp-SMBExec" }
+    - { repo: "https://github.com/Flangvik/SharpCollection.git", location: "/opt/SharpTools/sharpcollection" }
+    - { repo: "https://github.com/GhostPack/SharpDPAPI.git", location: "/opt/SharpTools/SharpDPAPI" }
+    - { repo: "https://github.com/GhostPack/SharpDump.git", location: "/opt/SharpTools/SharpDump" }
+    - { repo: "https://github.com/anthemtotheego/SharpExec.git", location: "/opt/SharpTools/SharpExec" }
+    - { repo: "https://github.com/FSecureLABS/SharpGPOAbuse.git", location: "/opt/SharpTools/SharpGPOAbuse" }
+    - { repo: "https://github.com/swisskyrepo/SharpLAPS.git", location: "/opt/SharpTools/SharpLAPS" }
+    - { repo: "https://github.com/cube0x0/SharpMapExec.git", location: "/opt/SharpTools/SharpMapExec" }
+    - { repo: "https://github.com/0xthirteen/SharpRDP.git", location: "/opt/SharpTools/SharpRDP" }
+    - { repo: "https://github.com/Mayyhem/SharpSCCM.git", location: "/opt/SharpTools/SharpSCCM" }
+    - { repo: "https://github.com/G0ldenGunSec/SharpSecDump.git", location: "/opt/SharpTools/SharpSecDump" }
+    - { repo: "https://github.com/thelikes/sharpsh.git", location: "/opt/SharpTools/sharpsh" }
+    - { repo: "https://github.com/GhostPack/SharpUp.git", location: "/opt/SharpTools/SharpUp" }
+    - { repo: "https://github.com/tevora-threat/SharpView.git", location: "/opt/SharpTools/SharpView" }
+    - { repo: "https://github.com/GhostPack/SharpWMI.git", location: "/opt/SharpTools/SharpWMI" }
     - { repo: "https://github.com/secretsquirrel/SigThief.git", location: "/opt/sigthief"}
     - { repo: "https://github.com/zyn3rgy/smbtakeover.git", location: "/opt/BOFs/smbtakeover"}
     - { repo: "https://github.com/skahwah/SQLRecon.git", location: "/opt/SQLRecon" }
