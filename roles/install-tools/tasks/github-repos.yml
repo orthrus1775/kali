@@ -143,6 +143,8 @@
     - { repo: "https://github.com/PatchRequest/DLLProxyFramework.git", location: "/opt/DLLProxyFramework" }  
     - { repo: "https://github.com/kgretzky/pwndrop.git", location: "/opt/pwndrop" }
     - { repo: "https://github.com/aniqfakhrul/CVE-2026-54121.git", location: "/opt/certighost" }
+    - { repo: "https://github.com/Valkyrie-Security/reg_export-BOF.git", location: "/opt/BOFs/reg_export" }
+    - { repo: "https://github.com/Whispergate/Tyche.git", location: "/opt/Tyche" }
   become: true
   become_method: sudo
 
