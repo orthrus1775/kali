@@ -1,5 +1,5 @@
 ---
-- name: Create temporary build directory
+- name: "Create temporary build directory for build-tools"
   ansible.builtin.tempfile:
     state: directory
   register: build_dir

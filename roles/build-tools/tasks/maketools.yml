@@ -71,10 +71,18 @@
   ansible.builtin.shell:
     cmd: "export PATH=$HOME/.cargo/bin:$PATH && make release"
     chdir: /opt/rusthound
-  ignore_errors: true  
+  register: rusthound_linux
+  retries: 3
+  delay: 10
+  until: rusthound_linux.rc == 0
+  ignore_errors: true
 
 - name: "Make Rusthound Windows"
   ansible.builtin.shell:
     cmd: "export PATH=$HOME/.cargo/bin:$PATH && make windows"
     chdir: /opt/rusthound
-  ignore_errors: true 
+  register: rusthound_windows
+  retries: 3
+  delay: 10
+  until: rusthound_windows.rc == 0
+  ignore_errors: true
