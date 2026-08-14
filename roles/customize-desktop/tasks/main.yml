@@ -1,7 +1,28 @@
 ---
 # tasks file for customize-desktop
-- name: "Copy PS profile"
-  copy:
-    src: "{{ role_path }}/files/"
-    dest: "{{ ansible_facts['env']['HOME'] }}/.config/xfce4/xfconf/xfce-perchannel-xml/"
-    force: yes
+# - name: "Copy PS profile"
+#   copy:
+#     src: "{{ role_path }}/files/"
+#     dest: "{{ ansible_facts['env']['HOME'] }}/.config/xfce4/xfconf/xfce-perchannel-xml/"
+#     force: yes
+
+- name: "Create Pictures directory"
+  ansible.builtin.file:
+    path: "/home/{{ ansible_facts['user_id'] }}/Pictures"
+    state: directory
+    mode: '0755'
+
+- name: "Download desktop background"
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/orthrus1775/RedWindows/main/Background.png"
+    dest: "/home/{{ ansible_facts['user_id'] }}/Pictures/Background.png"
+    mode: '0644'
+
+- name: "Set desktop background"
+  ansible.builtin.shell:
+    cmd: |
+      xfconf-query -c xfce4-desktop -l | grep "last-image" | xargs -I{} xfconf-query -c xfce4-desktop -p {} -s "/home/{{ ansible_facts['user_id'] }}/Pictures/Background.png"
+  environment:
+    DISPLAY: ":0.0"
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ ansible_user_uid }}/bus"
+  ignore_errors: true
