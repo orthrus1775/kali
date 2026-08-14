@@ -8,7 +8,6 @@
 - import_tasks: bloodhound.yml
 - import_tasks: windapsearch.yml
 # - import_tasks: limelighter.yml
-- import_tasks: rusthound.yml
 - import_tasks: facedancer.yml
 - import_tasks: titanis.yml
 - import_tasks: adaptix.yml
