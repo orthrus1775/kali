@@ -24,5 +24,5 @@
       xfconf-query -c xfce4-desktop -l | grep "last-image" | xargs -I{} xfconf-query -c xfce4-desktop -p {} -s "/home/{{ ansible_facts['user_id'] }}/Pictures/Background.png"
   environment:
     DISPLAY: ":0.0"
-    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ ansible_user_uid }}/bus"
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ ansible_facts['user_uid'] }}/bus"
   ignore_errors: true
