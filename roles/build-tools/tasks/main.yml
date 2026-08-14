@@ -1,7 +1,7 @@
 ---
 # Comment/Uncomment based on requirments
 - import_tasks: needle.yml
-# - import_tasks: nim.yml
+- import_tasks: nim.yml
 # - import_tasks: satellite.yml
 - import_tasks: adalanche.yml
 - import_tasks: buildbofs.yml
