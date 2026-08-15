@@ -86,3 +86,25 @@
   delay: 10
   until: rusthound_windows.rc == 0
   ignore_errors: true
+
+- name: "Make Hooka"
+  ansible.builtin.shell:
+    cmd: make all
+    chdir: /opt/Hooka
+  register: hooka_build
+  retries: 3
+  delay: 10
+  until: hooka_build.rc == 0
+  ignore_errors: true
+
+- name: "Make RegPwn"
+  ansible.builtin.shell:
+    cmd: |
+      make all
+      make test
+    chdir: /opt/BOFs/RegPwnBOF
+  register: regpwn_build
+  retries: 3
+  delay: 10
+  until: regpwn_build.rc == 0
+  ignore_errors: true  

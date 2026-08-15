@@ -32,7 +32,7 @@
     - { repo: "https://github.com/trustedsec/CS-Remote-OPs-BOF.git", location: "/opt/BOFs/cs-remote-ops"}
     - { repo: "https://github.com/trustedsec/CS-Situational-Awareness-BOF.git", location: "/opt/BOFs/cs-sa"}
     - { repo: "https://github.com/threatexpress/cs2modrewrite.git", location: "/opt/redirector/cs2modrewrite" }
-    - { repo: "https://github.com/Crypt0s/DelegationBOF.git", location: "/opt/BOFs/delegationbof" }
+    - { repo: "https://github.com/orthrus1775/DelegationBOF.git", location: "/opt/BOFs/delegationbof" }
     - { repo: "https://github.com/m0nad/Diamorphine.git", location: "/opt/diamorphine"}
     - { repo: "https://github.com/outflanknl/Dumpert.git", location: "/opt/Dumpert" }
     - { repo: "https://github.com/netero1010/EDRSilencer.git", location: "/opt/EDRSilencer" }
@@ -154,6 +154,8 @@
     - {repo: "https://git.churchofmalware.org/Nightmare_Eclipse/MiniPlasma.git", location: "/opt/NightmareEclipse/MiniPlasma" }
     - {repo: "https://git.churchofmalware.org/Nightmare_Eclipse/RedSun.git", location: "/opt/NightmareEclipse/RedSun" }
     - {repo: "https://git.churchofmalware.org/Nightmare_Eclipse/ShieldBreak.git", location: "/opt/NightmareEclipse/ShieldBreak" }
+    - {repo: "https://github.com/Flangvik/RegPwnBOF.git", location: "/opt/BOFs/RegPwnBOF" }
+    - {repo: "https://github.com/mdsecactivebreach/RegPwn.git", location: "/opt/RegPwn" }
 
   become: true
   become_method: sudo
