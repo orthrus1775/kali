@@ -17,7 +17,7 @@
     - { repo: "https://github.com/tomcarver16/ADSearch.git", location: "/opt/ADSearch" }
     - { repo: "https://github.com/raskolnikov90/Beatrice.py.git", location: "/opt/beatrice" }
     - { repo: "https://github.com/SpecterOps/BloodHound.git", location: "/opt/bloodhound"}
-    - { repo: "https://github.com/crypt0p3g/bof-collection.git", location: "/opt/BOFs/bof-collection" }
+    - { repo: "https://github.com/crypt0p3g/bof-collection.git", location: "/opt/BOFs/bof-collection1" }
     - { repo: "https://github.com/coffeegist/bofhound.git", location: "/opt/BOFs/bofhound" }
     - { repo: "https://github.com/ScriptIdiot/BOF-patchit.git", location: "/opt/BOFs/patchit-bof" }
     - { repo: "https://github.com/cube0x0/BofRoast.git", location: "/opt/BOFs/bofroast" }
@@ -55,7 +55,8 @@
     - { repo: "https://github.com/sliverarmory/injectAmsiBypass.git", location: "/opt/injectAmsiBypass" }
     - { repo: "https://github.com/boku7/injectEtwBypass.git", location: "/opt/injectEtwBypass" }
     - { repo: "https://github.com/Kevin-Robertson/InveighZero" , location: "/opt/InveighZero"}
-    - { repo: "https://github.com/RalfHacker/Kerbeus-BOF.git", location: "/opt/BOFs/kerbeus-bof" }
+    - { repo: "https://github.com/orthrus1775/Kerbeus-BOF.git", location: "/opt/BOFs/kerbeus-bof" }
+    - { repo: "https://github.com/orthrus1775/BOF_Collection.git", location: "/opt/BOFs/bof-collection2" }
     - { repo: "https://github.com/dirkjanm/krbrelayx.git", location: "/opt/krbrelayx"}
     - { repo: "https://github.com/Dec0ne/KrbRelayUp.git", location: "/opt/KrbRelayUp" }
     - { repo: "https://github.com/n00py/LAPSDumper", location: "/opt/lapsdumper"}
@@ -65,7 +66,7 @@
     - { repo: "https://github.com/Tylous/Limelighter.git", location: "/opt/limelighter"}
     - { repo: "https://github.com/icyguider/MoreImpacketExamples.git", location: "/opt/moreimpacketexamples" }
     - { repo: "https://github.com/fortra/nanodump.git", location: "/opt/BOFs/nanodump" }
-    - { repo: "https://github.com/wavvs/nanorobeus.git", location: "/opt/BOFs/nanorobeus" }
+    - { repo: "https://github.com/orthrus1775/nanorobeus.git", location: "/opt/BOFs/nanorobeus" }
     - { repo: "https://github.com/fortra/No-Consolation.git", location: "/opt/BOFs/No-Consolation" }
     - { repo: "https://github.com/Ridter/noPac" , location: "/opt/noPac/linux"}
     - { repo: "https://github.com/bitsadmin/nopowershell.git", location: "/opt/nopowershell" }
