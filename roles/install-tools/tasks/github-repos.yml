@@ -28,10 +28,12 @@
     - { repo: "https://github.com/trustedsec/COFFLoader.git", location: "/opt/COFFLoader" }
     - { repo: "https://github.com/jsecu/CredManBOF.git", location: "/opt/BOFs/credmanbof" }
     - { repo: "https://github.com/rasta-mouse/Crystal-Loaders.git", location: "/opt/Crystal-Loaders" }
+    - { repo: "https://github.com/rasta-mouse/Crystal-Kit.git", location: "/opt/Crystal-Loaders" }
     - { repo: "https://github.com/Gality369/CS-Loader.git", location: "/opt/CS-Loader" }
     - { repo: "https://github.com/trustedsec/CS-Remote-OPs-BOF.git", location: "/opt/BOFs/cs-remote-ops"}
     - { repo: "https://github.com/trustedsec/CS-Situational-Awareness-BOF.git", location: "/opt/BOFs/cs-sa"}
     - { repo: "https://github.com/threatexpress/cs2modrewrite.git", location: "/opt/redirector/cs2modrewrite" }
+    - { repo: "https://github.com/BC-SECURITY/Malleable-C2-Profiles.git", location: "/opt/c2profiles/bc-security" }
     - { repo: "https://github.com/orthrus1775/DelegationBOF.git", location: "/opt/BOFs/delegationbof" }
     - { repo: "https://github.com/m0nad/Diamorphine.git", location: "/opt/diamorphine"}
     - { repo: "https://github.com/outflanknl/Dumpert.git", location: "/opt/Dumpert" }

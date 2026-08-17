@@ -17,7 +17,7 @@
 #- import_tasks: ghostwriter.yml
 #- import_tasks: merlin.yml
 #- import_tasks: sliver.yml
-# - import_tasks: cobaltstrike.yml
+- import_tasks: cobaltstrike.yml
 #- import_tasks: scarecrow.yml
 #- import_tasks: havoc.yml
 - import_tasks: finallinks.yml
