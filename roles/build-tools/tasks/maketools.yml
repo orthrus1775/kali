@@ -23,6 +23,18 @@
   become: true
   become_method: sudo
 
+- name: "Setup bofhound virtual environment"
+  ansible.builtin.shell:
+    cmd: |
+      python3 -m venv .bofhound
+      source .bofhound/bin/activate
+      pip install .
+      deactivate
+    chdir: /opt/BOFs/bofhound
+    executable: /bin/bash
+  become: true
+  become_method: sudo  
+
 - name: "Setup pywhisker virtual environment"
   ansible.builtin.shell:
     cmd: |
