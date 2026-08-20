@@ -109,6 +109,38 @@
   until: hooka_build.rc == 0
   ignore_errors: true
 
+- name: "Create /opt/scripts directory"
+  ansible.builtin.file:
+    path: /opt/scripts/
+    state: directory
+    mode: '0755'
+  become: true
+  become_method: sudo
+
+- name: "Deploy deploy-keys.sh script"
+  copy:
+    src: files/deploy-keys.sh
+    dest: /opt/scripts/deploy-keys.sh
+    mode: '0755'
+  become: true
+  become_method: sudo
+
+- name: "Deploy config-ssh.sh script"
+  copy:
+    src: files/config-ssh.sh
+    dest: /opt/scripts/config-ssh.sh
+    mode: '0755'
+  become: true
+  become_method: sudo
+
+- name: "Deploy config-infrax.sh script"
+  copy:
+    src: files/config-infrax.sh
+    dest: /opt/scripts/config-infrax.sh
+    mode: '0755'
+  become: true
+  become_method: sudo
+
 - name: "Make RegPwn"
   ansible.builtin.shell:
     cmd: |

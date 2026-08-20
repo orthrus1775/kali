@@ -48,6 +48,9 @@
     - { src: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rustup", dst: /usr/bin/rustup }
     - { src: "{{ ansible_facts['env']['HOME'] }}/go/bin/garble", dst: /usr/bin/garble }
     - { src: "{{ ansible_facts['env']['HOME'] }}/go/bin/kerbrute", dst: /usr/bin/kerbrute }
+    - { src: "/opt/scripts/deploy-keys.sh", dst: /usr/bin/deploy-keys }
+    - { src: "/opt/scripts/config-ssh.sh", dst: /usr/bin/config-ssh }
+    - { src: "/opt/scripts/config-infrax.sh", dst: /usr/bin/config-infrax }
   become: true
   become_method: sudo
   ignore_errors: true 
