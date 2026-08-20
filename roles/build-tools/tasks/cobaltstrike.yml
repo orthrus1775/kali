@@ -14,10 +14,14 @@
   become_method: sudo
 
 - name: "Add Adoptium apt repository"
-  ansible.builtin.apt_repository:
-    repo: "deb https://packages.adoptium.net/artifactory/deb bookworm main"
+  ansible.builtin.deb822_repository:
+    name: adoptium
+    types: deb
+    uris: https://packages.adoptium.net/artifactory/deb
+    suites: bookworm
+    components: main
+    signed_by: /etc/apt/trusted.gpg.d/adoptium.gpg
     state: present
-    filename: adoptium
   become: true
   become_method: sudo
 

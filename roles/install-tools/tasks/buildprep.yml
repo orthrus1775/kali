@@ -11,21 +11,21 @@
 
   - name: Ensure .ssh directory exists
     file:
-      path: "{{ ansible_env.HOME }}/.ssh"
+      path: "{{ ansible_facts['env']['HOME'] }}/.ssh"
       state: directory
       owner: "{{ ansible_facts['user_id'] }}"
       mode: '0700'
 
   - name: Generate ed25519 SSH key pair
     community.crypto.openssh_keypair:
-      path: "{{ ansible_env.HOME }}/.ssh/id_ed25519"
+      path: "{{ ansible_facts['env']['HOME'] }}/.ssh/id_ed25519"
       type: ed25519
       comment: "{{ ansible_facts['user_id'] }}@{{ ansible_facts['hostname'] }}"
       owner: "{{ ansible_facts['user_id'] }}"
 
   - name: Create .ssh/config file
     copy:
-      dest: "{{ ansible_env.HOME }}/.ssh/config"
+      dest: "{{ ansible_facts['env']['HOME'] }}/.ssh/config"
       content: ""
       owner: "{{ ansible_facts['user_id'] }}"
       mode: '0600'
