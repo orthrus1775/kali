@@ -1,0 +1,10 @@
+packer_cache/
+output-*/
+*.iso
+*.ova
+*.ovf
+*.vmdk
+*.vbox
+*.log
+crash.log
+.vagrant/
