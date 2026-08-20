@@ -56,8 +56,12 @@ if [[ -z "$service_name" || -z "$server" ]]; then
     usage
 fi
 
+read -r -s -p "Password for ${remote_user}@${service_name}: " ssh_password
+echo
+
 echo "[*] Deploying SSH key to ${server}"
-deploy-keys -server "$server" -user "$remote_user" -key-path "$key_path"
+SSHPASS="$ssh_password" deploy-keys -server "$server" -user "$remote_user" -key-path "$key_path"
+unset ssh_password
 
 echo "[*] Adding SSH config entry '${service_name}'"
 config-ssh -name "$service_name" -server "$server" -user "$remote_user" -key-path "$key_path"

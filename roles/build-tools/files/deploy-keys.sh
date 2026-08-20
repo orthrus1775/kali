@@ -61,5 +61,9 @@ for ip in "${servers[@]}"; do
     ip="$(echo "$ip" | xargs)"
     [[ -z "$ip" ]] && continue
     echo "[*] Deploying ${key_path} to ${user}@${ip}"
-    ssh-copy-id -i "$key_path" "${user}@${ip}"
+    if [[ -n "${SSHPASS:-}" ]]; then
+        sshpass -e ssh-copy-id -i "$key_path" "${user}@${ip}"
+    else
+        ssh-copy-id -i "$key_path" "${user}@${ip}"
+    fi
 done
