@@ -6,10 +6,50 @@
   become: true
   become_method: sudo
 
-- name: "Install OpenJDK 11"
+- name: "Add Adoptium GPG key"
+  ansible.builtin.shell:
+    cmd: wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/trusted.gpg.d/adoptium.gpg
+    creates: /etc/apt/trusted.gpg.d/adoptium.gpg
+  become: true
+  become_method: sudo
+
+- name: "Add Adoptium apt repository"
+  ansible.builtin.apt_repository:
+    repo: "deb https://packages.adoptium.net/artifactory/deb bookworm main"
+    state: present
+    filename: adoptium
+  become: true
+  become_method: sudo
+
+- name: "Install Temurin 17 JDK"
   apt:
-    name: openjdk-11-jdk
+    name: temurin-17-jdk
     state: present
     update_cache: yes
   become: true
   become_method: sudo
+
+- name: "Set Java 17 as default (java)"
+  ansible.builtin.alternatives:
+    name: java
+    path: /usr/lib/jvm/temurin-17-jdk-amd64/bin/java
+  become: true
+  become_method: sudo
+
+- name: "Set Java 17 as default (javac)"
+  ansible.builtin.alternatives:
+    name: javac
+    path: /usr/lib/jvm/temurin-17-jdk-amd64/bin/javac
+  become: true
+  become_method: sudo
+
+- name: "Check active Java version"
+  ansible.builtin.shell:
+    cmd: java -version 2>&1
+  register: java_version_output
+  changed_when: false
+
+- name: "Warn if Java 17 is not active"
+  ansible.builtin.debug:
+    msg: "WARNING: Expected Java 17 but got: {{ java_version_output.stdout }}"
+  when: "'17.' not in java_version_output.stdout"

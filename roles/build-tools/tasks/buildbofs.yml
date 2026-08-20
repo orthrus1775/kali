@@ -1,7 +1,26 @@
 ---
-- name: Find Makefiles in /opt/bofs (excluding cs-remote-ops and cs-sa)
+- name: Create reg_export source directory in cs-remote-ops
+  ansible.builtin.file:
+    path: /opt/BOFs/cs-remote-ops/src/Remote/reg_export
+    state: directory
+    mode: '0755'
+  become: true
+  become_method: sudo
+
+- name: Deploy reg_export BOF source files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: '0644'
+  loop:
+    - { src: "files/reg_export bof/reg_export.c", dest: "/opt/BOFs/cs-remote-ops/src/Remote/reg_export/entry.c" }
+    - { src: "files/reg_export bof/Makefile",     dest: "/opt/BOFs/cs-remote-ops/src/Remote/reg_export/Makefile" }
+  become: true
+  become_method: sudo
+
+- name: Find Makefiles in /opt/BOFs (excluding cs-remote-ops and cs-sa)
   find:
-    paths: /opt/bofs
+    paths: /opt/BOFs
     patterns: "Makefile"
     recurse: yes
     excludes: []
@@ -23,9 +42,22 @@
 - name: Run make_all.sh for cs-remote-ops
   ansible.builtin.shell:
     cmd: bash make_all.sh
-    chdir: /opt/bofs/cs-remote-ops
+    chdir: /opt/BOFs/cs-remote-ops
 
 - name: Run make_all.sh for cs-sa
   ansible.builtin.shell:
     cmd: bash make_all.sh
-    chdir: /opt/bofs/cs-sa
+    chdir: /opt/BOFs/cs-sa
+
+- name: Check if reg_export is built
+  ansible.builtin.stat:
+    path: /opt/BOFs/cs-remote-ops/Remote/reg_export
+  register: reg_export_built
+
+- name: Build reg_export BOF
+  ansible.builtin.shell:
+    cmd: make
+    chdir: /opt/BOFs/cs-remote-ops/src/Remote/reg_export
+  when: not reg_export_built.stat.exists
+  become: true
+  become_method: sudo

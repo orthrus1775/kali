@@ -16,6 +16,3 @@
     - { repo: "https://github.com/miere43/nim-registry.git", location: "/opt/nimmods/nim-registry"}
     - { repo: "https://github.com/D3Ext/Nimbus.git", location: "/opt/nimmods/nimbus" }
     - { repo: "https://github.com/itaymigdal/PartyLoader.git", location: "/opt/nimmods/partyloader" }
-
-- name: "Installing packages with Nimble"
-  shell: "nimble install winim nimcrypto docopt psutil nimprotect supersnappy argparse ptr_math strenc libp2p ws zippy iputils socks5 daemon tiny_sqlite dnsclient -y"

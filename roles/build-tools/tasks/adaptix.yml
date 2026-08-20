@@ -86,13 +86,21 @@
   become: true
   become_method: sudo
 
-- name: "Update Adaptix profile.yaml" 
+- name: "Update Adaptix Extenders profile.yaml" 
   ansible.builtin.shell:
     cmd: |
-      sed -i 's|    - "extenders/gopher_agent/config.yaml"|    - "extenders/gopher_agent/config.yaml"\n    - "extenders/agent_kharon/config.yaml"\n    - "extenders/listener_kharon_http/config.yaml"\n    - "extenders/CrystalForge/config.yaml|' profile.yaml
+      sed -i 's|    - "extenders/gopher_agent/config.yaml"|    - "extenders/gopher_agent/config.yaml"\n    - "extenders/agent_kharon/config.yaml"\n    - "extenders/listener_kharon_http/config.yaml"\n    - "extenders/CrystalForge/config.yaml"|' profile.yaml
     chdir: /opt/AdaptixC2/dist/
   become: true
   become_method: sudo  
+
+- name: "Register CrystalForge in Extension-Kit"
+  ansible.builtin.shell:
+    cmd: |     
+      ./add_agent.sh CrystalForge
+    chdir: /opt/extension-kit
+  become: true
+  become_method: sudo
 
 - name: "Copy AdaptixClient to Desktop"
   ansible.builtin.copy:
@@ -116,3 +124,64 @@
     chdir: /opt/AdaptixC2/dist/
   become: true
   become_method: sudo
+
+- name: "Fix Kharon Post-Ex"
+  ansible.builtin.shell:
+    cmd: |
+      sed -i 's|let bof_path   = ax\.script_dir() + "bofs/lateralmov/scm_create_service\." + ax\.arch(id) + "\.o";|let bof_path   = ax.script_dir() + "bofs/dist/scm_create_service." + ax.arch(id) + ".o";|' /opt/PostEx-Arsenal/kh_modules.axs
+  become: true
+  become_method: sudo
+
+# - name: "Deploy AXS extension scripts"
+#   copy:
+#     src: "{{ item.src }}"
+#     dest: "{{ item.dest }}"
+#     mode: '0644'
+#   loop:
+#     - { src: "files/AXS Scripts/TrustedSec-Remote-Ops.axs",      dest: "/opt/BOFs/cs-remote-ops/Remote/TrustedSec-Remote-Ops.axs" }
+#     - { src: "files/AXS Scripts/TrustedSec-Remote-Injection.axs", dest: "/opt/BOFs/cs-remote-ops/Injection/TrustedSec-Remote-Injection.axs" }
+#     - { src: "files/AXS Scripts/TrustedSec-SA-BOFs.axs",         dest: "/opt/BOFs/cs-sa/SA/TrustedSec-SA-BOFs.axs" }
+#     - { src: "files/AXS Scripts/persistask.axs",                  dest: "/opt/BOFs/persistask/persistask.axs" }
+#     - { src: "files/AXS Scripts/timestomp.axs",                   dest: "/opt/BOFs/TimeStomp/dist/timestomp.axs" }
+#     - { src: "files/AXS Scripts/OperatorsKit.axs",               dest: "/opt/BOFs/OperatorsKit/OperatorsKit.axs" }
+#   become: true
+#   become_method: sudo
+
+# - name: "Update profile.yaml with AXS extension paths"
+#   ansible.builtin.shell:
+#     cmd: |
+#       sed -i '/#    - "Extension-Kit\/extension-kit\.axs"/c\
+#           - "/opt/extension-kit/extension-kit.axs"\
+#           - "/opt/Kharon/listener_kharon_http/dist/ax_config.axs"\
+#           - "/opt/Kharon/agent_kharon/dist/ax_config.axs"\
+#           - "/opt/BOFs/cs-sa/SA/TrustedSec-SA-BOFs.axs"\
+#           - "/opt/BOFs/svcmodprivesc/svcmodprivesc.axs"\
+#           - "/opt/BOFs/cs-remote-ops/Injection/TrustedSec-Remote-Injection.axs"\
+#           - "/opt/BOFs/cs-remote-ops/Remote/TrustedSec-Remote-Ops.axs"\
+#           - "/opt/PostEx-Arsenal/kh_modules.axs"' /opt/AdaptixC2/dist/profile.yaml
+#   become: true
+#   become_method: sudo
+
+# - name: "Create /opt/lab directory"
+#   ansible.builtin.file:
+#     path: /opt/lab
+#     state: directory
+#     mode: '0755'
+#   become: true
+#   become_method: sudo
+
+# - name: "Deploy credential check script"
+#   ansible.builtin.copy:
+#     src: "files/check_creds.sh"
+#     dest: "/opt/lab/check_creds.sh"
+#     mode: '0755'
+#   become: true
+#   become_method: sudo
+
+# - name: "Create credential check cron job"
+#   ansible.builtin.cron:
+#     name: "Check credentials every 2 hours"
+#     minute: "0"
+#     hour: "*"
+#     job: "/opt/lab/check_creds.sh"
+#     user: "{{ ansible_facts['user_id'] }}"

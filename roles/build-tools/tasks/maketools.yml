@@ -2,25 +2,62 @@
 - name: "Setup Certipy virtual environment"
   ansible.builtin.shell:
     cmd: |
-      python3 -m venv certipy-venv
-      source certipy-venv/bin/activate
+      python3 -m venv .certipy-venv
+      source .certipy-venv/bin/activate
+      pip install .
       deactivate
     chdir: /opt/Certipy
     executable: /bin/bash
   become: true
   become_method: sudo
 
-- name: "Setup Certipy virtual environment"
+- name: "Setup Beatrice virtual environment"
   ansible.builtin.shell:
     cmd: |
-      python3 -m venv .beatrice-venv
-      source .beatrice-venv/bin/activate
+      python3 -m venv .venv
+      source .venv/bin/activate
       pip install -r requirements.txt
       deactivate
     chdir: /opt/beatrice
     executable: /bin/bash
   become: true
   become_method: sudo
+
+- name: "Setup bofhound virtual environment"
+  ansible.builtin.shell:
+    cmd: |
+      python3 -m venv .bofhound
+      source .bofhound/bin/activate
+      pip install .
+      deactivate
+    chdir: /opt/BOFs/bofhound
+    executable: /bin/bash
+  become: true
+  become_method: sudo  
+
+- name: "Setup pywhisker virtual environment"
+  ansible.builtin.shell:
+    cmd: |
+      python3 -m venv .venv
+      source .venv/bin/activate
+      pip install -r requirements.txt
+      deactivate
+    chdir: /opt/pywhisker
+    executable: /bin/bash
+  become: true
+  become_method: sudo  
+
+- name: "Setup PKINITtools virtual environment"
+  ansible.builtin.shell:
+    cmd: |
+      python3 -m venv .venv
+      source .venv/bin/activate
+      pip install -r requirements.txt
+      deactivate
+    chdir: /opt/PKINITtools
+    executable: /bin/bash
+  become: true
+  become_method: sudo   
 
 - name: "Compile Chisel"
   ansible.builtin.shell:
@@ -32,3 +69,54 @@
     executable: /bin/bash
   become: true
   become_method: sudo
+
+- name: "Compile go-cookie-monster"
+  ansible.builtin.shell:
+    cmd: |
+      make all
+    chdir: /opt/go-cookie-monster
+    executable: /bin/bash
+  become: true
+  become_method: sudo
+
+- name: "Make Rusthound Linux"
+  ansible.builtin.shell:
+    cmd: "export PATH=$HOME/.cargo/bin:$PATH && make release"
+    chdir: /opt/rusthound
+  register: rusthound_linux
+  retries: 3
+  delay: 10
+  until: rusthound_linux.rc == 0
+  ignore_errors: true
+
+- name: "Make Rusthound Windows"
+  ansible.builtin.shell:
+    cmd: "export PATH=$HOME/.cargo/bin:$PATH && make windows"
+    chdir: /opt/rusthound
+  register: rusthound_windows
+  retries: 3
+  delay: 10
+  until: rusthound_windows.rc == 0
+  ignore_errors: true
+
+- name: "Make Hooka"
+  ansible.builtin.shell:
+    cmd: make all
+    chdir: /opt/Hooka
+  register: hooka_build
+  retries: 3
+  delay: 10
+  until: hooka_build.rc == 0
+  ignore_errors: true
+
+- name: "Make RegPwn"
+  ansible.builtin.shell:
+    cmd: |
+      make all
+      make test
+    chdir: /opt/BOFs/RegPwnBOF
+  register: regpwn_build
+  retries: 3
+  delay: 10
+  until: regpwn_build.rc == 0
+  ignore_errors: true  

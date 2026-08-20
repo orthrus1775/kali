@@ -53,13 +53,13 @@
 
 # - name: "Creating a symlink"
 #   ansible.builtin.shell:
-#     cmd: ln -s /opt/mythic/mythic-cli /usr/bin/mythic-cli
+#     cmd: ln -s /opt/Mythic/mythic-cli /usr/bin/mythic-cli
 #   become: true
 #   become_method: sudo   
 
 - name: "Stopping Mythic"
   ansible.builtin.shell:
-    cmd: /opt/mythic/mythic-cli stop
+    cmd: /opt/Mythic/mythic-cli stop
   become: true
   become_method: sudo 
   ignore_errors: true
