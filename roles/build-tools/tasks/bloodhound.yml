@@ -63,3 +63,14 @@
     executable: /bin/bash
   become: true
   become_method: sudo 
+
+- name: Stop all running Docker containers
+  ansible.builtin.shell: |
+    running_containers="$(docker ps -q 2>/dev/null || true)"
+    if [[ -n "$running_containers" ]]; then
+      docker stop $running_containers
+    fi
+  args:
+    executable: /bin/bash
+  become: true
+  become_method: sudo  
