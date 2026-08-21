@@ -47,7 +47,7 @@ After you boot the VM:
 
 ```sh
 cd ~/kali
-ansible-playbook main.yml -K
+
 ```
 
 `-K` prompts for the become password. The Packer image also has passwordless sudo for the build user.

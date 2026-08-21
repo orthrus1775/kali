@@ -93,7 +93,9 @@
       TimeoutStartSec=300
       [Install]
       WantedBy=multi-user.target
-      
+  become: true
+  become_method: sudo    
+
 - name: Enable and start BloodHound
   ansible.builtin.systemd:
     name: bloodhound
