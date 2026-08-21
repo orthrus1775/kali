@@ -22,17 +22,44 @@
   become: true
   become_method: sudo   
 
+# - name: "Build Bloodhound-CE"
+#   ansible.builtin.shell:
+#     cmd: "docker compose up -d"
+#     chdir: /opt/bloodhound/
+#   become: true
+#   become_method: sudo
+
+# - name: "Down Bloodhound-CE"
+#   ansible.builtin.shell:
+#     cmd: "docker compose down -v"
+#     chdir: /opt/bloodhound
+#   become: true
+#   become_method: sudo  
+# # to get password run docker-compose down -v and then docker-compose up --force-recreate   
+
 - name: "Build Bloodhound-CE"
   ansible.builtin.shell:
-    cmd: "docker compose up -d"
+    cmd: |
+      set -euo pipefail
+      docker compose up -d
+      for i in $(seq 1 60); do
+        if docker compose logs 2>/dev/null | grep -q "Initial Password Set To:"; then
+          break
+        fi
+        if [ "$i" -eq 60 ]; then
+          echo "Timed out waiting for BloodHound initial password" >&2
+          exit 1
+        fi
+        sleep 2
+      done
+      docker compose logs 2>/dev/null \
+        | grep "Initial Password Set To:" \
+        | tail -1 \
+        | sed 's/.*Initial Password Set To:[[:space:]]*//' \
+        | sed 's/[[:space:]]*#[[:space:]]*$//' \
+        > /opt/bloodhound/BH_PASS.txt
+      chmod 600 /opt/bloodhound/BH_PASS.txt
     chdir: /opt/bloodhound/
+    executable: /bin/bash
   become: true
-  become_method: sudo
-
-- name: "Down Bloodhound-CE"
-  ansible.builtin.shell:
-    cmd: "docker compose down -v"
-    chdir: /opt/bloodhound
-  become: true
-  become_method: sudo  
-# to get password run docker-compose down -v and then docker-compose up --force-recreate    
+  become_method: sudo 
