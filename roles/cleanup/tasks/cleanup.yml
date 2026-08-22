@@ -90,7 +90,22 @@
     state: absent
 
 - name: Wipe log files (keep directory structure)
-  ansible.builtin.command: find /var/log/ -type f -delete
+  ansible.builtin.command:
+    argv:
+      - find
+      - /var/log
+      - -type
+      - f
+      - -exec
+      - truncate
+      - -s
+      - "0"
+      - "{}"
+      - +
+  become: true
+  become_method: sudo
+  register: log_wipe
+  failed_when: false
   changed_when: true
 
 #- name: "Deleting buildprep in sudoers.d"
