@@ -1,0 +1,8 @@
+services:
+  bloodhound:
+    environment:
+      - bhe_default_admin_principal_name=${bhe_default_admin_principal_name:-admin}
+      - bhe_default_admin_password=${bhe_default_admin_password}
+      - bhe_default_admin_email_address=${bhe_default_admin_email_address:-spam@example.com}
+      - bhe_default_admin_first_name=${bhe_default_admin_first_name:-Bloodhound}
+      - bhe_default_admin_last_name=${bhe_default_admin_last_name:-Admin}

@@ -1,5 +1,5 @@
 ---
-- name: Create a BloodhoundCE directory 
+- name: Create a BloodhoundCE directory
   ansible.builtin.file:
     path: /opt/bloodhound
     state: directory
@@ -7,62 +7,60 @@
     group: "{{ ansible_facts['user_id'] }}"
     mode: 0755
 
-- name: "Copying BloodhoundCE config"
-  copy:
-    src: "files/bloodhound.config.json"
-    dest: /opt/bloodhound/bloodhound.config.json
+- name: Copy Compose file
+  ansible.builtin.copy:
+    src: /opt/bloodhound/examples/docker-compose/docker-compose.yml
+    dest: /opt/bloodhound/docker-compose.yml
+  become: true
+  become_method: sudo
+
+- name: Copy Compose override for default admin env
+  ansible.builtin.copy:
+    src: bloodhound.compose.override.yml
+    dest: /opt/bloodhound/docker-compose.override.yml
+    mode: '0644'
+  become: true
+  become_method: sudo
+
+- name: Write BloodHound .env
+  ansible.builtin.template:
+    src: bloodhound.env.j2
+    dest: /opt/bloodhound/.env
+    mode: '0600'
     owner: "{{ ansible_facts['user_id'] }}"
     group: "{{ ansible_facts['user_id'] }}"
-    mode: 0755  
+  become: true
+  become_method: sudo
 
-- name: "Copy Compose File" 
+- name: Write BloodHound password file
   ansible.builtin.copy:
-    src: /opt/bloodhound/examples/docker-compose/docker-compose.yml 
-    dest: /opt/bloodhound/docker-compose.yml 
+    dest: /opt/bloodhound/BH_PASS.txt
+    content: "{{ bloodhound_admin_password }}\n"
+    mode: '0600'
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
   become: true
-  become_method: sudo   
+  become_method: sudo
 
-# - name: "Build Bloodhound-CE"
-#   ansible.builtin.shell:
-#     cmd: "docker compose up -d"
-#     chdir: /opt/bloodhound/
-#   become: true
-#   become_method: sudo
-
-# - name: "Down Bloodhound-CE"
-#   ansible.builtin.shell:
-#     cmd: "docker compose down -v"
-#     chdir: /opt/bloodhound
-#   become: true
-#   become_method: sudo  
-# # to get password run docker-compose down -v and then docker-compose up --force-recreate   
-
-- name: "Build Bloodhound-CE"
-  ansible.builtin.shell:
-    cmd: |
-      set -euo pipefail
-      docker compose up -d
-      for i in $(seq 1 60); do
-        if docker compose logs 2>/dev/null | grep -q "Initial Password Set To:"; then
-          break
-        fi
-        if [ "$i" -eq 60 ]; then
-          echo "Timed out waiting for BloodHound initial password" >&2
-          exit 1
-        fi
-        sleep 2
-      done
-      docker compose logs 2>/dev/null \
-        | grep "Initial Password Set To:" \
-        | tail -1 \
-        | sed 's/.*Initial Password Set To:[[:space:]]*//' \
-        | sed 's/[[:space:]]*#[[:space:]]*$//' \
-        > /opt/bloodhound/BH_PASS.txt
-      chmod 600 /opt/bloodhound/BH_PASS.txt
-    chdir: /opt/bloodhound/
-    executable: /bin/bash
+- name: Start Bloodhound-CE
+  ansible.builtin.command:
+    cmd: docker compose up -d
+    chdir: /opt/bloodhound
   become: true
-  become_method: sudo 
+  become_method: sudo
+
+- name: Wait for BloodHound UI
+  ansible.builtin.uri:
+    url: http://127.0.0.1:8080/ui/login
+    status_code:
+      - 200
+      - 301
+      - 302
+    timeout: 10
+  register: bloodhound_ui
+  retries: 30
+  delay: 4
+  until: bloodhound_ui is succeeded 
 
 - name: Stop all running Docker containers
   ansible.builtin.shell: |

@@ -1,2 +1,8 @@
 ---
-# defaults file for install-tools
+bloodhound_host: "0.0.0.0"
+bloodhound_port: "8080"
+bloodhound_admin_user: admin
+bloodhound_admin_password: "GoCyber2026!!"
+bloodhound_admin_email: spam@example.com
+bloodhound_admin_first_name: Bloodhound
+bloodhound_admin_last_name: Admin
