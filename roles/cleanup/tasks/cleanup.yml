@@ -31,9 +31,19 @@
   become: true
   become_method: sudo
   
-- name: Clear files in /tmp older than 1 day
-  shell: "find /tmp -mindepth 1 -mtime +0 -exec rm -rf {} +"
-  changed_when: false
+- name: Clear /tmp
+  ansible.builtin.command:
+    argv:
+      - find
+      - /tmp
+      - -mindepth
+      - "1"
+      - -xdev
+      - -depth
+      - -delete
+  register: tmp_clean
+  failed_when: false
+  changed_when: tmp_clean.rc == 0
   become: true
   become_method: sudo
 
