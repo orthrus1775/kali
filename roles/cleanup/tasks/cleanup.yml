@@ -11,9 +11,21 @@
   become: true
   become_method: sudo
 
+- name: Ensure range_admin account exists
+  ansible.builtin.user:
+    name: "{{ range_admin_user }}"
+    comment: Range administrator
+    create_home: true
+    shell: /bin/zsh
+    state: present
+  become: true
+  become_method: sudo
+
 - name: Set range_admin password
-  ansible.builtin.shell: |
-    echo '{{ range_admin_user }}:{{ range_admin_password }}' | chpasswd
+  ansible.builtin.command:
+    argv:
+      - /usr/sbin/chpasswd
+    stdin: "{{ range_admin_user }}:{{ range_admin_password }}"
   changed_when: true
   no_log: true
   become: true
