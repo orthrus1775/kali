@@ -11,18 +11,65 @@
   become: true
   become_method: sudo
 
-- name: "Clearing logs"
-  command: "rm -rf /var/log/*"
+- name: Set range_admin password
+  ansible.builtin.shell: |
+    echo '{{ range_admin_user }}:{{ range_admin_password }}' | chpasswd
+  changed_when: true
+  no_log: true
+  become: true
+  become_method: sudo
+  
+- name: Clear files in /tmp older than 1 day
+  shell: "find /tmp -mindepth 1 -mtime +0 -exec rm -rf {} +"
+  changed_when: false
   become: true
   become_method: sudo
 
-- name: "Clearing history"
-  command: "rm -f /root/.zsh_history"
+- name: Check for target user's bash history
+  stat:
+    path: "{{ c2_home }}/.bash_history"
+  register: user_bash_history
+
+- name: Truncate target user's bash history
+  copy:
+    content: ""
+    dest: "{{ c2_home }}/.bash_history"
+    owner: "{{ c2_user }}"
+    group: "{{ c2_user }}"
+    mode: '0600'
+  when: user_bash_history.stat.exists
+
+- name: Check for root bash history
+  stat:
+    path: /root/.bash_history
+  register: root_bash_history
   become: true
   become_method: sudo
 
-- name: "Clearing history"
-  command: "rm -f ~/.zsh_history"  
+- name: Truncate root bash history
+  copy:
+    content: ""
+    dest: /root/.bash_history
+    mode: '0600'
+  when: root_bash_history.stat.exists
+  become: true
+  become_method: sudo
+
+- name: "Clearing root zsh history"
+  file:
+    path: /root/.zsh_history
+    state: absent
+  become: true
+  become_method: sudo
+  
+- name: "Clearing target user's zsh history"
+  file:
+    path: "{{ c2_home }}/.zsh_history"
+    state: absent
+
+- name: Wipe log files (keep directory structure)
+  ansible.builtin.command: find /var/log/ -type f -delete
+  changed_when: true
 
 #- name: "Deleting buildprep in sudoers.d"
 #  file:
@@ -30,3 +77,11 @@
 #    state: absent
 #  become: true
 #  become_method: sudo
+
+- name: Shrink VMware disk (last seal step)
+  ansible.builtin.command: vmware-toolbox-cmd disk shrink /
+  async: 3600
+  poll: 15
+  register: disk_shrink
+  failed_when: false
+  changed_when: disk_shrink.rc == 0
