@@ -17,6 +17,11 @@
     url: "https://raw.githubusercontent.com/orthrus1775/RedWindows/main/Background.png"
     dest: "/home/{{ ansible_facts['user_id'] }}/Pictures/Background.png"
     mode: '0644'
+    timeout: 60
+  register: desktop_background
+  retries: 3
+  delay: 20
+  until: desktop_background is succeeded
 
 - name: "Set desktop background"
   ansible.builtin.shell:
