@@ -116,9 +116,21 @@
 #  become_method: sudo
 
 - name: Shrink VMware disk (last seal step)
-  ansible.builtin.command: vmware-toolbox-cmd disk shrink /
-  async: 3600
-  poll: 15
+  ansible.builtin.shell: |
+    set -eu
+    if ! command -v vmware-toolbox-cmd >/dev/null 2>&1; then
+      echo "vmware-toolbox-cmd not found" >&2
+      exit 0
+    fi
+    dd if=/dev/zero of=/EMPTY bs=1M status=none || true
+    rm -f /EMPTY
+    sync
+    vmware-toolbox-cmd disk shrink /
+  args:
+    executable: /bin/bash
+  become: true
+  become_method: sudo
+  timeout: 7200
   register: disk_shrink
   failed_when: false
   changed_when: disk_shrink.rc == 0
