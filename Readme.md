@@ -37,7 +37,7 @@ packer build -on-error=ask .
 packer build -var format=ova .
 ```
 
-The guest user is `attacker` / `GoCyber2026!!`. Bootstrap clones https://github.com/orthrus1775/kali.git to `/home/attacker/kali`.
+The guest user is `attacker` / `GoCyber2026!!`. Bootstrap clones the `CL2026` branch of https://github.com/orthrus1775/kali.git to `/home/attacker/kali`.
 
 Output is a VMware VM under `packer/output-kali` with 16 GiB RAM, a 128 GiB disk, NAT plus host-only NICs. Open the `.vmx` in Workstation. OVA export needs [OVF Tool](https://developer.broadcom.com/tools/open-virtualization-format-ovf-tool/latest) on PATH and `-var format=ova`.
 

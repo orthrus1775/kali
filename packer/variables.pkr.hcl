@@ -48,6 +48,12 @@ variable "git_repo" {
   description = "Cloned into ~/<repo-dir> during bootstrap."
 }
 
+variable "git_branch" {
+  type        = string
+  default     = "CL2026"
+  description = "Branch to check out when cloning git_repo."
+}
+
 variable "git_dir" {
   type        = string
   default     = "kali"

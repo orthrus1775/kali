@@ -96,6 +96,7 @@ build {
     environment_vars = [
       "BUILD_USER=${var.ssh_username}",
       "GIT_REPO=${var.git_repo}",
+      "GIT_BRANCH=${var.git_branch}",
       "GIT_DIR=${var.git_dir}",
     ]
     script = "${path.root}/scripts/bootstrap.sh"
