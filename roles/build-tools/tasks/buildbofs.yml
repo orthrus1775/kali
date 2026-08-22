@@ -61,3 +61,25 @@
   when: not reg_export_built.stat.exists
   become: true
   become_method: sudo
+
+- name: Find Aggressor .cna scripts under /opt/BOFs
+  ansible.builtin.find:
+    paths: /opt/BOFs
+    patterns: "*.cna"
+    recurse: true
+    file_type: file
+  register: bof_cnas
+  become: true
+  become_method: sudo
+
+- name: Collect CNA paths for the master loader
+  ansible.builtin.set_fact:
+    bof_cna_paths: "{{ bof_cnas.files | map(attribute='path') | reject('search', '/load_all\\.cna$') | list | sort }}"
+
+- name: Write master CNA that includes all BOF scripts
+  ansible.builtin.template:
+    src: load_all.cna.j2
+    dest: /opt/BOFs/load_all.cna
+    mode: '0644'
+  become: true
+  become_method: sudo
