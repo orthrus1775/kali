@@ -159,7 +159,10 @@
     - {repo: "https://git.churchofmalware.org/Nightmare_Eclipse/ShieldBreak.git", location: "/opt/NightmareEclipse/ShieldBreak" }
     - {repo: "https://github.com/Flangvik/RegPwnBOF.git", location: "/opt/BOFs/RegPwnBOF" }
     - {repo: "https://github.com/mdsecactivebreach/RegPwn.git", location: "/opt/RegPwn" }
-
+    - {repo: "https://github.com/boku7/HOLLOW.git", location: "/opt/BOFs/HOLLOW" }
+    - {repo: "https://github.com/boku7/injectAmsiBypass.git", location: "/opt/BOFs/injectAmsiBypass" }
+    - {repo: "https://github.com/boku7/injectEtwBypass.git", location: "/opt/BOFs/injectEtwBypass" }
+    - {repo: "https://github.com/connormcgarr/tgtdelegation.git", location: "/opt/BOFs/tgtdelegation" }
   become: true
   become_method: sudo
 
