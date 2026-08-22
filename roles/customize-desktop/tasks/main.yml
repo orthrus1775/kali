@@ -1,33 +1,119 @@
 ---
-# tasks file for customize-desktop
-# - name: "Copy PS profile"
-#   copy:
-#     src: "{{ role_path }}/files/"
-#     dest: "{{ ansible_facts['env']['HOME'] }}/.config/xfce4/xfconf/xfce-perchannel-xml/"
-#     force: yes
-
-- name: "Create Pictures directory"
+- name: Create user Pictures directory
   ansible.builtin.file:
-    path: "/home/{{ ansible_facts['user_id'] }}/Pictures"
+    path: "{{ desktop_home }}/Pictures"
     state: directory
-    mode: '0755'
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0755"
+  become: true
+  become_method: sudo
 
-- name: "Download desktop background"
-  ansible.builtin.get_url:
-    url: "https://raw.githubusercontent.com/orthrus1775/RedWindows/main/Background.png"
-    dest: "/home/{{ ansible_facts['user_id'] }}/Pictures/Background.png"
-    mode: '0644'
-    timeout: 60
-  register: desktop_background
-  retries: 3
-  delay: 20
-  until: desktop_background is succeeded
+- name: Install custom wallpaper directory
+  ansible.builtin.file:
+    path: /usr/share/backgrounds/kali-custom
+    state: directory
+    mode: "0755"
+  become: true
+  become_method: sudo
 
-- name: "Set desktop background"
-  ansible.builtin.shell:
-    cmd: |
-      xfconf-query -c xfce4-desktop -l | grep "last-image" | xargs -I{} xfconf-query -c xfce4-desktop -p {} -s "/home/{{ ansible_facts['user_id'] }}/Pictures/Background.png"
+- name: Install custom wallpaper
+  ansible.builtin.copy:
+    src: "{{ desktop_wallpaper_filename }}"
+    dest: "{{ desktop_wallpaper_path }}"
+    mode: "0644"
+  become: true
+  become_method: sudo
+
+- name: Copy wallpaper into the user Pictures folder
+  ansible.builtin.copy:
+    src: "{{ desktop_wallpaper_filename }}"
+    dest: "{{ desktop_home }}/Pictures/{{ desktop_wallpaper_filename }}"
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0644"
+  become: true
+  become_method: sudo
+
+- name: Point Kali default 16x9 wallpaper at the custom image
+  ansible.builtin.file:
+    src: "{{ desktop_wallpaper_path }}"
+    dest: /usr/share/backgrounds/kali-16x9/default
+    state: link
+    force: true
+  become: true
+  become_method: sudo
+  failed_when: false
+
+- name: Create user xfconf directory
+  ansible.builtin.file:
+    path: "{{ desktop_xfconf_dir }}"
+    state: directory
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0755"
+  become: true
+  become_method: sudo
+
+- name: Create system xfconf directory
+  ansible.builtin.file:
+    path: "{{ desktop_xdg_xfconf_dir }}"
+    state: directory
+    mode: "0755"
+  become: true
+  become_method: sudo
+
+- name: Install xfce4-desktop wallpaper config for the user
+  ansible.builtin.template:
+    src: xfce4-desktop.xml.j2
+    dest: "{{ desktop_xfconf_dir }}/xfce4-desktop.xml"
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0644"
+  become: true
+  become_method: sudo
+
+- name: Install xfce4-desktop wallpaper config system-wide
+  ansible.builtin.template:
+    src: xfce4-desktop.xml.j2
+    dest: "{{ desktop_xdg_xfconf_dir }}/xfce4-desktop.xml"
+    mode: "0644"
+  become: true
+  become_method: sudo
+
+- name: Install remaining XFCE channel configs
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ desktop_xfconf_dir }}/{{ item }}"
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0644"
+  loop:
+    - xfce4-panel.xml
+    - xfwm4.xml
+    - xfce4-keyboard-shortcuts.xml
+    - xfce4-notifyd.xml
+    - xfce4-power-manager.xml
+    - thunar.xml
+  become: true
+  become_method: sudo
+
+- name: Stop xfconfd so the XML is loaded on next session
+  ansible.builtin.command:
+    argv:
+      - pkill
+      - -u
+      - "{{ desktop_user }}"
+      - xfconfd
+  become: true
+  become_method: sudo
+  register: xfconfd_stop
+  changed_when: xfconfd_stop.rc == 0
+  failed_when: false
+
+- name: Reload xfdesktop if a session is running
+  ansible.builtin.command: xfdesktop --reload
   environment:
     DISPLAY: ":0.0"
     DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ ansible_facts['user_uid'] }}/bus"
-  ignore_errors: true
+  failed_when: false

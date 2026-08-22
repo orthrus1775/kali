@@ -1,2 +1,18 @@
 ---
-# defaults file for customize-desktop
+desktop_user: "{{ ansible_facts['user_id'] }}"
+desktop_group: "{{ ansible_facts['user_id'] }}"
+desktop_home: "/home/{{ desktop_user }}"
+desktop_wallpaper_filename: Background.png
+desktop_wallpaper_path: "/usr/share/backgrounds/kali-custom/{{ desktop_wallpaper_filename }}"
+desktop_xfconf_dir: "{{ desktop_home }}/.config/xfce4/xfconf/xfce-perchannel-xml"
+desktop_xdg_xfconf_dir: /etc/xdg/xfce4/xfconf/xfce-perchannel-xml
+desktop_monitors:
+  - monitor0
+  - monitor1
+  - monitorVirtual1
+  - monitorVirtual1-1
+  - monitorHDMI-0
+  - monitorHDMI-1
+  - monitorHDMI-A-1
+  - monitorDP-1
+  - monitorNone-1
