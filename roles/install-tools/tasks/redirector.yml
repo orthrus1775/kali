@@ -31,9 +31,20 @@
     remote_src: true 
   become: true
   become_method: sudo
-  
+
+- name: Install Apache and nginx
+  package:
+    name:
+      - apache2
+      - nginx
+    state: present
+  become: true
+  become_method: sudo
+
 - name: "Enabling Apache Mods"
-  command: "a2enmod {{ item }}"
+  ansible.builtin.command:
+    cmd: /usr/sbin/a2enmod {{ item }}
+    creates: /etc/apache2/mods-enabled/{{ item }}.load
   loop:
     - proxy
     - proxy_http
@@ -41,6 +52,17 @@
     - headers
     - ssl
     - cache
+  become: true
+  become_method: sudo
+
+- name: Stop and disable Apache and nginx
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: false
+  loop:
+    - apache2
+    - nginx
   become: true
   become_method: sudo
 

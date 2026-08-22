@@ -1,19 +1,10 @@
 ---
-- name: Check if dos2unix is installed
-  command: which dos2unix
-  register: dos2unix_check
-  ignore_errors: true
-  changed_when: false
-  become: true
-  become_method: sudo
-
-- name: Install dos2unix if not present
+- name: Install dos2unix
   package:
     name: dos2unix
     state: present
-  when: dos2unix_check.rc != 0
   become: true
-  become_method: sudo  
+  become_method: sudo
   
 - name: Copy the VSCode installation script
   copy:
