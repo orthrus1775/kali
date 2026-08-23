@@ -81,6 +81,16 @@
   become: true
   become_method: sudo
 
+- name: Install xfce4-panel config
+  ansible.builtin.template:
+    src: xfce4-panel.xml.j2
+    dest: "{{ desktop_xfconf_dir }}/xfce4-panel.xml"
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0644"
+  become: true
+  become_method: sudo
+
 - name: Install remaining XFCE channel configs
   ansible.builtin.copy:
     src: "{{ item }}"
@@ -89,12 +99,62 @@
     group: "{{ desktop_group }}"
     mode: "0644"
   loop:
-    - xfce4-panel.xml
-    - xfwm4.xml
+    - displays.xml
+    - thunar.xml
     - xfce4-keyboard-shortcuts.xml
     - xfce4-notifyd.xml
     - xfce4-power-manager.xml
-    - thunar.xml
+    - xsettings.xml
+    - xfwm4.xml
+  become: true
+  become_method: sudo
+
+- name: Create XFCE panel directory
+  ansible.builtin.file:
+    path: "{{ desktop_home }}/.config/xfce4/panel"
+    state: directory
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0755"
+  become: true
+  become_method: sudo
+
+- name: Create XFCE panel plugin directories
+  ansible.builtin.file:
+    path: "{{ desktop_home }}/.config/xfce4/panel/{{ item }}"
+    state: directory
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0755"
+  loop:
+    - launcher-5
+    - launcher-6
+    - launcher-7
+  become: true
+  become_method: sudo
+
+- name: Install panel genmon config
+  ansible.builtin.copy:
+    src: panel/genmon-15.rc
+    dest: "{{ desktop_home }}/.config/xfce4/panel/genmon-15.rc"
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0644"
+  become: true
+  become_method: sudo
+
+- name: Install panel launcher desktop files
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ desktop_home }}/.config/xfce4/panel/{{ item.dest }}"
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0644"
+  loop:
+    - { src: "panel/launcher-5/17875138811.desktop", dest: "launcher-5/17875138811.desktop" }
+    - { src: "panel/launcher-6/17875138812.desktop", dest: "launcher-6/17875138812.desktop" }
+    - { src: "panel/launcher-7/17875138813.desktop", dest: "launcher-7/17875138813.desktop" }
+    - { src: "panel/launcher-7/17875138814.desktop", dest: "launcher-7/17875138814.desktop" }
   become: true
   become_method: sudo
 

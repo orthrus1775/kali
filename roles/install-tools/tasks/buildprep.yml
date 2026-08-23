@@ -1,32 +1,65 @@
 ---
-  - name: Configure passwordless sudo
-    copy:
-      dest: /etc/sudoers.d/buildprep
-      content: "{{ ansible_facts['user_id'] }}    ALL=(ALL) NOPASSWD: ALL\n"
-      owner: root
-      group: root
-      mode: '0440'
-    become: true
-    become_method: sudo
+- name: Configure passwordless sudo
+  copy:
+    dest: /etc/sudoers.d/buildprep
+    content: "{{ ansible_facts['user_id'] }}    ALL=(ALL) NOPASSWD: ALL\n"
+    owner: root
+    group: root
+    mode: '0440'
+  become: true
+  become_method: sudo
 
-  - name: Ensure .ssh directory exists
-    file:
-      path: "{{ ansible_facts['env']['HOME'] }}/.ssh"
-      state: directory
-      owner: "{{ ansible_facts['user_id'] }}"
-      mode: '0700'
+- name: Ensure .ssh directory exists
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.ssh"
+    state: directory
+    owner: "{{ ansible_facts['user_id'] }}"
+    mode: '0700'
 
-  - name: Generate ed25519 SSH key pair
-    community.crypto.openssh_keypair:
-      path: "{{ ansible_facts['env']['HOME'] }}/.ssh/id_ed25519"
-      type: ed25519
-      comment: "{{ ansible_facts['user_id'] }}@{{ ansible_facts['hostname'] }}"
-      owner: "{{ ansible_facts['user_id'] }}"
+- name: Generate ed25519 SSH key pair
+  community.crypto.openssh_keypair:
+    path: "{{ ansible_facts['env']['HOME'] }}/.ssh/id_ed25519"
+    type: ed25519
+    comment: "{{ ansible_facts['user_id'] }}@{{ ansible_facts['hostname'] }}"
+    owner: "{{ ansible_facts['user_id'] }}"
 
-  - name: Create .ssh/config file
-    copy:
-      dest: "{{ ansible_facts['env']['HOME'] }}/.ssh/config"
-      content: ""
-      owner: "{{ ansible_facts['user_id'] }}"
-      mode: '0600'
-      force: false
+- name: Create .ssh/config file
+  copy:
+    dest: "{{ ansible_facts['env']['HOME'] }}/.ssh/config"
+    content: ""
+    owner: "{{ ansible_facts['user_id'] }}"
+    mode: '0600'
+    force: false
+
+- name: Enlarge bash history
+  ansible.builtin.lineinfile:
+    path: "{{ item.0 }}"
+    regexp: "{{ item.1.regexp }}"
+    line: "{{ item.1.line }}"
+  loop: "{{ bash_rc_files | product(bash_hist_lines) | list }}"
+  vars:
+    bash_rc_files:
+      - "{{ ansible_facts['env']['HOME'] }}/.bashrc"
+      - /root/.bashrc
+    bash_hist_lines:
+      - { regexp: '^HISTSIZE=', line: 'HISTSIZE=100000' }
+      - { regexp: '^HISTFILESIZE=', line: 'HISTFILESIZE=200000' }
+  become: true
+  become_method: sudo
+
+- name: Enlarge zsh history
+  ansible.builtin.lineinfile:
+    path: "{{ item.0 }}"
+    regexp: "{{ item.1.regexp }}"
+    line: "{{ item.1.line }}"
+  loop: "{{ zsh_rc_files | product(zsh_hist_lines) | list }}"
+  vars:
+    zsh_rc_files:
+      - "{{ ansible_facts['env']['HOME'] }}/.zshrc"
+      - /root/.zshrc
+    zsh_hist_lines:
+      - { regexp: '^HISTSIZE=', line: 'HISTSIZE=100000' }
+      - { regexp: '^SAVEHIST=', line: 'SAVEHIST=200000' }
+      - { regexp: '^HISTFILESIZE=', line: 'HISTFILESIZE=200000' }
+  become: true
+  become_method: sudo
