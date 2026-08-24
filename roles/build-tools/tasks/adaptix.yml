@@ -41,6 +41,13 @@
   become: true
   become_method: sudo
 
+- name: "Register CrystalForge in Extension-Kit"
+  ansible.builtin.command:
+    cmd: ./add_agent.sh CrystalForge
+    chdir: /opt/extension-kit
+  become: true
+  become_method: sudo
+
 - name: "Making setup script for Adaptix executable"
   ansible.builtin.shell:
     cmd: chmod +x ./pre_install_linux_all.sh
