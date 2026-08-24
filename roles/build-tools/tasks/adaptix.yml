@@ -23,6 +23,24 @@
   become: true
   become_method: sudo
 
+- name: "Backup Extension-Kit add_agent.sh"
+  ansible.builtin.copy:
+    src: /opt/extension-kit/add_agent.sh
+    dest: /opt/extension-kit/add_agent.sh.bak
+    remote_src: true
+    mode: "0755"
+  become: true
+  become_method: sudo
+  failed_when: false
+
+- name: "Deploy Extension-Kit add_agent.sh"
+  ansible.builtin.copy:
+    src: add_agent.sh
+    dest: /opt/extension-kit/add_agent.sh
+    mode: "0755"
+  become: true
+  become_method: sudo
+
 - name: "Making setup script for Adaptix executable"
   ansible.builtin.shell:
     cmd: chmod +x ./pre_install_linux_all.sh
@@ -53,6 +71,24 @@
   become: true
   become_method: sudo
 
+- name: Create Reflectra dist directory
+  ansible.builtin.file:
+    path: /opt/reflectra/dist
+    state: directory
+    mode: "0755"
+  become: true
+  become_method: sudo
+
+- name: Install Reflectra dist link wrapper
+  ansible.builtin.copy:
+    dest: /opt/reflectra/dist/link
+    mode: "0755"
+    content: |
+      #!/usr/bin/env bash
+      exec "$(dirname "$0")/../crystalpalace/cpl" link "$@"
+  become: true
+  become_method: sudo
+
 - name: "Clone CrystalForge into Adaptix extenders"
   ansible.builtin.git:
     repo: "https://github.com/k1ng0fn0th1ng/CrystalForge.git"
@@ -75,7 +111,25 @@
     cmd: make all
     chdir: /opt/AdaptixC2
   become: true
-  become_method: sudo   
+  become_method: sudo
+
+- name: "Create CrystalForge crystal_palace directory"
+  ansible.builtin.file:
+    path: /opt/AdaptixC2/dist/extenders/CrystalForge/crystal_palace
+    state: directory
+    mode: "0755"
+  become: true
+  become_method: sudo
+
+- name: "Install CrystalForge crystal_palace link wrapper"
+  ansible.builtin.copy:
+    dest: /opt/AdaptixC2/dist/extenders/CrystalForge/crystal_palace/link
+    mode: "0755"
+    content: |
+      #!/usr/bin/env bash
+      exec "$(dirname "$0")/cpl" link "$@"
+  become: true
+  become_method: sudo
 
 - name: "Build Kharon for Adaptix"
   ansible.builtin.shell:
