@@ -13,7 +13,7 @@
 - name: "Installing Kali Packages"
   package:
     name:
-      # - kali-linux-everything
+      - kali-linux-everything
       # - kali-linux-labs
       # - kali-linux-large
       # - kali-system-cli
@@ -138,6 +138,7 @@
       - whatweb
       - wget
       - whois
+      - xxd
     state: latest
   become: true
   become_method: sudo
