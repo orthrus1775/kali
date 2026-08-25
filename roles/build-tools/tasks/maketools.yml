@@ -117,6 +117,14 @@
   become: true
   become_method: sudo
 
+- name: "Copy coverfiles to /opt"
+  ansible.builtin.copy:
+    src: files/coverfiles/
+    dest: /opt/coverfiles/
+    mode: preserve
+  become: true
+  become_method: sudo
+
 - name: "Deploy deploy-keys.sh script"
   copy:
     src: files/deploy-keys.sh
