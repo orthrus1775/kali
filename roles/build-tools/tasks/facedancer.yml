@@ -1,23 +1,74 @@
 ---
+# FaceDancer attack mode pins generated crates to rustc 1.85.0 via rust-toolchain.toml.
+# Prefetch toolchain + vendored crates while the image still has internet.
+
+- name: "Install Rust 1.85.0 with clippy, rustfmt, and Windows GNU std"
+  ansible.builtin.shell:
+    cmd: >
+      export PATH=$HOME/.cargo/bin:$PATH &&
+      rustup toolchain install 1.85.0 --component rustfmt,clippy &&
+      rustup target add x86_64-pc-windows-gnu --toolchain 1.85.0
+  ignore_errors: true
+
 - name: "Build FaceDancer"
   ansible.builtin.shell:
     cmd: "export PATH=$HOME/.cargo/bin:$PATH && cargo build --release"
     chdir: /opt/FaceDancer
-  ignore_errors: true  
+  ignore_errors: true
 
-- name: "Copy FaceDancer"
+- name: "Copy FaceDancer binary"
   copy:
     src: /opt/FaceDancer/target/release/FaceDancer
     dest: /opt/FaceDancer/FaceDancer
-  ignore_errors: true  
+    mode: "0755"
+    remote_src: true
+  ignore_errors: true
 
-- name: "Creating symlinks"
+- name: "Install FaceDancer offline wrapper"
+  copy:
+    src: FaceDancer-wrapper.sh
+    dest: /opt/FaceDancer/FaceDancer-wrapper.sh
+    mode: "0755"
+
+- name: "Copy FaceDancer offline crate"
+  copy:
+    src: facedancer-offline-crate/
+    dest: /opt/facedancer-offline-crate/
+    directory_mode: "0755"
+
+- name: "Create FaceDancer cargo home"
   ansible.builtin.file:
-    src: "{{ item.src }}"
-    path: "{{ item.dst }}"
+    path: /opt/facedancer-cargo-home
+    state: directory
+    mode: "0755"
+
+- name: "Install FaceDancer cargo config for vendored crates"
+  copy:
+    src: facedancer-cargo-home-config.toml
+    dest: /opt/facedancer-cargo-home/config.toml
+    mode: "0644"
+
+- name: "Vendor FaceDancer payload crates for offline builds"
+  ansible.builtin.shell:
+    cmd: |
+      export PATH=$HOME/.cargo/bin:$PATH
+      cargo generate-lockfile
+      cargo vendor --locked /opt/facedancer-vendor
+      touch /opt/facedancer-vendor/.facedancer-vendored
+    chdir: /opt/facedancer-offline-crate
+  args:
+    creates: /opt/facedancer-vendor/.facedancer-vendored
+  ignore_errors: true
+
+- name: "Creating FaceDancer symlinks"
+  ansible.builtin.file:
+    src: /opt/FaceDancer/FaceDancer-wrapper.sh
+    path: "{{ item }}"
     state: link
+    force: true
   loop:
-    - { src: /opt/FaceDancer/FaceDancer, dst: /usr/bin/FaceDancer }
+    - /usr/bin/FaceDancer
+    - /usr/bin/Facedancer
   become: true
   become_method: sudo
-  ignore_errors: true 
+  ignore_errors: true

@@ -158,6 +158,27 @@
   become: true
   become_method: sudo
 
+- name: Create user gtk-3.0 config directory
+  ansible.builtin.file:
+    path: "{{ desktop_home }}/.config/gtk-3.0"
+    state: directory
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0755"
+  become: true
+  become_method: sudo
+
+- name: Add BOFs bookmark to Thunar Places
+  ansible.builtin.lineinfile:
+    path: "{{ desktop_home }}/.config/gtk-3.0/bookmarks"
+    line: "file:///opt/BOFs BOFs"
+    create: true
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_group }}"
+    mode: "0644"
+  become: true
+  become_method: sudo
+
 - name: Stop xfconfd so the XML is loaded on next session
   ansible.builtin.command:
     argv:
