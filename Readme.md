@@ -52,6 +52,37 @@ cd ~/kali
 
 `-K` prompts for the become password. The Packer image also has passwordless sudo for the build user.
 
+### Networking issues
+
+If eth0 is not getting a DHCP address, comment out eth0
+
+```
+auto lo
+iface lo inet loopback
+
+#auto eth0
+#iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+    address 10.10.10.40
+    netmask 255.255.255.0
+    up ip route replace 192.168.57.0/24 via 10.10.10.1 dev eth1
+    up ip route replace 30.30.30.0/24 via 10.10.10.1 dev eth1
+```
+
+Run this and eth0 should come back online
+
+```
+sudo killall dhcpcd 2>/dev/null
+sudo ip addr flush dev eth0
+sudo ip route del default dev eth0 2>/dev/null
+sudo systemctl restart NetworkManager
+nmcli device connect eth0
+ip -4 addr show eth0
+ip route
+```
+
 ## Edit based on individual requirements
 
 [Kali Meta Packages](./roles/install-tools/tasks/apt-stuff.yml)

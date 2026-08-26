@@ -160,3 +160,13 @@
   delay: 10
   until: regpwn_build.rc == 0
   ignore_errors: true  
+
+- name: "Make EDRSilencer"
+  ansible.builtin.shell:
+    cmd: x86_64-w64-mingw32-gcc EDRSilencer.c utils.c -o EDRSilencer.exe -lfwpuclnt
+    chdir: /opt/EDRSilencer
+  register: edrsilencer_build
+  retries: 3
+  delay: 10
+  until: edrsilencer_build.rc == 0
+  ignore_errors: true  

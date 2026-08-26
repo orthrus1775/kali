@@ -1,0 +1,23 @@
+---
+- name: "Create FacePrancer virtual environment and install"
+  ansible.builtin.shell:
+    cmd: |
+      python3 -m venv .venv
+      .venv/bin/pip install --upgrade pip
+      .venv/bin/pip install .
+    chdir: /opt/FacePrancer
+    executable: /bin/bash
+  ignore_errors: true
+
+- name: "Creating FacePrancer symlink"
+  ansible.builtin.file:
+    src: /opt/FacePrancer/.venv/bin/faceprancer
+    path: "{{ item }}"
+    state: link
+    force: true
+  loop:
+    - /usr/bin/faceprancer
+    - /usr/bin/FacePrancer
+  become: true
+  become_method: sudo
+  ignore_errors: true
