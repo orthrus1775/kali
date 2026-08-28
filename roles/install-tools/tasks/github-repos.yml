@@ -41,7 +41,7 @@
     - { repo: "https://github.com/outflanknl/EvilClippy.git", location: "/opt/EvilClippy" }
     - { repo: "https://github.com/Adaptix-Framework/Extension-Kit" , location: "/opt/extension-kit" }
     - { repo: "https://github.com/Tylous/FaceDancer.git", location: "/opt/FaceDancer" }
-    - { repo: "https://github.com/orthrus1775/FacePrancer.git", location: "/opt/FacePrancer" }
+    # - { repo: "https://github.com/orthrus1775/FacePrancer.git", location: "/opt/FacePrancer" }
     - { repo: "https://github.com/GhostPack/ForgeCert.git", location: "/opt/ForgeCert" }
     - { repo: "https://github.com/Tylous/Freeze.rs.git", location: "/opt/freeze"}
     - { repo: "https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git", location: "/opt/Ghostpack"}
@@ -164,6 +164,7 @@
     - {repo: "https://github.com/boku7/injectAmsiBypass.git", location: "/opt/BOFs/injectAmsiBypass" }
     - {repo: "https://github.com/boku7/injectEtwBypass.git", location: "/opt/BOFs/injectEtwBypass" }
     - {repo: "https://github.com/connormcgarr/tgtdelegation.git", location: "/opt/BOFs/tgtdelegation" }
+    - {repo: "https://github.com/jpillora/opts.git", location: "/opt/opts" }
   become: true
   become_method: sudo
 
@@ -186,9 +187,9 @@
     - { repo: "lkarlslund/Adalanche", regex: "adalanche-collector-windows-x64-latestrelease-", location: "/opt/Adalanche" }
     - { repo: "praetorian-inc/swarmer", regex: "swarmer.exe", location: "/opt/swarmer"}
     - { repo: "stormshield/HiveSwarming", regex: "HiveSwarming.exe", location: "/opt/HiveSwarming"}
-    - { repo: "jpillora/chisel",  regex: "_linux_amd64.gz", location: "/opt/chisel" }
-    - { repo: "jpillora/chisel",  regex: "_windows_amd64.gz", location: "/opt/chisel" }
-    - { repo: "jpillora/chisel",  regex: "_darwin_amd64", location: "/opt/chisel", filename: "chisel_osx" }
+    # - { repo: "jpillora/chisel",  regex: "_linux_amd64.gz", location: "/opt/chisel" }
+    # - { repo: "jpillora/chisel",  regex: "_windows_amd64.gz", location: "/opt/chisel" }
+    # - { repo: "jpillora/chisel",  regex: "_darwin_amd64", location: "/opt/chisel", filename: "chisel_osx" }
   async: 45
   poll: 0
   become: true
