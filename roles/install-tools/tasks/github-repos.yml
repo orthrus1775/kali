@@ -186,6 +186,9 @@
     - { repo: "lkarlslund/Adalanche", regex: "adalanche-collector-windows-x64-latestrelease-", location: "/opt/Adalanche" }
     - { repo: "praetorian-inc/swarmer", regex: "swarmer.exe", location: "/opt/swarmer"}
     - { repo: "stormshield/HiveSwarming", regex: "HiveSwarming.exe", location: "/opt/HiveSwarming"}
+    - { repo: "jpillora/chisel",  regex: "_linux_amd64.gz", location: "/opt/chisel" }
+    - { repo: "jpillora/chisel",  regex: "_windows_amd64.gz", location: "/opt/chisel" }
+    - { repo: "jpillora/chisel",  regex: "_darwin_amd64", location: "/opt/chisel", filename: "chisel_osx" }
   async: 45
   poll: 0
   become: true

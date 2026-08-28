@@ -59,16 +59,16 @@
   become: true
   become_method: sudo   
 
-- name: "Compile Chisel"
-  ansible.builtin.shell:
-    cmd: |
-      make dep
-      make linux
-      make windows
-    chdir: /opt/chisel
-    executable: /bin/bash
-  become: true
-  become_method: sudo
+# - name: "Compile Chisel"
+#   ansible.builtin.shell:
+#     cmd: |
+#       make dep
+#       make linux
+#       make windows
+#     chdir: /opt/chisel
+#     executable: /bin/bash
+#   become: true
+#   become_method: sudo
 
 - name: "Compile go-cookie-monster"
   ansible.builtin.shell:
