@@ -77,4 +77,5 @@ Host $service_name
      PubkeyAuthentication yes
 EOF
 
+chmod 600 "$ssh_config"
 echo "[*] Added Host '${service_name}' (${ip_address}) to ${ssh_config}"

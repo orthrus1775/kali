@@ -51,6 +51,8 @@
     - { src: "/opt/scripts/deploy-keys.sh", dst: /usr/bin/deploy-keys }
     - { src: "/opt/scripts/config-ssh.sh", dst: /usr/bin/config-ssh }
     - { src: "/opt/scripts/config-infrax.sh", dst: /usr/bin/config-infrax }
+    - { src: "/opt/scripts/create-tunnel.sh", dst: /usr/bin/create-tunnel }
+    - { src: "/opt/scripts/check-tunnel.sh", dst: /usr/bin/check-tunnel }
   become: true
   become_method: sudo
   ignore_errors: true 

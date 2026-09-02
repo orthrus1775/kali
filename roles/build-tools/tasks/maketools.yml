@@ -125,27 +125,17 @@
   become: true
   become_method: sudo
 
-- name: "Deploy deploy-keys.sh script"
-  copy:
-    src: files/deploy-keys.sh
-    dest: /opt/scripts/deploy-keys.sh
-    mode: '0755'
-  become: true
-  become_method: sudo
-
-- name: "Deploy config-ssh.sh script"
-  copy:
-    src: files/config-ssh.sh
-    dest: /opt/scripts/config-ssh.sh
-    mode: '0755'
-  become: true
-  become_method: sudo
-
-- name: "Deploy config-infrax.sh script"
-  copy:
-    src: files/config-infrax.sh
-    dest: /opt/scripts/config-infrax.sh
-    mode: '0755'
+- name: "Deploy operator scripts to /opt/scripts"
+  ansible.builtin.copy:
+    src: "files/{{ item }}"
+    dest: "/opt/scripts/{{ item }}"
+    mode: "0755"
+  loop:
+    - deploy-keys.sh
+    - config-ssh.sh
+    - config-infrax.sh
+    - create-tunnel.sh
+    - check-tunnel.sh
   become: true
   become_method: sudo
 
