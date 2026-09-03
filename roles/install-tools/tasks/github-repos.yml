@@ -166,6 +166,8 @@
     - {repo: "https://github.com/connormcgarr/tgtdelegation.git", location: "/opt/BOFs/tgtdelegation" }
     - {repo: "https://github.com/jpillora/opts.git", location: "/opt/opts" }
     - {repo: "https://github.com/MatheuZSecurity/Singularity" , location: "/opt/Singularity" }
+    - {repo: "https://github.com/SubRosaLabs/HolePunch.git", location: "/opt/HolePunch" }
+    - {repo: "https://github.com/iagox86/dnscat2.git", location: "/opt/dnscat2" }
   become: true
   become_method: sudo
 

@@ -160,3 +160,15 @@
   delay: 10
   until: edrsilencer_build.rc == 0
   ignore_errors: true  
+
+- name: "Make HolePunch"
+  ansible.builtin.shell:
+    cmd: |
+      make build
+      make release
+    chdir: /opt/HolePunch
+  register: holepunch_build
+  retries: 3
+  delay: 10
+  until: holepunch_build.rc == 0
+  ignore_errors: true  
