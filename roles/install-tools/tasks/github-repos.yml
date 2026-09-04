@@ -168,6 +168,7 @@
     - {repo: "https://github.com/MatheuZSecurity/Singularity" , location: "/opt/Singularity" }
     - {repo: "https://github.com/SubRosaLabs/HolePunch.git", location: "/opt/HolePunch" }
     - {repo: "https://github.com/iagox86/dnscat2.git", location: "/opt/dnscat2" }
+    - {repo: "https://github.com/randomaccessvemuri/F.E.V", location: "/opt/FEV" }
   become: true
   become_method: sudo
 

@@ -29,21 +29,21 @@ d-i user-setup/allow-password-weak boolean true
 d-i user-setup/encrypt-home boolean false
 d-i passwd/user-default-shell string /bin/zsh
 
-d-i apt-setup/non-free boolean true
-d-i apt-setup/contrib boolean true
-d-i apt-setup/disable-cdrom-entries boolean true
-d-i apt-setup/use_mirror boolean true
-d-i apt-setup/cdrom/set-first boolean false
+# Install from the ISO only. Mixing the 2026.2 CD with kali-rolling
+# makes tasksel fail (e.g. openssh-client vs openssh-client-gssapi).
+d-i apt-setup/use_mirror boolean false
+d-i apt-setup/services-select multiselect
+d-i apt-setup/cdrom/set-first boolean true
 d-i apt-setup/cdrom/set-next boolean false
 d-i apt-setup/cdrom/set-failed boolean false
-d-i mirror/country string enter information manually
+d-i mirror/country string manual
 d-i mirror/http/hostname string http.kali.org
 d-i mirror/http/directory string /kali
 d-i mirror/http/proxy string
 
-tasksel tasksel/first multiselect standard
-d-i pkgsel/include string kali-desktop-xfce zsh openssh-server sudo git ansible python3-apt open-vm-tools-desktop curl ca-certificates
-d-i pkgsel/upgrade select full-upgrade
+tasksel tasksel/first multiselect standard,core,desktop-xfce,meta-default
+d-i pkgsel/include string openssh-server sudo zsh
+d-i pkgsel/upgrade select none
 d-i pkgsel/update-policy select none
 d-i pkgsel/language-packs string
 
@@ -59,4 +59,5 @@ d-i preseed/late_command string \
     in-target sh -c 'echo "${username} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${username}'; \
     in-target chmod 0440 /etc/sudoers.d/${username}; \
     in-target chsh -s /bin/zsh ${username}; \
+    in-target sh -c 'echo "deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" > /etc/apt/sources.list'; \
     in-target systemctl enable ssh
