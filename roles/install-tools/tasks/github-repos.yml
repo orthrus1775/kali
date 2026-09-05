@@ -169,6 +169,8 @@
     - {repo: "https://github.com/SubRosaLabs/HolePunch.git", location: "/opt/HolePunch" }
     - {repo: "https://github.com/iagox86/dnscat2.git", location: "/opt/dnscat2" }
     - {repo: "https://github.com/randomaccessvemuri/F.E.V", location: "/opt/FEV" }
+    - {repo: "https://github.com/0xthirteen/WMI_Proc_Dump.git", location: "/opt/WMI_Proc_Dump" }
+    - {repo: "https://github.com/0xthirteen/mtprocess.git", location: "/opt/mtprocess" }
   become: true
   become_method: sudo
 
