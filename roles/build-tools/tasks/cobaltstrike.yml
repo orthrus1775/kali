@@ -86,6 +86,9 @@
   ansible.builtin.shell:
     cmd: |
       chmod +x install
+      mkdir -p /usr/local/bin
+      sed -i 's|^BIN_DIR=.*|BIN_DIR=/usr/local/bin|' install
+      export PATH="/usr/local/bin:${PATH}"
       ./install
     chdir: /opt/Crystal-Kit/crystalpalace
   become: true
