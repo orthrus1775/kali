@@ -163,16 +163,32 @@
   become: true
   become_method: sudo
 
-- name: "Copy AdaptixClient to Desktop"
+- name: "Install AdaptixClient desktop launcher"
   ansible.builtin.copy:
-    src: /opt/AdaptixC2/dist/AdaptixClient
-    dest: "/home/{{ ansible_facts['user_id'] }}/Desktop/"
-    remote_src: yes
+    dest: "/home/{{ ansible_facts['user_id'] }}/Desktop/AdaptixClient.desktop"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    mode: "0755"
+    content: |
+      [Desktop Entry]
+      Version=1.0
+      Type=Application
+      Name=AdaptixClient
+      Comment=
+      Exec=/opt/AdaptixC2/dist/AdaptixClient
+      Icon=/opt/AdaptixC2/AdaptixClient/Resources/Logo.png
+      Path=/opt/AdaptixC2/dist
+      Terminal=false
+      StartupNotify=false
 
-- name: "Make AdaptixClient executable"
-  ansible.builtin.file:
-    path: "/home/{{ ansible_facts['user_id'] }}/Desktop/AdaptixClient"
-    mode: '0755'
+- name: "Trust AdaptixClient desktop launcher"
+  ansible.builtin.shell:
+    cmd: |
+      f="/home/{{ ansible_facts['user_id'] }}/Desktop/AdaptixClient.desktop"
+      gio set -t string "$f" metadata::xfce-exe-checksum "$(sha256sum "$f" | awk '{print $1}')"
+  become: true
+  become_user: "{{ ansible_facts['user_id'] }}"
+  become_method: sudo
 
 - name: "Create Adaptix Certificates"
   ansible.builtin.shell:
