@@ -64,3 +64,46 @@
   ansible.builtin.debug:
     msg: "WARNING: Expected Java 17 but got: {{ java_version_output.stdout }}"
   when: "'17.' not in java_version_output.stdout"
+
+# Fix Crystal Kit
+- name: "Download Crystal Palace"
+  ansible.builtin.get_url:
+    url: https://tradecraftgarden.org/download/cpdist-latest.tgz
+    dest: /opt/Crystal-Kit/cpdist-latest.tgz
+    mode: "0644"
+  become: true
+  become_method: sudo
+
+- name: "Unpack Crystal Palace"
+  ansible.builtin.unarchive:
+    src: /opt/Crystal-Kit/cpdist-latest.tgz
+    dest: /opt/Crystal-Kit
+    remote_src: true
+  become: true
+  become_method: sudo
+
+- name: "Install Crystal Palace"
+  ansible.builtin.shell:
+    cmd: |
+      chmod +x install
+      ./install
+    chdir: /opt/Crystal-Kit/crystalpalace
+  become: true
+  become_method: sudo
+
+- name: "Install Crystal Palace link wrapper"
+  ansible.builtin.copy:
+    dest: /opt/Crystal-Kit/crystalpalace/link
+    mode: "0755"
+    content: |
+      #!/usr/bin/env bash
+      exec "$(dirname "$0")/cpl" link "$@"
+  become: true
+  become_method: sudo
+
+- name: "Build Crystal Kit"
+  ansible.builtin.shell:
+    cmd: make
+    chdir: /opt/Crystal-Kit
+  become: true
+  become_method: sudo
