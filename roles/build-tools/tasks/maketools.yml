@@ -23,6 +23,18 @@
   become: true
   become_method: sudo
 
+- name: "Setup PackMyPayload virtual environment"
+  ansible.builtin.shell:
+    cmd: |
+      python3 -m venv .venv
+      source .venv/bin/activate
+      pip install -r requirements.txt
+      deactivate
+    chdir: /opt/PackMyPayload
+    executable: /bin/bash
+  become: true
+  become_method: sudo
+
 - name: "Setup bofhound virtual environment"
   ansible.builtin.shell:
     cmd: |

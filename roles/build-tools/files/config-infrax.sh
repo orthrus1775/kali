@@ -55,6 +55,7 @@ bootstrap_opfor() {
         export SSHPASS
     fi
 
+    setup_host teamserver 30.30.30.30 attacker "$key_path"
     setup_host redirector01 30.30.30.30 attacker "$key_path"
     setup_host redirector02 30.30.30.31 attacker "$key_path"
     setup_host redirector03 30.30.30.31 attacker "$key_path"

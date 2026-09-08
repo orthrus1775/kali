@@ -74,6 +74,7 @@
     - { repo: "https://github.com/Ridter/noPac" , location: "/opt/noPac/linux"}
     - { repo: "https://github.com/bitsadmin/nopowershell.git", location: "/opt/nopowershell" }
     - { repo: "https://github.com/REDMED-X/OperatorsKit.git", location: "/opt/BOFs/OperatorsKit" }
+    - { repo: "https://github.com/mgeeky/PackMyPayload.git", location: "/opt/PackMyPayload" }
     - { repo: "https://github.com/VoldeSec/PatchlessInlineExecute-Assembly.git", location: "/opt/BOFs/PatchlessInlineExecute-Assembly" }
     - { repo: "https://github.com/ly4k/PetitPotam" , location: "/opt/PetitPotam"}
     - { repo: "https://github.com/dirkjanm/PKINITtools", location: "/opt/PKINITtools"}
