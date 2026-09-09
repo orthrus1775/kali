@@ -40,7 +40,7 @@ source "vmware-iso" "kali" {
 
   vm_name              = var.vm_name
   guest_os_type        = "debian12-64"
-  version              = "21"
+  version              = "20"
   cpus                 = var.cpus
   memory               = var.memory
   disk_size            = var.disk_size
