@@ -20,6 +20,11 @@
     cmd: go build Limelighter.go
     chdir: /opt/limelighter
 
+- name: "Build YoinkLighter"
+  ansible.builtin.shell:
+    cmd: go build YoinkLighter.go
+    chdir: /opt/YoinkLighter
+
 - name: Remove temporary build directory
   ansible.builtin.file:
     path: "{{ build_dir.path }}"
@@ -32,7 +37,8 @@
     path: "{{ item.dst }}"
     state: link
   loop:
-    - { src: /opt/limelighter/Limelighter, dst: /usr/bin/Limelighter } 
+    - { src: /opt/limelighter/Limelighter, dst: /usr/bin/Limelighter }
+    - { src: /opt/YoinkLighter/YoinkLighter, dst: /usr/bin/YoinkLighter } 
   become: true
   become_method: sudo
   ignore_errors: true 

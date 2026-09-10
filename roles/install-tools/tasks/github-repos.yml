@@ -136,7 +136,7 @@
     - { repo: "https://github.com/eladshamir/Whisker", location: "/opt/whisker"}
     - { repo: "https://github.com/JPCERTCC/Windows-Symbol-Tables.git", location: "/opt/winsymbols"}
     - { repo: "https://github.com/XiaoliChan/wmiexec-Pro.git", location: "/opt/sccm/wmiexec-pro"}
-    - { repo: "https://github.com/SavSanta/YoinkLighter.git", location: "/opt/YoinkLighter" }
+    - { repo: "https://github.com/orthrus1775/YoinkLighter.git", location: "/opt/YoinkLighter" }
     - { repo: "https://github.com/entropy-z/Kharon.git", location: "/opt/Kharon" }
     - { repo: "https://github.com/entropy-z/PostEx-Arsenal.git", location: "/opt/PostEx-Arsenal" }
     - { repo: "https://github.com/vari-sh/RedTeamGrimoire.git", location: "/opt/RedTeamGrimoire" } 
