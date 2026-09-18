@@ -22,13 +22,3 @@ if [ ! -d "${CLONE_PATH}/.git" ]; then
 fi
 
 chown -R "${BUILD_USER}:${BUILD_USER}" "${CLONE_PATH}"
-
-cat >/etc/motd <<EOF
-Kali image from Packer.
-
-Customization repo: ${CLONE_PATH}
-
-  cd ~/${GIT_DIR}
-  ansible-playbook main.yml -K
-
-EOF

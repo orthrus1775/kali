@@ -35,6 +35,18 @@
   become: true
   become_method: sudo
 
+- name: "Setup SoaPy virtual environment"
+  ansible.builtin.shell:
+    cmd: |
+      python3 -m venv .venv
+      source .venv/bin/activate
+      pip install .
+      deactivate
+    chdir: /opt/SoaPy
+    executable: /bin/bash
+  become: true
+  become_method: sudo
+
 - name: "Setup bofhound virtual environment"
   ansible.builtin.shell:
     cmd: |

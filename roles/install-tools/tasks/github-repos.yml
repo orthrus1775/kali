@@ -121,6 +121,8 @@
     - { repo: "https://github.com/GhostPack/SharpWMI.git", location: "/opt/SharpTools/SharpWMI" }
     - { repo: "https://github.com/secretsquirrel/SigThief.git", location: "/opt/sigthief"}
     - { repo: "https://github.com/zyn3rgy/smbtakeover.git", location: "/opt/BOFs/smbtakeover"}
+    - { repo: "https://github.com/FalconForceTeam/SOAPHound.git", location: "/opt/SOAPHound" }
+    - { repo: "https://github.com/xforcered/SoaPy.git", location: "/opt/SoaPy" }
     - { repo: "https://github.com/skahwah/SQLRecon.git", location: "/opt/SQLRecon" }
     - { repo: "https://github.com/FuzzySecurity/StandIn.git", location: "/opt/StandIn" }
     - { repo: "https://github.com/MaorSabag/Adaptix-StealthPalace", location: "/opt/adaptix_stealthpalace"}
