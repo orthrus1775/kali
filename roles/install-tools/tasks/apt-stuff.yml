@@ -94,6 +94,7 @@
       - mage
       - mesa-common-dev
       - mingw-w64
+      - msitools
       - gcc-mingw-w64-x86-64
       - mono-devel
       - nasm
