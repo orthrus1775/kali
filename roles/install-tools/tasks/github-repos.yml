@@ -175,6 +175,7 @@
     - {repo: "https://github.com/0xthirteen/WMI_Proc_Dump.git", location: "/opt/WMI_Proc_Dump" }
     - {repo: "https://github.com/0xthirteen/mtprocess.git", location: "/opt/mtprocess" }
     - {repo: "https://github.com/ccelikanil/DFMI.git", location: "/opt/DFMI" }
+    - {repo: "https://github.com/S3N4T0R-0X0/PixelCode-Attack.git", location: "/opt/PixelCode-Attack" }
   become: true
   become_method: sudo
 
