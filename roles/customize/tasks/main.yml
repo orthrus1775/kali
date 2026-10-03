@@ -1,0 +1,5 @@
+---
+- import_tasks: tmux.yml
+- import_tasks: terminal.yml
+- import_tasks: burp.yml
+- import_tasks: firefox.yml

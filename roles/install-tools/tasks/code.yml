@@ -44,6 +44,12 @@
     - ms-dotnettools.csharp
     - rust-lang.rust-analyzer
     - redhat.vscode-yaml
+    - golang.go
+    - ms-vscode.makefile-tools
+    - ms-vscode.powershell
+    - ms-azuretools.vscode-docker
+    - timonwong.shellcheck
+    - tamasfe.even-better-toml
   ignore_errors: true
 
 - name: Download dotnet-install.sh

@@ -5,19 +5,13 @@
     source: "{{ item.url }}"
     state: install
     system_site_packages: true
-  loop:
-    - { name: 'adidnsdump', url: 'git+https://github.com/dirkjanm/adidnsdump.git' }
-    - { name: 'wesng', url: 'git+https://github.com/bitsadmin/wesng.git' }  
-    - { name: 'bloodyAD', url: 'git+https://github.com/CravateRouge/bloodyAD.git'}
+  loop: "{{ pipx_git_tools }}"
   ignore_errors: true
 
 - name: "Install pipx tools from package"
-  vars:
-    pipx_packages:
-      - updog
   community.general.pipx:
     name: "{{ item }}"
     state: latest
     system_site_packages: true
-  with_items: "{{ pipx_packages }}"
-  ignore_errors: true  
+  loop: "{{ pipx_packages }}"
+  ignore_errors: true

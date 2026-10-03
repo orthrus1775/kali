@@ -12,7 +12,11 @@
     mode: '0755'
 
 - name: "Recursively change ownership and permissions of /opt/"
-  ansible.builtin.command:
-    cmd: "chown -R {{ ansible_facts['user_id'] }}:{{ ansible_facts['user_id'] }} /opt/" 
+  ansible.builtin.file:
+    path: /opt
+    state: directory
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    recurse: true
   become: true
-  become_method: sudo    
+  become_method: sudo 

@@ -4,13 +4,9 @@
   connection: local
   roles:
     - role: "roles/install-tools"
-    - role: "roles/configure-tmux"
-    - role: "roles/customize-terminal"
-    - role: "roles/customize-browser"
+    - role: "roles/customize"
     # - role: "roles/configure-logging"
     - role: "roles/customize-desktop"
       tags: customize-desktop
     - role: "roles/build-tools"
     - role: "roles/cleanup"
-
-

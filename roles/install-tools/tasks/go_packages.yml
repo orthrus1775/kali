@@ -1,25 +1,6 @@
 ---
-- name: "go install Kerbrute"
+- name: "go install packages"
   ansible.builtin.shell:
-    cmd: go install github.com/ropnop/kerbrute@latest
-  ignore_errors: true  
-
-- name: "go install garble"
-  ansible.builtin.shell:
-    cmd: go install mvdan.cc/garble@latest
-  ignore_errors: true  
-
-- name: "go install GoBuster"
-  ansible.builtin.shell:
-    cmd: go install github.com/OJ/gobuster/v3@latest
-  ignore_errors: true  
-
-- name: "go install GoWitness"
-  ansible.builtin.shell:
-    cmd: go install github.com/sensepost/gowitness@latest
-  ignore_errors: true  
-
-- name: "go install LDAPNomNom"
-  ansible.builtin.shell:
-    cmd: go install github.com/lkarlslund/ldapnomnom@latest
+    cmd: "go install {{ item }}"
+  loop: "{{ go_packages }}"
   ignore_errors: true

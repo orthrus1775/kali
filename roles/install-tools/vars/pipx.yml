@@ -1,0 +1,8 @@
+---
+pipx_git_tools:
+    - { name: 'adidnsdump', url: 'git+https://github.com/dirkjanm/adidnsdump.git' }
+    - { name: 'wesng', url: 'git+https://github.com/bitsadmin/wesng.git' }  
+    - { name: 'bloodyAD', url: 'git+https://github.com/CravateRouge/bloodyAD.git'}
+
+pipx_packages:
+  - updog

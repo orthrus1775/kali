@@ -47,17 +47,17 @@
   become: true
   become_method: sudo
 
-- name: Check for target user's bash history
+- name: Check for current user's bash history
   stat:
-    path: "{{ c2_home }}/.bash_history"
+    path: "{{ ansible_facts['env']['HOME'] }}/.bash_history"
   register: user_bash_history
 
-- name: Truncate target user's bash history
+- name: Truncate current user's bash history
   copy:
     content: ""
-    dest: "{{ c2_home }}/.bash_history"
-    owner: "{{ c2_user }}"
-    group: "{{ c2_user }}"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.bash_history"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
     mode: '0600'
   when: user_bash_history.stat.exists
 
@@ -84,9 +84,9 @@
   become: true
   become_method: sudo
   
-- name: "Clearing target user's zsh history"
+- name: "Clearing current user's zsh history"
   file:
-    path: "{{ c2_home }}/.zsh_history"
+    path: "{{ ansible_facts['env']['HOME'] }}/.zsh_history"
     state: absent
 
 - name: Wipe log files (keep directory structure)
@@ -108,13 +108,6 @@
   failed_when: false
   changed_when: true
 
-#- name: "Deleting buildprep in sudoers.d"
-#  file:
-#    path: /etc/sudoers.d/buildprep
-#    state: absent
-#  become: true
-#  become_method: sudo
-
 - name: Shrink VMware disk (last seal step)
   ansible.builtin.shell: |
     set -eu
@@ -134,3 +127,52 @@
   register: disk_shrink
   failed_when: false
   changed_when: disk_shrink.rc == 0
+
+- name: Ensure current user can sudo with a password
+  ansible.builtin.user:
+    name: "{{ ansible_facts['user_id'] }}"
+    groups: sudo
+    append: true
+  become: true
+  become_method: sudo
+  when: drop_nopasswd | bool
+
+- name: Check for Packer/user NOPASSWD sudoers drop
+  ansible.builtin.stat:
+    path: "/etc/sudoers.d/{{ ansible_facts['user_id'] }}"
+  register: user_sudoers
+  become: true
+  become_method: sudo
+  when: drop_nopasswd | bool
+
+- name: Require a password for the current user's sudoers drop
+  ansible.builtin.copy:
+    dest: "/etc/sudoers.d/{{ ansible_facts['user_id'] }}"
+    content: "{{ ansible_facts['user_id'] }} ALL=(ALL:ALL) ALL\n"
+    owner: root
+    group: root
+    mode: "0440"
+    validate: /usr/sbin/visudo -cf %s
+  become: true
+  become_method: sudo
+  when:
+    - drop_nopasswd | bool
+    - user_sudoers.stat.exists | default(false)
+
+- name: Check for buildprep NOPASSWD sudoers drop
+  ansible.builtin.stat:
+    path: /etc/sudoers.d/buildprep
+  register: buildprep_sudoers
+  become: true
+  become_method: sudo
+  when: drop_nopasswd | bool
+
+- name: Remove buildprep NOPASSWD sudoers drop
+  ansible.builtin.file:
+    path: /etc/sudoers.d/buildprep
+    state: absent
+  become: true
+  become_method: sudo
+  when:
+    - drop_nopasswd | bool
+    - buildprep_sudoers.stat.exists | default(false)

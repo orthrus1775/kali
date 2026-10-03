@@ -1,0 +1,19 @@
+---
+- name: "Install {{ item.name }} desktop launcher"
+  ansible.builtin.template:
+    src: c2.desktop.j2
+    dest: "/home/{{ ansible_facts['user_id'] }}/Desktop/{{ item.name }}.desktop"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    mode: "0755"
+  loop: "{{ desktop_launchers | selectattr('c2', 'in', enabled_c2s) | list }}"
+
+- name: "Trust {{ item.name }} desktop launcher"
+  ansible.builtin.shell:
+    cmd: |
+      f="/home/{{ ansible_facts['user_id'] }}/Desktop/{{ item.name }}.desktop"
+      gio set -t string "$f" metadata::xfce-exe-checksum "$(sha256sum "$f" | awk '{print $1}')"
+  loop: "{{ desktop_launchers | selectattr('c2', 'in', enabled_c2s) | list }}"
+  become: true
+  become_user: "{{ ansible_facts['user_id'] }}"
+  become_method: sudo

@@ -1,136 +1,34 @@
 ---
-- name: "Setup Certipy virtual environment"
-  ansible.builtin.shell:
-    cmd: |
-      python3 -m venv .certipy-venv
-      source .certipy-venv/bin/activate
-      pip install .
-      deactivate
-    chdir: /opt/Certipy
-    executable: /bin/bash
+- name: "Setup {{ item.name }} virtual environment"
+  ansible.builtin.pip:
+    name: "{{ item.pip_name | default(omit) }}"
+    requirements: "{{ (item.chdir ~ '/' ~ item.requirements) if item.requirements is defined else omit }}"
+    chdir: "{{ item.chdir }}"
+    virtualenv: "{{ item.chdir }}/{{ item.venv }}"
+    virtualenv_command: python3 -m venv
+  loop: "{{ python_venvs }}"
   become: true
   become_method: sudo
 
-- name: "Setup Beatrice virtual environment"
+- name: "Compile {{ item.name }}"
   ansible.builtin.shell:
-    cmd: |
-      python3 -m venv .venv
-      source .venv/bin/activate
-      pip install -r requirements.txt
-      deactivate
-    chdir: /opt/beatrice
+    cmd: "{{ item.cmd | join('\n') }}"
+    chdir: "{{ item.chdir }}"
     executable: /bin/bash
+  loop: "{{ compile_strict }}"
   become: true
   become_method: sudo
 
-- name: "Setup PackMyPayload virtual environment"
+- name: "Compile {{ item.name }} (retry)"
   ansible.builtin.shell:
-    cmd: |
-      python3 -m venv .venv
-      source .venv/bin/activate
-      pip install -r requirements.txt
-      deactivate
-    chdir: /opt/PackMyPayload
+    cmd: "{{ ('export PATH=' ~ item.path_prepend ~ ':$PATH\n') if item.path_prepend is defined else '' }}{{ item.cmd | join('\n') }}"
+    chdir: "{{ item.chdir }}"
     executable: /bin/bash
-  become: true
-  become_method: sudo
-
-- name: "Setup SoaPy virtual environment"
-  ansible.builtin.shell:
-    cmd: |
-      python3 -m venv .venv
-      source .venv/bin/activate
-      pip install .
-      deactivate
-    chdir: /opt/SoaPy
-    executable: /bin/bash
-  become: true
-  become_method: sudo
-
-- name: "Setup bofhound virtual environment"
-  ansible.builtin.shell:
-    cmd: |
-      python3 -m venv .bofhound
-      source .bofhound/bin/activate
-      pip install .
-      deactivate
-    chdir: /opt/BOFs/bofhound
-    executable: /bin/bash
-  become: true
-  become_method: sudo  
-
-- name: "Setup pywhisker virtual environment"
-  ansible.builtin.shell:
-    cmd: |
-      python3 -m venv .venv
-      source .venv/bin/activate
-      pip install -r requirements.txt
-      deactivate
-    chdir: /opt/pywhisker
-    executable: /bin/bash
-  become: true
-  become_method: sudo  
-
-- name: "Setup PKINITtools virtual environment"
-  ansible.builtin.shell:
-    cmd: |
-      python3 -m venv .venv
-      source .venv/bin/activate
-      pip install -r requirements.txt
-      deactivate
-    chdir: /opt/PKINITtools
-    executable: /bin/bash
-  become: true
-  become_method: sudo   
-
-- name: "Compile Chisel"
-  ansible.builtin.shell:
-    cmd: |
-      make dep
-      make linux
-      make windows
-    chdir: /opt/chisel
-    executable: /bin/bash
-  become: true
-  become_method: sudo
-
-- name: "Compile go-cookie-monster"
-  ansible.builtin.shell:
-    cmd: |
-      make all
-    chdir: /opt/go-cookie-monster
-    executable: /bin/bash
-  become: true
-  become_method: sudo
-
-- name: "Make Rusthound Linux"
-  ansible.builtin.shell:
-    cmd: "export PATH=$HOME/.cargo/bin:$PATH && make release"
-    chdir: /opt/rusthound
-  register: rusthound_linux
+  loop: "{{ compile_retry }}"
+  register: compile_retry_result
   retries: 3
   delay: 10
-  until: rusthound_linux.rc == 0
-  ignore_errors: true
-
-- name: "Make Rusthound Windows"
-  ansible.builtin.shell:
-    cmd: "export PATH=$HOME/.cargo/bin:$PATH && make windows"
-    chdir: /opt/rusthound
-  register: rusthound_windows
-  retries: 3
-  delay: 10
-  until: rusthound_windows.rc == 0
-  ignore_errors: true
-
-- name: "Make Hooka"
-  ansible.builtin.shell:
-    cmd: make all
-    chdir: /opt/Hooka
-  register: hooka_build
-  retries: 3
-  delay: 10
-  until: hooka_build.rc == 0
+  until: compile_retry_result.rc == 0
   ignore_errors: true
 
 - name: "Create /opt/scripts directory"
@@ -162,37 +60,3 @@
     - check-tunnel.sh
   become: true
   become_method: sudo
-
-- name: "Make RegPwn"
-  ansible.builtin.shell:
-    cmd: |
-      make all
-      make test
-    chdir: /opt/BOFs/RegPwnBOF
-  register: regpwn_build
-  retries: 3
-  delay: 10
-  until: regpwn_build.rc == 0
-  ignore_errors: true  
-
-- name: "Make EDRSilencer"
-  ansible.builtin.shell:
-    cmd: x86_64-w64-mingw32-gcc EDRSilencer.c utils.c -o EDRSilencer.exe -lfwpuclnt
-    chdir: /opt/EDRSilencer
-  register: edrsilencer_build
-  retries: 3
-  delay: 10
-  until: edrsilencer_build.rc == 0
-  ignore_errors: true  
-
-- name: "Make HolePunch"
-  ansible.builtin.shell:
-    cmd: |
-      make build
-      make release
-    chdir: /opt/HolePunch
-  register: holepunch_build
-  retries: 3
-  delay: 10
-  until: holepunch_build.rc == 0
-  ignore_errors: true  

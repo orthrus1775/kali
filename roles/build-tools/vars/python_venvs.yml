@@ -1,0 +1,30 @@
+---
+python_venvs:
+  - name: Certipy
+    chdir: /opt/Certipy
+    venv: .certipy-venv
+    pip_name: .
+  - name: Beatrice
+    chdir: /opt/beatrice
+    venv: .venv
+    requirements: requirements.txt
+  - name: PackMyPayload
+    chdir: /opt/PackMyPayload
+    venv: .venv
+    requirements: requirements.txt
+  - name: SoaPy
+    chdir: /opt/SoaPy
+    venv: .venv
+    pip_name: .
+  - name: bofhound
+    chdir: /opt/BOFs/bofhound
+    venv: .bofhound
+    pip_name: .
+  - name: pywhisker
+    chdir: /opt/pywhisker
+    venv: .venv
+    requirements: requirements.txt
+  - name: PKINITtools
+    chdir: /opt/PKINITtools
+    venv: .venv
+    requirements: requirements.txt

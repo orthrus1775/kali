@@ -1,0 +1,26 @@
+---
+profile: min
+offline: true
+exclude_paths:
+  - packer/
+  - packer_cache/
+  - output-kali/
+skip_list:
+  - yaml[line-length]
+  - yaml[trailing-spaces]
+  - yaml[empty-lines]
+  - name[casing]
+  - name[missing]
+  - fqcn[action]
+  - fqcn[action-core]
+  - command-instead-of-module
+  - command-instead-of-shell
+  - risky-shell-pipe
+  - no-changed-when
+  - ignore-errors
+  - jinja[spacing]
+  - var-naming
+  - latest
+  - risky-file-permissions
+  - galaxy
+  - experimental

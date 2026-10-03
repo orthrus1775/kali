@@ -1,0 +1,11 @@
+---
+github_releases:
+    - { repo: "dnSpy/dnSpy", regex: "netframework.zip", location: "/usr/share/dnSpy" }
+    - { repo: "t94j0/satellite", regex: "_linux_amd64.deb", location: "/opt/redirector/satellite" }
+    - { repo: "lkarlslund/Adalanche", regex: "adalanche-linux-x64-latestrelease", location: "/opt/Adalanche" }
+    - { repo: "lkarlslund/Adalanche", regex: "adalanche-collector-windows-x64-latestrelease-", location: "/opt/Adalanche" }
+    - { repo: "praetorian-inc/swarmer", regex: "swarmer.exe", location: "/opt/swarmer"}
+    - { repo: "stormshield/HiveSwarming", regex: "HiveSwarming.exe", location: "/opt/HiveSwarming"}
+    # - { repo: "jpillora/chisel",  regex: "_linux_amd64.gz", location: "/opt/chisel" }
+    # - { repo: "jpillora/chisel",  regex: "_windows_amd64.gz", location: "/opt/chisel" }
+    # - { repo: "jpillora/chisel",  regex: "_darwin_amd64", location: "/opt/chisel", filename: "chisel_osx" }

@@ -49,9 +49,9 @@
   become_method: sudo
 
 - name: "Making setup script for Adaptix executable"
-  ansible.builtin.shell:
-    cmd: chmod +x ./pre_install_linux_all.sh
-    chdir: /opt/AdaptixC2
+  ansible.builtin.file:
+    path: /opt/AdaptixC2/pre_install_linux_all.sh
+    mode: "0755"
   become: true
   become_method: sudo 
 
@@ -69,11 +69,16 @@
   become: true
   become_method: sudo 
 
+- name: "Making Reflectra install executable"
+  ansible.builtin.file:
+    path: /opt/reflectra/install.sh
+    mode: "0755"
+  become: true
+  become_method: sudo
+
 - name: "Build Reflectra for Adaptix"
-  ansible.builtin.shell:
-    cmd: |
-      chmod +x install.sh
-      ./install.sh
+  ansible.builtin.command:
+    cmd: ./install.sh
     chdir: /opt/reflectra
   become: true
   become_method: sudo
@@ -100,6 +105,8 @@
   ansible.builtin.git:
     repo: "https://github.com/k1ng0fn0th1ng/CrystalForge.git"
     dest: /opt/AdaptixC2/AdaptixServer/extenders/CrystalForge
+    depth: 1
+    single_branch: true
     force: true
   become: true
   become_method: sudo
@@ -138,11 +145,16 @@
   become: true
   become_method: sudo
 
+- name: "Making Kharon setup executable"
+  ansible.builtin.file:
+    path: /opt/Kharon/setup_kharon.sh
+    mode: "0755"
+  become: true
+  become_method: sudo
+
 - name: "Build Kharon for Adaptix"
-  ansible.builtin.shell:
-    cmd: |
-      chmod +x setup_kharon.sh
-      ./setup_kharon.sh --ax /opt/AdaptixC2/ --action all
+  ansible.builtin.command:
+    cmd: ./setup_kharon.sh --ax /opt/AdaptixC2/ --action all
     chdir: /opt/Kharon
   become: true
   become_method: sudo
@@ -161,33 +173,6 @@
       ./add_agent.sh CrystalForge
     chdir: /opt/extension-kit
   become: true
-  become_method: sudo
-
-- name: "Install AdaptixClient desktop launcher"
-  ansible.builtin.copy:
-    dest: "/home/{{ ansible_facts['user_id'] }}/Desktop/AdaptixClient.desktop"
-    owner: "{{ ansible_facts['user_id'] }}"
-    group: "{{ ansible_facts['user_id'] }}"
-    mode: "0755"
-    content: |
-      [Desktop Entry]
-      Version=1.0
-      Type=Application
-      Name=AdaptixClient
-      Comment=
-      Exec=/opt/AdaptixC2/dist/AdaptixClient
-      Icon=/opt/AdaptixC2/AdaptixClient/Resources/Logo.png
-      Path=/opt/AdaptixC2/dist
-      Terminal=false
-      StartupNotify=false
-
-- name: "Trust AdaptixClient desktop launcher"
-  ansible.builtin.shell:
-    cmd: |
-      f="/home/{{ ansible_facts['user_id'] }}/Desktop/AdaptixClient.desktop"
-      gio set -t string "$f" metadata::xfce-exe-checksum "$(sha256sum "$f" | awk '{print $1}')"
-  become: true
-  become_user: "{{ ansible_facts['user_id'] }}"
   become_method: sudo
 
 - name: "Create Adaptix Certificates"

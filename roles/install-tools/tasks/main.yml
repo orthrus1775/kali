@@ -1,4 +1,11 @@
 ---
+- name: Load install-tools catalogs
+  ansible.builtin.include_vars:
+    dir: "{{ role_path }}/vars"
+    extensions:
+      - yml
+      - yaml
+
 - import_tasks: buildprep.yml
 - import_tasks: apt-stuff.yml
 - import_tasks: github-repos.yml

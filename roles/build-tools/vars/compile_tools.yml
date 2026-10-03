@@ -1,0 +1,42 @@
+---
+compile_strict:
+  - name: Chisel
+    chdir: /opt/chisel
+    cmd:
+      - make dep
+      - make linux
+      - make windows
+  - name: go-cookie-monster
+    chdir: /opt/go-cookie-monster
+    cmd:
+      - make all
+
+compile_retry:
+  - name: Rusthound Linux
+    chdir: /opt/rusthound
+    path_prepend: "$HOME/.cargo/bin"
+    cmd:
+      - make release
+  - name: Rusthound Windows
+    chdir: /opt/rusthound
+    path_prepend: "$HOME/.cargo/bin"
+    cmd:
+      - make windows
+  - name: Hooka
+    chdir: /opt/Hooka
+    cmd:
+      - make all
+  - name: RegPwn
+    chdir: /opt/BOFs/RegPwnBOF
+    cmd:
+      - make all
+      - make test
+  - name: EDRSilencer
+    chdir: /opt/EDRSilencer
+    cmd:
+      - x86_64-w64-mingw32-gcc EDRSilencer.c utils.c -o EDRSilencer.exe -lfwpuclnt
+  - name: HolePunch
+    chdir: /opt/HolePunch
+    cmd:
+      - make build
+      - make release

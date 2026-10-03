@@ -1,3 +1,4 @@
+*.retry
 packer_cache/
 output-*/
 *.iso

@@ -1,0 +1,16 @@
+---
+gem_packages:
+    - logger
+    - stringio
+    - winrm
+    - builder
+    - erubi
+    - gssapi
+    - gyoku
+    - httpclient
+    - logging
+    - little-plugger
+    - nori
+    - rubyntlm
+    - winrm-fs
+    - evil-winrm

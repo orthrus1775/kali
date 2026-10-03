@@ -1,0 +1,7 @@
+---
+go_packages:
+  - github.com/ropnop/kerbrute@latest
+  - mvdan.cc/garble@latest
+  - github.com/OJ/gobuster/v3@latest
+  - github.com/sensepost/gowitness@latest
+  - github.com/lkarlslund/ldapnomnom@latest

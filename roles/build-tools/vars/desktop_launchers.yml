@@ -1,0 +1,12 @@
+---
+# Launchers are installed only when item.c2 is in enabled_c2s
+desktop_launchers:
+  - c2: adaptix
+    name: AdaptixClient
+    exec: /opt/AdaptixC2/dist/AdaptixClient
+    icon: /opt/AdaptixC2/AdaptixClient/Resources/Logo.png
+    path: /opt/AdaptixC2/dist
+  - c2: cobaltstrike
+    name: CobaltStrike
+    exec: /opt/cobaltstrike/cobaltstrike
+    path: /opt/cobaltstrike

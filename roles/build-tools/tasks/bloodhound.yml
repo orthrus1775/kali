@@ -62,16 +62,12 @@
   delay: 4
   until: bloodhound_ui is succeeded 
 
-- name: Stop all running Docker containers
-  ansible.builtin.shell: |
-    running_containers="$(docker ps -q 2>/dev/null || true)"
-    if [[ -n "$running_containers" ]]; then
-      docker stop $running_containers
-    fi
-  args:
-    executable: /bin/bash
+- name: Stop BloodHound compose stack
+  ansible.builtin.command:
+    cmd: docker compose stop
+    chdir: /opt/bloodhound
   become: true
-  become_method: sudo  
+  become_method: sudo
 
 - name: Install BloodHound systemd unit
   ansible.builtin.copy:
@@ -92,13 +88,12 @@
       [Install]
       WantedBy=multi-user.target
   become: true
-  become_method: sudo    
+  become_method: sudo
 
-- name: Enable and start BloodHound
+- name: Enable BloodHound systemd unit
   ansible.builtin.systemd:
     name: bloodhound
     daemon_reload: true
     enabled: true
-    state: started
   become: true
   become_method: sudo

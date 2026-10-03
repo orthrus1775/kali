@@ -1,4 +1,11 @@
 ---
+- name: Load build-tools catalogs
+  ansible.builtin.include_vars:
+    dir: "{{ role_path }}/vars"
+    extensions:
+      - yml
+      - yaml
+
 # Comment/Uncomment based on requirments
 - import_tasks: needle.yml
 - import_tasks: nim.yml
@@ -13,14 +20,12 @@
 #- import_tasks: faceprancer.yml
 #  tags: faceprancer
 - import_tasks: titanis.yml
-- import_tasks: adaptix.yml
 - import_tasks: maketools.yml
-#- import_tasks: covenant.yml
-#- import_tasks: mythic.yml
+- name: "Install enabled C2s"
+  ansible.builtin.include_tasks:
+    file: "{{ item }}.yml"
+  loop: "{{ enabled_c2s }}"
+- import_tasks: desktop-launchers.yml
 #- import_tasks: ghostwriter.yml
-#- import_tasks: merlin.yml
-#- import_tasks: sliver.yml
-- import_tasks: cobaltstrike.yml
 #- import_tasks: scarecrow.yml
-#- import_tasks: havoc.yml
 - import_tasks: finallinks.yml

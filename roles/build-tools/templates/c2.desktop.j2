@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name={{ item.name }}
+Comment={{ item.comment | default('') }}
+Exec={{ item.exec }}
+{% if item.icon is defined %}Icon={{ item.icon }}
+{% endif %}Path={{ item.path }}
+Terminal=false
+StartupNotify=false

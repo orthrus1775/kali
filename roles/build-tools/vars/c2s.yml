@@ -1,0 +1,8 @@
+---
+# Comment out C2s this image should not build
+enabled_c2s:
+  - adaptix
+  - cobaltstrike
+  # - merlin
+  # - mythic
+  # - sliver

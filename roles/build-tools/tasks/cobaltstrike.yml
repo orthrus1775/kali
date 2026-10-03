@@ -6,10 +6,19 @@
   become: true
   become_method: sudo
 
+- name: "Ensure apt keyrings directory exists"
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+  become: true
+  become_method: sudo
+
 - name: "Add Adoptium GPG key"
-  ansible.builtin.shell:
-    cmd: wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/trusted.gpg.d/adoptium.gpg
-    creates: /etc/apt/trusted.gpg.d/adoptium.gpg
+  ansible.builtin.get_url:
+    url: https://packages.adoptium.net/artifactory/api/gpg/key/public
+    dest: /etc/apt/keyrings/adoptium.asc
+    mode: "0644"
   become: true
   become_method: sudo
 
@@ -27,7 +36,7 @@
     uris: https://packages.adoptium.net/artifactory/deb
     suites: bookworm
     components: main
-    signed_by: /etc/apt/trusted.gpg.d/adoptium.gpg
+    signed_by: /etc/apt/keyrings/adoptium.asc
     state: present
   become: true
   become_method: sudo

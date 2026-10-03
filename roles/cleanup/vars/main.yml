@@ -3,5 +3,7 @@
 
 range_admin_user: range_admin
 range_admin_password: "1qaz2wsx!QAZ@WSX"
-c2_user: "attacker"
-c2_home: "/home/{{ c2_user }}"
+
+# After the play, drop Packer/buildprep NOPASSWD for the current user.
+# Missing sudoers files (stock Kali, not a Packer guest) are skipped.
+drop_nopasswd: true

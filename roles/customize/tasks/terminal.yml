@@ -1,0 +1,44 @@
+---
+# - name: "Copy ZshRC"
+#   copy:
+#     src: "{{ role_path }}/files/.zshrc"
+#     dest: "{{ ansible_env.HOME }}"
+#     force: yes
+
+# - name: "Copy Root ZshRC"
+#   copy:
+#     src: "{{ role_path }}/files/.zshrc"
+#     dest: "{{ ansible_env.HOME }}"
+#     force: yes
+#   become: true
+#   become_method: sudo
+
+# - name: "Copy PS profile"
+#   copy:
+#     src: "{{ role_path }}/files/Microsoft.PowerShell_profile.ps1"
+#     dest: "{{ ansible_env.HOME }}/.config/powershell/"
+#     force: yes
+
+# - name: "setting go path"
+#   shell: 'echo export GOPATH=$HOME/go >> "/home/{{ ansible_facts["user_id"] }}/.zshrc"'
+#   ignore_errors: true
+
+- name: "setting nimble path"
+  ansible.builtin.lineinfile:
+    path: "/home/{{ ansible_facts['user_id'] }}/.zshrc"
+    line: "export PATH=/home/kali/.nimble/bin:$PATH"
+    create: true
+  ignore_errors: true
+
+- name: "setting Rust path"
+  ansible.builtin.lineinfile:
+    path: "/home/{{ ansible_facts['user_id'] }}/.zshrc"
+    line: "export PATH=$HOME/.cargo/bin:$PATH"
+    create: true
+  ignore_errors: true
+
+# - name: "Copy Terminal Settings"
+#   copy:
+#     src: "{{ role_path }}/files/qterminal.ini"
+#     dest: "{{ ansible_env.HOME }}/.config/qterminal.org"
+#     force: yes
