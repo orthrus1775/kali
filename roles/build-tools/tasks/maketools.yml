@@ -1,5 +1,5 @@
 ---
-- name: "Setup {{ item.name }} virtual environment"
+- name: Setup python virtual environments
   ansible.builtin.pip:
     name: "{{ item.pip_name | default(omit) }}"
     requirements: "{{ (item.chdir ~ '/' ~ item.requirements) if item.requirements is defined else omit }}"
@@ -10,7 +10,7 @@
   become: true
   become_method: sudo
 
-- name: "Compile {{ item.name }}"
+- name: Compile tools
   ansible.builtin.shell:
     cmd: "{{ item.cmd | join('\n') }}"
     chdir: "{{ item.chdir }}"
@@ -19,7 +19,7 @@
   become: true
   become_method: sudo
 
-- name: "Compile {{ item.name }} (retry)"
+- name: Compile tools (retry)
   ansible.builtin.shell:
     cmd: "{{ ('export PATH=' ~ item.path_prepend ~ ':$PATH\n') if item.path_prepend is defined else '' }}{{ item.cmd | join('\n') }}"
     chdir: "{{ item.chdir }}"

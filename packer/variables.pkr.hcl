@@ -18,7 +18,7 @@ variable "iso_checksum" {
 
 variable "vm_name" {
   type    = string
-  default = "TESTKali"
+  default = "CL26Kali"
 }
 
 variable "hostname" {

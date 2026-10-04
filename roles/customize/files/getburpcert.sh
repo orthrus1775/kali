@@ -1,24 +1,32 @@
 #!/bin/bash
-/bin/bash -c "/usr/lib/jvm/java-21-openjdk-amd64/bin/java -Djava.awt.headless=true -jar /usr/share/burpsuite/burpsuite.jar < <(echo y) &" 
+JAR="/usr/share/burpsuite/burpsuite.jar"
+CERT="/tmp/cacert.der"
+
+if [[ ! -f "$JAR" ]]; then
+  echo "Burp jar not found: $JAR" >&2
+  exit 1
+fi
+
+JAVA="$(command -v java || true)"
+if [[ -z "$JAVA" ]]; then
+  JAVA="$(ls -1 /usr/lib/jvm/*/bin/java 2>/dev/null | head -n1 || true)"
+fi
+if [[ -z "$JAVA" || ! -x "$JAVA" ]]; then
+  echo "No java binary found on PATH or under /usr/lib/jvm" >&2
+  exit 1
+fi
+
+"$JAVA" -Djava.awt.headless=true -jar "$JAR" < <(echo y) &
 sleep 20
 
 counter=0
-
-while [ $counter -lt 5 ]; do
-    if [ -f /tmp/cacert.der ]; then
-        # File exists, set the exit code for success and exit
-        exit 0
-    else
-        # File doesn't exist, so download it using curl
-        curl http://localhost:8080/cert -o /tmp/cacert.der
-    fi
-
-    # Increment the counter
-    ((counter++))
-
-    # Sleep for 10 seconds
-    sleep 10
+while [[ $counter -lt 5 ]]; do
+  if [[ -s "$CERT" ]]; then
+    exit 0
+  fi
+  curl -fsS http://localhost:8080/cert -o "$CERT" && exit 0
+  counter=$((counter + 1))
+  sleep 10
 done
 
-# If the loop completes without finding the file, set the exit code for failure
 exit 1
