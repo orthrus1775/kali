@@ -23,8 +23,10 @@
 - import_tasks: maketools.yml
 - name: "Install enabled C2s"
   ansible.builtin.include_tasks:
-    file: "{{ item }}.yml"
+    file: "{{ c2 }}.yml"
   loop: "{{ enabled_c2s }}"
+  loop_control:
+    loop_var: c2
 - import_tasks: desktop-launchers.yml
 #- import_tasks: ghostwriter.yml
 #- import_tasks: scarecrow.yml
