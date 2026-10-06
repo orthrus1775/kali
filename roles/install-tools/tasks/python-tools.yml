@@ -9,6 +9,7 @@
     - { name: 'adidnsdump', url: 'git+https://github.com/dirkjanm/adidnsdump.git' }
     - { name: 'wesng', url: 'git+https://github.com/bitsadmin/wesng.git' }  
     - { name: 'bloodyAD', url: 'git+https://github.com/CravateRouge/bloodyAD.git'}
+    - { name: 'ntlm_theft', url: 'git+https://github.com/Greenwolf/ntlm_theft'}
   ignore_errors: true
 
 - name: "Install pipx tools from package"
