@@ -7,3 +7,4 @@ pipx_git_tools:
 
 pipx_packages:
   - updog
+  - bloodhound-ce
