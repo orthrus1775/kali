@@ -16,6 +16,7 @@
   vars:
     pipx_packages:
       - updog
+      - bloodhound-ce
   community.general.pipx:
     name: "{{ item }}"
     state: latest
