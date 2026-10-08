@@ -4,6 +4,7 @@ pipx_git_tools:
     - { name: 'wesng', url: 'git+https://github.com/bitsadmin/wesng.git' }  
     - { name: 'bloodyAD', url: 'git+https://github.com/CravateRouge/bloodyAD.git'}
     - { name: 'ntlm_theft', url: 'git+https://github.com/Greenwolf/ntlm_theft.git' }
+    - { name: 'penelope', url: 'git+https://github.com/brightio/penelope.git' }
 
 pipx_packages:
   - updog
