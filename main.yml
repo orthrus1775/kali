@@ -2,6 +2,35 @@
 - name: "Customizing Kali"
   hosts: localhost
   connection: local
+  pre_tasks:
+    - name: Install dos2unix
+      ansible.builtin.package:
+        name: dos2unix
+        state: present
+      become: true
+      become_method: sudo
+
+    - name: Convert CRLF line endings in the playbook tree
+      ansible.builtin.shell:
+        cmd: |
+          ROOT="{{ playbook_dir }}"
+          dos2unix -q "$ROOT/scripts/fix-line-endings.sh" 2>/dev/null || true
+          find "$ROOT" \
+            \( -path "$ROOT/.git" \
+               -o -path "$ROOT/packer/output-*" \
+               -o -path "$ROOT/packer/packer_cache" \
+               -o -path "$ROOT/packer_cache" \
+               -o -path "$ROOT/output-*" \
+            \) -prune -o \
+            -type f \( \
+              -name '*.sh' -o -name '*.py' -o -name '*.yml' -o -name '*.yaml' \
+              -o -name '*.j2' -o -name '*.cfg' -o -name '*.ini' -o -name '*.axs' \
+              -o -name '*.ps1' -o -name '*.desktop' -o -name '*.xml' -o -name '*.json' \
+              -o -name '*.conf' -o -name '*.toml' -o -name '*.pkrtpl' -o -name '*.hcl' \
+              -o -name '*.cna' \
+            \) -print0 \
+            | xargs -0 -r dos2unix -q
+      changed_when: true
   roles:
     - role: "roles/install-tools"
     - role: "roles/configure-tmux"
