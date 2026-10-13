@@ -31,6 +31,7 @@ github_repos:
     - { repo: "https://github.com/Adaptix-Framework/Extension-Kit" , location: "/opt/extension-kit" }
     - { repo: "https://github.com/Tylous/FaceDancer.git", location: "/opt/FaceDancer" }
     # - { repo: "https://github.com/orthrus1775/FacePrancer.git", location: "/opt/FacePrancer" }
+    # - { repo: "https://github.com/CYB3RMX/Qu1cksc0pe.git", location: "/opt/Qu1cksc0pe" } NEED TO TEST THIS, Check depenencies and workload for MCP
     - { repo: "https://github.com/GhostPack/ForgeCert.git", location: "/opt/ForgeCert" }
     - { repo: "https://github.com/Tylous/Freeze.rs.git", location: "/opt/freeze"}
     - { repo: "https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git", location: "/opt/Ghostpack"}
